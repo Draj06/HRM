@@ -26,8 +26,8 @@ a:focus {
 .sidebar {
   min-width: 250px;
   max-width: 250px;
-  background: #7386D5;
-  color: #fff;
+  background: #dddfe4;
+  color: #050101;
   margin-left: -250px;
   transition: all 0.5s;
 }
@@ -36,15 +36,14 @@ a:focus {
   margin-left: 0;
   transition: .5s;
 }
+.menus{
+  background-color: yellow;
+}
 
 
 .sidebar-header {
-  background: #6d7fcc;
-}
-
-.sidebar-header h3{
-  color: #fff;
   padding: 1em;
+  
 }
 
 .sidebar ul p {
@@ -53,17 +52,18 @@ a:focus {
 }
 
 .menu-open {
-  background: #6d7fcc;
+  background: #151516;
 }
 
 .nav-item:hover {
-    color: #7386D5;
-    background: #fff;
+    color: #0f0f0f;
+    background: #ddd6ab;
+    cursor: pointer;
 }
 
 .items-menu {
-  color: #fff;
-  background: #6d7fcc;
+  color: #0e0d0d;
+  background: #ecedf0;
 }
 
 li a.dropdown-toggle::after {
@@ -81,9 +81,9 @@ li a.dropdown-toggle::after {
     cursor: pointer;
     display: none;
 }
-.side-menu {
-  height: calc(100vh - 130px);
-  overflow-y: scroll;
+.headerText{
+  color: #04050c;
+  cursor: pointer;
 }
 
 .side-menu::-webkit-scrollbar {
@@ -133,4 +133,13 @@ li a.dropdown-toggle::after {
         position: relative;
         left: 68%;
     }
+}
+img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-height: 100%;
+  border-radius: 2vh;
+  margin-left: auto;
+  margin-right: auto;
 }

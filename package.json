@@ -1,7 +1,7 @@
 {
-  "name": "reactstrap-sidebare",
+  "name": "HRM-SYS",
   "version": "0.1.0",
-  "description": "A Simple SideBar Navigation written in React",
+  "description": "A App for HR",
   "author": "Boukrouh Bilal",
   "private": true,
   "dependencies": {
@@ -12,6 +12,7 @@
     "classnames": "^2.2.6",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-markdown": "^4.3.1",
     "react-router-dom": "^5.0.1",
     "react-scripts": "^3.0.1",
     "reactstrap": "^6.4.0"
