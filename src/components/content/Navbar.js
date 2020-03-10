@@ -8,7 +8,7 @@ import {Link} from 'react-router-dom'
 
 export default props => {
 
-  const [isOpen, setOpen] = useState(true)
+  const [isOpen, setOpen] = useState(false)
   const toggle = () => setOpen(!isOpen)
   
   return (
@@ -22,7 +22,7 @@ export default props => {
         <Nav className="ml-auto" navbar>
         <ul className="nav navbar-nav ml-auto">
                 <li className="nav-item">
-                    <Link className="nav-link" to='/register'><i class="fas fa-user-plus"></i> Sign Up</Link>
+                    <Link className="nav-link" to='/register'><i className="fas fa-user-plus"></i> Sign Up</Link>
                 </li>
                 <li className="nav-item">
                     <Link className="nav-link" to='/login'><i className="fas fa-sign-in-alt" ></i> Login</Link>

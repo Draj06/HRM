@@ -2,6 +2,8 @@ import React from 'react';
 import classNames from 'classnames';
 import { Container } from 'reactstrap';
 import dashboard from '../../Views/layouts/dashboard';
+import employees from '../../Views/layouts/employees';
+import payroll from '../../Views/layouts/payroll';
 import login from '../../Views/auth/login';
 import register from '../../Views/auth/register';
 import NavBar from './Navbar'
@@ -15,6 +17,9 @@ export default props => (
         <Route exact path="/" component={ dashboard } />  
         <Route exact path="/login" component={ login } />            
         <Route exact path="/register" component={ register } />
+        <Route exact path="/employees" component={ employees } />
+        <Route exact path="/payroll" component={ payroll } />
+        
       </Switch>
     </Container>
 )

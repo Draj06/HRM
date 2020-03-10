@@ -82,10 +82,22 @@ li a.dropdown-toggle::after {
     display: none;
 }
 .headerText{
+  margin-top: 20px;
   color: #04050c;
   cursor: pointer;
 }
-
+label{
+  font-weight: 500;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  color: #070c2e;
+}
+.roundCornerInput{
+  border-radius: 10ch;
+}
+.roundCornerBtn
+{
+    border-radius: 5ch;
+}
 .side-menu::-webkit-scrollbar {
   width: 10px;
 }
