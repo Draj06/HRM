@@ -1,23 +1,22 @@
-import React, { useState } from 'react';
+import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
 
-import SideBar from './components/sidebar/SideBar';
-import Content from './components/content/Content'
+
+import Routes from './components/content/Content'
 import { BrowserRouter as Router } from "react-router-dom";
 
 export default () => {
 
-  const [isOpen, setOpen] = useState(false)
-  const toggle = () => setOpen(!isOpen)
 
   return (
     <Router>
+    
       <div className="App wrapper">
-        <SideBar toggle={toggle} isOpen={isOpen}/>
-        <Content toggle={toggle} isOpen={isOpen}/>
-        
+        <Routes/>
       </div>
+    
     </Router>
   );
 }
