@@ -1,0 +1,61 @@
+.emp_Container{
+    margin-top: -25px;
+}
+.headingEmploye{
+    color: black;
+    font-size:1.2rem;
+    font-weight: 600;
+}
+p{
+    text-decoration: underline;
+    cursor: pointer;
+    color: black;
+}
+.emp_sideLeft{
+    box-shadow: 10px 10px 10px 10px  #dfdbdb;
+}
+.empDetailsDiv1,.empDetailsDiv3{
+    font-size: .75rem;
+    color: black;
+   
+}
+.empDetailsDiv2{
+    font-size: .7rem;
+    color: #3d3d44;
+}
+
+.each_form_group{
+   margin-bottom:-0px !important;
+   padding:0 0 0 0 !important;
+   word-wrap: break-word;
+}
+
+.empDiv1,.empDiv3,.empDiv5,.empDiv7,.empDiv9{
+  
+   background-color: #eff2f3;
+
+}
+
+
+.empName{
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-top: -10px;
+    color: #20143f;
+}
+.emp_sideRightBtns,.sideRightHeaders{
+    margin-bottom: 8px;
+}
+.checkBoxes{
+    margin-left: 10px;
+    margin-bottom: 8px;
+}
+.sidebarHeading{
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #0a3320;
+}
+.custom-control-label{
+    font-size: 0.9rem !important;
+}
+

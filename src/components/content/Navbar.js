@@ -1,38 +1,74 @@
-import React, { useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAlignLeft } from '@fortawesome/free-solid-svg-icons';
-import { Navbar, Button, NavbarToggler, Collapse, Nav, NavItem, NavLink } from 'reactstrap';
-import {Link} from 'react-router-dom'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Navbar,Nav } from 'react-bootstrap';
+import Logo from '../../Images/Company_logo.png'
+
+export default () => {
 
 
-
-export default props => {
-
-  const [isOpen, setOpen] = useState(false)
-  const toggle = () => setOpen(!isOpen)
   
   return (
     <div>
-    <Navbar color="light" light className="navbar shadow-sm p-3 mb-5 bg-white rounded" expand="md">
-      <Button color="info" onClick={props.toggle}>
-        <FontAwesomeIcon icon={faAlignLeft}/>
-      </Button>
-      <NavbarToggler onClick={toggle} />
-      <Collapse isOpen={isOpen} navbar>
-        <Nav className="ml-auto" navbar>
-        <ul className="nav navbar-nav ml-auto">
-                <li className="nav-item">
-                    <Link className="nav-link" to='/register'><i className="fas fa-user-plus"></i> Sign Up</Link>
-                </li>
-                <li className="nav-item">
-                    <Link className="nav-link" to='/login'><i className="fas fa-sign-in-alt" ></i> Login</Link>
-                </li>
-        </ul>
-         
-      </Nav>
-      </Collapse>
-    </Navbar>
+    <Navbar collapseOnSelect expand="lg"  className="fixed-top shadow-lg align-content-end">
   
+  <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+  <li className="navbar-brand">
+    <Link><img src={Logo} 
+    to="/"
+    className="company_logo" alt="Company_logo"></img></Link>
+    </li>
+  <Navbar.Collapse id="responsive-navbar-nav">
+  
+    <Nav className="mr-auto">
+    <li className="nav-item">
+      <Link className="nav-link" id="dashboard" to="/dashboard"
+      >Dashboard</Link>
+      </li>
+      <li className="nav-item">
+      <Link className="nav-link" to="/employee" id="employee"
+      aria-controls="responsive-navbar-nav" 
+      >Employee</Link>
+      </li>
+       <li className="nav-item">
+      <Link className="nav-link menuStyle" to="payroll" id="payroll">payroll</Link>
+      </li>
+      
+      {/* <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
+        <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
+        <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
+        <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+        <NavDropdown.Divider />
+        <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
+      </NavDropdown> */}
+      
+    </Nav>
+   
+    <Nav className="ml-auto">
+    <li className="nav-item">
+      <Link to="/"
+      
+      className="nav-link"><i className="fas fa-search fa-2x mr-3"></i></Link>
+      </li>
+      <li className="nav-item">
+      <Link 
+      to="/"
+      className="nav-link"><i className="fas fa-bell fa-2x mr-3"></i></Link>
+      </li>
+      <li className="nav-item">
+      <Link 
+      to="/settings"
+      className="nav-link"><i className="fas fa-cog fa-2x mr-3"></i></Link>
+      </li>
+      
+    </Nav>
+  </Navbar.Collapse>
+
+</Navbar>
+    
+<br></br>
+<br></br>
+<br></br>
+<br></br>
     </div>
   );
 }

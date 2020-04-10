@@ -1,0 +1,79 @@
+.countDiv{
+    padding:10px;
+    box-shadow: 5px 5px 10px 8px  #dfdbdb;
+    margin-bottom: 10px;
+}
+.widthContainer{
+    width: 100%;
+    
+}
+
+.badge-pill{
+    padding-right: 5px  !important;
+    padding-left: 5px !important;
+    border-radius: 10rem;
+    margin-left: 1px;
+}
+.monthYr{
+
+ color:#041116;
+ font-weight: 550;
+}
+.totalCount{
+   font-size: 1.2rem;
+   font-weight:550;
+   color: black;
+   
+}
+.totalHeading{
+    font-size: .9rem;
+    color: #3b3a3d;
+}
+
+.variation{
+    white-space: nowrap;
+    font-size: 1rem;
+    font-weight: 550;
+}
+.graphHeading,.salaryOption{
+    background-color: #cecfcf;
+    color: black;
+    box-shadow: 2px 5px 2px 1px  #888888;
+    font-size: 1.1rem;
+    font-weight: 400;
+    
+}
+.graphHeading{
+    margin-bottom: 10px;
+}
+.div_divide{
+    box-shadow: 5px 5px 5px 5px  #888888;
+    margin-bottom: 10px;
+  
+}
+.salaryGraph,.manpowerChart
+{
+    overflow-x: auto;
+    overflow-y: hidden;
+    
+}
+.modalHeader{
+    margin-top: -36px;
+    font-size: 1.3rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+hr{
+  margin-top: 0PX;
+  border: 1px solid black ;
+}
+.alert{
+    margin-top: 50px;
+    padding: 15px;
+}
+.col-12{
+    padding-right: 0 !important;
+}
+.modalLingment{
+    margin: 5px;
+}

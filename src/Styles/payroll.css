@@ -1,0 +1,61 @@
+.custom-label {
+  font-size: 13px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.custom-control-label {
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.side {
+  background-color: whitesmoke;
+}
+
+.table-scrollable {
+  overflow: auto;
+}
+
+.rdt.calendar {
+  background-color: whitesmoke;
+  border: 0.5px solid #000;
+  border-width: thin;
+  align-content: center;
+  padding-bottom: 18px;
+}
+
+.rdtMonths table {
+  align-content: center;
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-top: 0px;
+  width: 100%;
+}
+
+.rdtMonths thead {
+  background-color: gray;
+  width: 100%;
+  align-content: center;
+}
+
+.rdtMonths tbody {
+  align-self: center;
+  margin-left: 46px;
+  background-color: whitesmoke;
+  width: 100%;
+}
+
+th.rdtPrev {
+  width: 40%;
+}
+
+th.rdtMonth {
+  cursor: pointer;
+  margin-left:10px
+}
+
+.rdtPicker {
+  cursor: pointer;
+  
+}
