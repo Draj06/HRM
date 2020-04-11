@@ -37,7 +37,7 @@ import { ToastContainer, toast } from 'react-toastify';
       
       const dataWIthoutType = data.getAllActiveDeptEmpsByMonthYear.map(item=>{
         return{
-          mon_year:item.dept_name,
+          dept_name:item.dept_name,
           count:item.total_emp_count
         }
       })
@@ -56,14 +56,6 @@ import { ToastContainer, toast } from 'react-toastify';
           
         };
      
-        // toast.error("something wentr wrong", {
-        //   position: "top-right",
-        //   autoClose: 5000,
-        //   hideProgressBar: false,
-        //   closeOnClick: true,
-        //   pauseOnHover: true,
-        //   draggable: true
-        //   });
         const chartEvents=[
           {
             eventName: "ready",
@@ -163,16 +155,7 @@ import { ToastContainer, toast } from 'react-toastify';
              />
              let finalData1 = result2.data.getOverBoardEmpBasedOnDeptMonthYearStatus
               console.log(finalData.length)
-              if(finalData1.length===0) { 
-                toast.error("something wentr wrong", {
-                 position: "top-right",
-                 autoClose: 5000,
-                 hideProgressBar: false,
-                 closeOnClick: true,
-                 pauseOnHover: true,
-                 draggable: true
-                 });
-                }
+              
                 return(
                   <Modal isOpen={modalIsOpen} shouldCloseOnOverlayClick={false} onRequestClose={()=>setmodalIsOpen(false)}>
                           <div>

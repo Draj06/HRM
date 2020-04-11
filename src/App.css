@@ -59,11 +59,11 @@ margin-bottom: 0px;
 }
 
 table.table-bordered>tbody>tr>td {
-font-size: .85rem;
+font-size: 1rem;
 white-space: nowrap;
 }
 table.table-bordered>thead>tr>th {
-  font-size: 1rem;
+  font-size: 1.1rem;
   white-space: nowrap;
   }
   .company_logo{

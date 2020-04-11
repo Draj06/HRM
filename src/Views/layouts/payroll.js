@@ -1,5 +1,9 @@
 import React, { Component } from "react";
 
+import { InMemoryCache } from "apollo-cache-inmemory";
+import { HttpLink } from "apollo-link-http";
+//import { ApolloClient } from 'apollo-client';
+
 import ApolloClient from "apollo-boost";
 import { gql } from "apollo-boost";
 import Datetime from "react-datetime";
@@ -11,9 +15,14 @@ export default class payroll extends Component {
     this.DBquery = this.DBquery.bind(this);
 
     this.state = {
+      msg: "",
+      checked: false,
+      Postchecked: false,
+      Statchecked: false,
       UniqueStatus: [],
       UniqueDept: [],
       UniquePost: [],
+      postionParam: [],
       currentTime: new Date(),
       noData: "",
       value: "",
@@ -46,22 +55,34 @@ export default class payroll extends Component {
       ],
     };
 
-    this.handleChange = this.handleChange.bind(this);
+    this.handleChangeStatus = this.handleChangeStatus.bind(this);
     this.handleChangePosition = this.handleChangePosition.bind(this);
     this.handleChangeDept = this.handleChangeDept.bind(this);
     this.handleDate = this.handleDate.bind(this);
-    this.onClick = this.onClick.bind(this);
   }
 
-  handleChange(event) {
-    //event.persist();
+  handleChangeStatus(event) {
     const value = event.target.value;
     this.setState({ value });
+    this.setState((prevState) => ({
+      Statchecked: !prevState.Statchecked,
+    }));
   }
 
   handleChangePosition(event) {
     const position = event.target.value;
     this.setState({ position });
+
+    this.setState((prevState) => ({
+      Postchecked: !prevState.Postchecked,
+    }));
+
+    /*
+    //If you need to store 'show/hide' inside that state, the code would be:
+    this.setState((prevState) => ({
+      Postchecked: prevState.Postchecked === "show" ? "hide" : "show",
+    }));
+    */
   }
 
   handleChangeDept(event) {
@@ -76,19 +97,25 @@ export default class payroll extends Component {
     this.setState({ pickedMonth, pickedYear });
   }
 
-  onClick() {
-    this.setState({ showStore: true });
-  }
   componentDidMount() {
     this.DBquery();
     setInterval(this.DBquery, 2000); // runs every 2 seconds.
   }
 
   async DBquery() {
+    /*
+    const client = new ApolloClient({
+      link:
+        "https://duru-hrms-api.azurewebsites.net/graphql?code=GAm6nwwgzO3hAKaaa/ChrenUc2f3MuVZvi6ma3pSh/9Caq0DYO9QDg==",
+      cache: new InMemoryCache(),
+    });
+ */
+
     const client = new ApolloClient({
       uri:
         "https://duru-hrms-api.azurewebsites.net/graphql?code=GAm6nwwgzO3hAKaaa/ChrenUc2f3MuVZvi6ma3pSh/9Caq0DYO9QDg==",
     });
+
     try {
       let result1 = await client.query({
         query: gql`
@@ -193,8 +220,8 @@ export default class payroll extends Component {
       this.setState({
         payrol_values: result1.data.getEmpPayroleByMonthYearStatus, //status, month, year
         count_val: result2.data.getTotalEmpCtcGrossSal, // htmlFor stats count CTC, Gross salry
+        // position_table: result4.data.getEmpPayroleByMonthYearDeptPostStatus, //just month and year
         basic_table: result3.data.getEmpPayroleByMonthYear, //just month and year
-        position_table: result4.data.getEmpPayroleByMonthYearDeptPostStatus, //just month and year
       });
 
       //to test distinct values for Emp-Status
@@ -273,12 +300,13 @@ export default class payroll extends Component {
                 onChange={this.handleDate}
               />
             </div>
-
+            {/*----Filters------ */}
             <label className="custom-label">Apply Filter{""}</label>
             <div className="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 form-group">
               <div>
-                <label className="custom-label">Employee Status </label>
                 {/*checking for dynamic chkbox Emp-Status */}
+                <label className="custom-label">Employee Status </label>
+
                 {this.state.UniqueStatus.map((item, index) => (
                   <div key={index}>
                     <div className="custom-control custom-checkbox">
@@ -287,7 +315,7 @@ export default class payroll extends Component {
                         className="custom-control-input"
                         id={item}
                         value={item}
-                        onChange={this.handleChange}
+                        onChange={this.handleChangeStatus}
                       ></input>
                       <label className="custom-control-label" htmlFor={item}>
                         {item}
@@ -295,9 +323,9 @@ export default class payroll extends Component {
                     </div>
                   </div>
                 ))}
-
-                <label className="custom-label">Department</label>
                 {/*checking for dynamic chkbox Dept */}
+                <label className="custom-label">Department</label>
+
                 {this.state.UniqueDept.map((item, index) => (
                   <div key={index}>
                     <div className="custom-control custom-checkbox">
@@ -317,10 +345,11 @@ export default class payroll extends Component {
                     </div>
                   </div>
                 ))}
+                {/*checking for dynamic chkbox Position */}
                 <label id="myLabel" className="custom-label">
                   Position
                 </label>
-                {/*checking for dynamic chkbox Position */}
+
                 {this.state.UniquePost.map((item, index) => (
                   <div key={index}>
                     <div className="custom-control custom-checkbox">
@@ -350,46 +379,46 @@ export default class payroll extends Component {
             className=" col-12 col-sm-12 col-md-10 col-lg-10 col-xl-10 form-group"
           >
             <div className="row col-lg-12">
-              <button type="button" className="btn btn-outline-secondary mr-1">
+              <button type="button" className="btn btn-default">
                 Numer of Employees{" "}
-                <span className="badge badge-pill badge-primary">
+                <span className="badge badge-pill badge-secondary">
                   {this.state.count_val.count}
                 </span>
               </button>
-              <button type="button" className="btn btn-outline-secondary mr-1">
+              <button type="button" className="btn badge-light">
                 CTC{" "}
-                <span className="badge  badge-pill badge-primary">
+                <span className="badge  badge-pill badge-secondary">
                   {this.state.count_val.emp_total_ctc}
                 </span>
               </button>
-              <button type="button" className="btn btn-outline-secondary mr-1">
+              <button type="button" className="btn badge-light">
                 Gross Salary{" "}
-                <span className="badge  badge-pill badge-primary">
+                <span className="badge  badge-pill badge-secondary">
                   {this.state.count_val.emp_total_gross_salary}
                 </span>
               </button>
             </div>
-            <div className="table-responsive">
-              <table
-                id="pay"
-                className="table table-hover table-bordered table-scrollable"
-              >
-                <thead className="table-secondary">
-                  <tr>
-                    {this.state.payroll_parameters.map((item, index) => (
-                      <th key={index}>{item}</th>
-                    ))}
-                    <th
-                      style={{
-                        display: "none",
-                      }}
-                    >
-                      Department
-                    </th>
-                  </tr>
-                </thead>
 
-                {this.state.value !== "" ? (
+            <div className="table-responsive">
+              {this.state.value !== "" ? (
+                <table
+                  id="pay"
+                  className="table table-hover table-bordered table-scrollable"
+                >
+                  <thead className="test table-bordered">
+                    <tr>
+                      {this.state.payroll_parameters.map((item, index) => (
+                        <th key={index}>{item}</th>
+                      ))}
+                      <th
+                        style={{
+                          display: "none",
+                        }}
+                      >
+                        Filtered for {this.state.deptartment}
+                      </th>
+                    </tr>
+                  </thead>
                   <tbody className="table table-bordered">
                     {this.state.payrol_values.map((v) => (
                       <tr key={v.emp_payrole_id}>
@@ -426,46 +455,108 @@ export default class payroll extends Component {
                       </tr>
                     ))}
                   </tbody>
-                ) : this.state.deptartment &&
-                  this.state.position &&
-                  this.state.value !== "" ? (
+                </table>
+              ) : this.state.deptartment ||
+                this.state.position ||
+                this.state.value !== "" ? (
+                <table
+                  id="pay"
+                  className="table table-hover table-bordered table-scrollable"
+                >
+                  <thead className="test table-bordered">
+                    <tr>
+                      <th>
+                        {" "}
+                        Filtered for{" "}
+                        {this.state.position || this.state.deptartment}{" "}
+                      </th>
+                    </tr>
+                  </thead>
                   <tbody className="table table-bordered">
-                    {this.state.position_table.map((v) => (
-                      <tr key={v.emp_payrole_id}>
-                        <td>{v.emp_number}</td>
-                        <td>{v.emp_name}</td>
-                        <td>{v.emp_status}</td>
-
-                        <td>
-                          {v.emp_salary_month} {v.emp_salary_year}
-                        </td>
-                        <td>{v.emp_actual_no_of_days}</td>
-                        <td>{v.emp_billable_no_of_days}</td>
-                        <td>{v.emp_ctc.toLocaleString("en-IN")}</td>
-                        <td>{v.emp_earned_fixed.toLocaleString("en-IN")}</td>
-                        <td>{v.emp_earned_variable.toLocaleString("en-IN")}</td>
-                        <td>{v.emp_gross_salary.toLocaleString("en-IN")}</td>
-                        <td>{v.emp_net_salary.toLocaleString("en-IN")}</td>
-                        <td>{v.emp_aadhar_no}</td>
-                        <td>{v.emp_uan_no}</td>
-                        <td
+                    {this.state.basic_table.map((v) => {
+                      return this.state.position ===
+                        this.state.basic_table.map(
+                          (c) => c.emp_position_name
+                        ) ||
+                        this.state.deptartment ===
+                          this.state.basic_table.map((d) => d.emp_dept_name) ? (
+                        <tr
                           style={{
-                            display: "none",
+                            display:
+                              this.state.deptartment == v.emp_dept_name ||
+                              this.state.position == v.emp_position_name
+                                ? "block"
+                                : "none",
+                          }}
+                          key={v.index}
+                        >
+                          <td>{v.emp_number}</td>
+                          <td>{v.emp_name}</td>
+                          <td>{v.emp_status}</td>
+                          <td>
+                            {v.emp_salary_month} {v.emp_salary_year}
+                          </td>
+                          <td>{v.emp_actual_no_of_days}</td>
+                          <td>{v.emp_billable_no_of_days}</td>
+                          <td>{v.emp_ctc.toLocaleString("en-IN")}</td>
+                          <td>{v.emp_earned_fixed.toLocaleString("en-IN")}</td>
+                          <td>
+                            {v.emp_earned_variable.toLocaleString("en-IN")}
+                          </td>
+                          <td>{v.emp_gross_salary.toLocaleString("en-IN")}</td>
+                          <td>{v.emp_net_salary.toLocaleString("en-IN")}</td>
+                          <td>{v.emp_aadhar_no}</td>
+                          <td>{v.emp_uan_no}</td>
+                        </tr>
+                      ) : (
+                        <tr
+                          key={v.index}
+                          style={{
+                            display:
+                              this.state.position == v.emp_position_name ||
+                              this.state.deptartment == v.emp_dept_name
+                                ? "block"
+                                : "none",
                           }}
                         >
-                          {v.emp_dept_name}
-                        </td>
-                        <td
-                          style={{
-                            display: "none",
-                          }}
-                        >
-                          {v.emp_position_name}
-                        </td>
-                      </tr>
-                    ))}
+                          <td>{v.emp_number}</td>
+                          <td>{v.emp_name}</td>
+                          <td>{v.emp_status}</td>
+                          <td>
+                            {v.emp_salary_month} {v.emp_salary_year}
+                          </td>
+                          <td>{v.emp_actual_no_of_days}</td>
+                          <td>{v.emp_billable_no_of_days}</td>
+                          <td>{v.emp_ctc.toLocaleString("en-IN")}</td>
+                          <td>{v.emp_earned_fixed.toLocaleString("en-IN")}</td>
+                          <td>
+                            {v.emp_earned_variable.toLocaleString("en-IN")}
+                          </td>
+                          <td>{v.emp_gross_salary.toLocaleString("en-IN")}</td>
+                          <td>{v.emp_net_salary.toLocaleString("en-IN")}</td>
+                          <td>{v.emp_aadhar_no}</td>
+                          <td>{v.emp_uan_no}</td>
+                        </tr>
+                      );
+                    })}
                   </tbody>
-                ) : (
+                </table>
+              ) : (
+                <table>
+                  <thead className="test table-bordered">
+                    <tr>
+                      {this.state.payroll_parameters.map((item, index) => (
+                        <th key={index}>{item}</th>
+                      ))}
+                      <th
+                        style={{
+                          display: "none",
+                        }}
+                      >
+                        Filtered for {this.state.deptartment}
+                      </th>
+                    </tr>
+                  </thead>
                   <tbody className="table table-bordered">
                     {this.state.basic_table.map((v) => (
                       <tr key={v.emp_payrole_id}>
@@ -495,8 +586,8 @@ export default class payroll extends Component {
                       </tr>
                     ))}
                   </tbody>
-                )}
-              </table>
+                </table>
+              )}
             </div>
           </div>
         </div>
