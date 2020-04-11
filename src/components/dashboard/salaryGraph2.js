@@ -4,8 +4,8 @@ import SalaryDeptMinMaxGraph from '../dashboard/salaryGraphMin_max'
 
 import { Chart } from "react-google-charts";
 import Loader from 'react-loader-spinner'
-import {SALARY_GRAPH1} from '../../queries'
 import { useQuery } from '@apollo/react-hooks';
+import {SALARY_GRAPH2} from '../../queries'
 
 
 const options = {
@@ -30,7 +30,7 @@ const options = {
 
 const SalaryGraph2 =()=>{
   const[deptVisible,setdeptVisible] = useState(false)
-  const {error,loading,data} = useQuery(SALARY_GRAPH1)
+  const {error,loading,data} = useQuery(SALARY_GRAPH2)
 
     if(error) return <div class="alert alert-danger alert-dismissible">
     <button type="button" class="close" data-dismiss="alert"></button>
@@ -42,34 +42,18 @@ const SalaryGraph2 =()=>{
     type="ThreeDots"
     color="#0073e6"
     />
- 
-     const data1 = [
-        ["Salary Graph2", "Min Salary", "Max Salary", "Avg Salary", "Total No of Employes"],
-        ["May 2019", 15000, 50000, 30000, 5],
-        ["Jun 2019", 12000, 80000, 25000, 5],
-        ["July 2019",18000, 65000, 28000, 3],
-        ["Aug 2019", 17000, 55000, 34000, 4],
-        ["Sept 2019",12000, 40000, 42000, 2],
-        ["Oct 2019", 13000, 55000, 40000, 8],
-        ["Nov 2019", 15000, 62000, 65000, 7],
-        ["Dec 2019", 15000, 40000, 48200, 3],
-        ["Jan 2020", 14000, 50000, 45600, 8],
-        ["Feb 2020", 14000, 45600, 46500, 8],
-        ["March 2020", 14000,70000, 50568, 8],
-        ["April 2020", 14000, 65000, 54560, 8],
 
-      ];
-    const dataWIthoutType = data.getDashboardSalaryActiveCount.map(item=>{
+     const dataWIthoutType = data.getDashSalaryGraphTwoActiveMinMaxAvgCount.map(item=>{
       return{
-        mon_year:item.mon_year,
-        total_ctc:item.total_ctc,
-        total_gross_salary:item.total_gross_salary,
-        total_salary_variation:item.total_salary_variation,
+        month_year:item.mon_year,
+        min_salary:item.min_salary,
+        max_salary:item.max_salary,
+        avg_salary:item.avg_salary,
         total_count:item.total_count
        
       }
     })
-    const header = [["Month","CTC","Gross Salary","Variation of CTC","Total no. of employees"]]
+    let header=[["Month", "Min Salary", "Max Salary", "Avg Salary", "Total No of Employes"]]
      const dataArr = dataWIthoutType.map(obj => Object.values(obj))
      const finalData = header.concat(dataArr)
      
@@ -97,6 +81,7 @@ const SalaryGraph2 =()=>{
                 
                 localStorage.removeItem("Month_Dept_salary")
                 localStorage.setItem("Month_Dept_salary",onClickData)
+                
                 setdeptVisible(!deptVisible)
                 
               }
@@ -131,7 +116,7 @@ const SalaryGraph2 =()=>{
                 chartType="LineChart"
                 width="100%"
                 height="350px"
-                data={data1}
+                data={finalData}
                 options={options}
                 chartEvents={chartEvents}
                 legendToggle

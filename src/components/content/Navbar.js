@@ -13,8 +13,8 @@ export default () => {
   
   <Navbar.Toggle aria-controls="responsive-navbar-nav" />
   <li className="navbar-brand">
-    <Link><img src={Logo} 
-    to="/"
+    <Link to="/"><img src={Logo} 
+  
     className="company_logo" alt="Company_logo"></img></Link>
     </li>
   <Navbar.Collapse id="responsive-navbar-nav">

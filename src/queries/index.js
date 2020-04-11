@@ -170,4 +170,39 @@ query getActiveDeptEmpAndSalaryDetailsBasedOnMonYear($month: String!,$year: Int!
   }
 }`
 
+export const SALARY_GRAPH2 =gql`
+query {
+  getDashSalaryGraphTwoActiveMinMaxAvgCount {
+    min_salary
+    max_salary
+    avg_salary
+    total_count
+    mon_year
+  }
+}
+`
 
+  export const SALARY_GRAPH2_DEPT= gql`
+    query getDashSalaryGraphTwoByMonYear($month: String!,$year: Int!) {
+    getDashSalaryGraphTwoByMonYear(month:$month,year:$year){
+      
+      emp_dept_name
+      min_salary
+      max_salary
+      avg_salary
+      total_count
+      
+    }
+  }`
+
+export const SALARY_GRAPH1_2_DEPT_WISE_POPUP =gql `
+query getSalaryGgraphPopUpByMonYearDept($month: String!,$year: Int!,$dept: String!) {
+  getSalaryGgraphPopUpByMonYearDept(month:$month,year:$year,dept:$dept)
+  {
+    emp_name
+    emp_dept_name
+    emp_position_name
+    emp_ctc
+    emp_gross_salary
+      }
+      }`
