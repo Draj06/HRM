@@ -1,11 +1,4 @@
-/* img{
-  width: 50%;
-  margin-top: -100px;
-  margin-left: 100px;
-} 
-/* .navBar{
-  background-color: #def3f7;
-}*/
+
 .form-control{
   margin:0px
 }
@@ -35,18 +28,16 @@
  
 }
 .loaderCLassForGraph{
-  margin-left: 40%;
+  margin-left: 47%;
   margin-top: 10%;
 }
 .cssHeadingClass{
-  color: #05080c;
-  margin-top: -18px;
+  color: black;
+  font-size:1.2rem;
+  font-weight: 600;
   margin-bottom: 8px;
-  font-weight: 550;
 }
-.exportBtn{
-  margin-right: 15px;
-}
+
 .fa-times{
   cursor: pointer;
   margin-right: 10px;
@@ -61,12 +52,21 @@ margin-bottom: 0px;
 table.table-bordered>tbody>tr>td {
 font-size: 1rem;
 white-space: nowrap;
+font-weight: 500;
 }
 table.table-bordered>thead>tr>th {
   font-size: 1.1rem;
   white-space: nowrap;
+  font-weight: 600;
   }
   .company_logo{
-    width: 100%;
+    width: 80%;
     height: 45px;
+  }
+  .btn-outline-secondary{
+    color:black;
+  }
+  hr{
+    margin: 2;
+    border: 1px solid #e6ebe6 ;
   }

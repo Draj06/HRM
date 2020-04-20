@@ -3,7 +3,7 @@ import '../../Styles/dashboard.css'
 import Loader from 'react-loader-spinner'
 import {SALARY_OVERBOARD_FIRRST_LOAD} from '../../queries'
 import { useQuery} from '@apollo/react-hooks'
-import { ToastContainer, toast } from 'react-toastify';
+//import { ToastContainer, toast } from 'react-toastify';
 
 const SalaryuCount =()=>  {
   const numDifferentiation=(val)=> {
@@ -103,7 +103,7 @@ color="#0073e6"
                  variation={minusVarPrev}
                  variationLabel="Var"
                  month={previous_month.mon_year}
-                 percent={Percentage}
+                 percent={Percentage.toFixed(2)}
                />
              </div>
              <div className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
@@ -114,7 +114,7 @@ color="#0073e6"
                  variation={minusVarCur}
                  variationLabel="Var"
                  month={numDifferentiation(current_month.mon_year)}
-                 percent={Percentage}
+                 percent={Percentage.toFixed(2)}
                />
              </div>
            </div>

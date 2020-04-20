@@ -48,7 +48,7 @@ const Settings = () => {
           align="right"
         >
           <div className="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
-            <button className="btn btn-info form-control  exportBtn">
+            <button className="btn btn-info form-control">
               Export
             </button>
           </div>

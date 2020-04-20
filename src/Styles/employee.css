@@ -1,6 +1,4 @@
-.emp_Container{
-    margin-top: -25px;
-}
+
 .headingEmploye{
     color: black;
     font-size:1.2rem;
@@ -57,5 +55,29 @@ p{
 }
 .custom-control-label{
     font-size: 0.9rem !important;
+    color: #044625;
+}
+.empNameTable{
+    color: blue !important;
+    text-decoration: underline !important;
+    cursor: pointer;
 }
 
+input {
+    outline: 0;
+    border-width: 0 0 2px;
+    border-color: #0e0808;
+    width: 90%;
+}
+.userPicEmploye{
+    width: 90%;
+    height: 100%;
+}
+.labelEmploye{
+    font-size: .9rem;
+    color: #41417a;
+    font-weight: 550;
+}
+input[type=text]:disabled {
+    background:white;
+  }
