@@ -244,14 +244,14 @@ color="#0073e6"
                   <table className="table table-hover table-bordered">
                       <thead className="table-secondary">
                         <tr>
-                          <th>Employee Name</th>
-                          <th>Employee Department Name</th>
-                          <th>Employee Position Name</th>
-                          <th>Employee Gender</th>
-                          <th>Employee Tentative DOJ</th>
-                          <th>Employee DOJ</th>
-                          <th>Employee Tentative DOE</th>
-                          <th>Employee DOE</th>
+                          <th>Name</th>
+                          <th>Department Name</th>
+                          <th>Position Name</th>
+                          <th>Gender</th>
+                          <th>Tentative DOJ</th>
+                          <th>DOJ</th>
+                          <th>Tentative DOE</th>
+                          <th>DOE</th>
 
                         </tr>
                       </thead>
@@ -259,8 +259,8 @@ color="#0073e6"
                         {finalData.map(item=>(
                            <tr>
                            <td>{item.emp_name}</td>
-                           <td>{item.emp_dept_name}</td>
-                           <td>{item.emp_position_name}</td>
+                           <td>{item.emp_department}</td>
+                           <td>{item.emp_position}</td>
                            <td>{item.emp_gender}</td>
                            <td>{item.emp_tentative_doj || "-"}</td>
                            <td>{item.emp_doj}</td>

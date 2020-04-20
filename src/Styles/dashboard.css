@@ -63,10 +63,7 @@
     font-weight: 600;
     cursor: pointer;
 }
-hr{
-  margin-top: 0PX;
-  border: 1px solid black ;
-}
+
 .alert{
     margin-top: 50px;
     padding: 15px;

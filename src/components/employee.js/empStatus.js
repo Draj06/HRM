@@ -1,17 +1,163 @@
-import React from "react";
+import React, { useState,useEffect } from "react";
 import "../../Styles/employee.css";
+import { GET_EMPLOYEE_DATA } from "../../queries";
+import StatusBtn from "./statusBtn";
 import ProfilePic from "../../Images/profile.png";
+import { useQuery } from "@apollo/react-hooks";
+import Loader from "react-loader-spinner";
+import { useHistory } from "react-router-dom";
+import EmpHeader from '../employee.js/empHeader'
+import ReactHTMLTableToExcel from "react-html-table-to-excel";
 
 const EmpStatus = () => {
+  const history = useHistory();
+  const filterBy = [
+    "Department",
+    "Position",
+    "Religion",
+    "Gender",
+    "Evaluation"
+  ]; // Read from API
+  const [filterGroups, setFilterGroups] = useState({});
 
+  const [filters, setFilters] = useState({});
+  const [initFilter, setInitFilter] = useState({});
+  const [initGroups, setInitGroups] = useState({});
+  const [status, setStatus] = useState("Active");
+  const [searchStatus, setSearchState] = useState("")
+  const { error, loading, data } = useQuery(GET_EMPLOYEE_DATA, {
+    variables: { status },
+  });
+
+  useEffect(() => {
+    if (!data) return;
+
+    let id = 0;
+    const unique = prop => {
+      const res = [];
+      data.getEmpDetailsByEmpStatus.forEach(v => {
+        if (res.findIndex(i => i[prop] === v[prop]) === -1)
+          if (v[prop]) res.push({ id: id++, checked: false, [prop]: v[prop] });
+      });
+      return res;
+    };
+
+    let filterTmp = {};
+    let groupTmp = {};
+    filterBy.forEach(item => {
+      filterTmp[item] = [];
+      groupTmp[item] = unique(item);
+    });
+
+    setInitFilter(filterTmp);
+    setFilters(filterTmp);
+
+    setInitGroups(groupTmp);
+    setFilterGroups(groupTmp);
+  }, [data]);
+
+  if (loading)
+    return (
+      <Loader
+        className="loaderCLassForGraph"
+        type="ThreeDots"
+        color="#0073e6"
+      />
+    );
+
+  if (error)
+    return (
+      <div className="alert alert-danger alert-dismissible">
+        <button type="button" className="close" data-dismiss="alert"></button>
+        <div align="center">
+          <strong>{error.message}</strong>{" "}
+        </div>
+      </div>
+    );
+
+  
+    const filterData = () => {
+      let result = data.getEmpDetailsByEmpStatus;
+      Object.keys(filters).forEach(key => {
+        if (filters[key].length !== 0)
+          result = result.filter(item => filters[key].indexOf(item[key]) !== -1);
+      });
+      return result;
+    };
+  
+    const handleChange = e => {
+      let id = e.target.id;
+      let name = e.target.name;
+      let filter = e.target.getAttribute("filter");
+      let checked = e.target.checked;
+      if (checked) {
+        let newFilter = [...filters[filter]];
+        newFilter.push(name);
+        setFilters({ ...filters, [filter]: newFilter });
+        
+      } else {
+        setFilters({
+          ...filters,
+          [filter]: filters[filter].filter(item => item !== name)
+        });
+        
+      }
+      const tmp = filterGroups[filter];
+  
+      let updateGroup = [...tmp];
+      const index = updateGroup.findIndex(i => i.id.toString() === id);
+      updateGroup[index].checked = checked;
+      setFilterGroups({
+        ...filterGroups,
+        [filter]: updateGroup
+      });
+    };
+  
+    const clearAll = () => {
+      let tmp = { ...filterGroups };
+      Object.keys(tmp).forEach(item => {
+        tmp[item].forEach(subItem => {
+          subItem.checked = false;
+        });
+      });
+      setFilterGroups(tmp);
+      setFilters(initFilter);
+    };
+  
+  
+  const empNameOnClick = (emp) => {
+    
+  console.log(emp.emp_id)
+   localStorage.removeItem('emp_Id')
+   localStorage.setItem('emp_Id',emp.emp_id)
+   history.push('/employee_profile')
+  };
+
+  const StatusBtnOnClick = (e) =>{
+     setStatus(e.target.value)
+     
+  }
+// const test = filterData().map(item=>{
+// if(item.emp_tentative_doj)
+// {
+//   alert("yes")
+// }
+// })
+const searchInput =(e) =>{
+  setSearchState(e.target.value)
+}
+const test = filterData().filter(item=>{
+  return item.emp_name.toLowerCase().indexOf(searchStatus.toLowerCase()) !== -1
+})
   return (
     <div className="container-fluid emp_Container">
+      
       <div className="row">
         <div className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-1">
           <h5 className="headingEmploye">Employee List</h5>
         </div>
         <div className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 form-group">
-          <div class="row">
+          <div className="row">
             <div className="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 mt-1">
               <select className="form-control">
                 <option disabled selected>
@@ -27,6 +173,7 @@ const EmpStatus = () => {
                 type="text"
                 className="form-control"
                 placeholder="Search By Name.."
+                onChange={searchInput}
               ></input>
             </div>
             <div className="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 mt-1">
@@ -37,706 +184,108 @@ const EmpStatus = () => {
       </div>
       <hr></hr>
       <div className="row">
-        <div className="col-12 col-sm-12 col-md-4 col-lg-3 col-xl-2 emp_sideLeft">
+      <div className="col-12 col-sm-12 col-md-4 col-lg-3 col-xl-2 emp_sideLeft">
           <div className="row">
             <div className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
               <label>Add filter</label>
             </div>
             <div className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6" align="center">
-              <p>Clear</p>
-            </div>
-
-            <div class="row checkBoxes">
-              <h6 className="sidebarHeading">Deppartments :</h6>
-            <div className="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-            <div className="custom-control custom-checkbox">
-              <div className="form-group each_form_group">
-              <input type="checkbox" className="custom-control-input" id="developer" name="developer"></input>
-              <label className="custom-control-label" for="developer">Developer</label>
-            </div>
-            <div className="form-group each_form_group">
-              <input type="checkbox" className="custom-control-input" id="accounts" name="accounts"></input>
-              <label className="custom-control-label" for="accounts">Accounts</label>
+              <p onClick={clearAll}>Clear</p>
             </div>
             
-            </div>
-            </div>
-            </div>
-
-            
-            <div class="row checkBoxes">
-              <h6 className="sidebarHeading">Designations :</h6>
-            <div className="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-            <div className="custom-control custom-checkbox">
+            <div className="row checkBoxes">
+            {filterBy.map(item => (
+        <div className="container-fluid">
+          
+          <h5>{item}</h5>
+          {(filterGroups[item] || []).map(li => (
+            <div key={li.id} className="custom-control custom-checkbox">
               <div className="form-group each_form_group">
-              <input type="checkbox" className="custom-control-input" id="front_end_developer" name="front_end_developer"></input>
-              <label className="custom-control-label" for="front_end_developer">Front-end developer</label>
-            </div>
-            <div className="form-group each_form_group">
-              <input type="checkbox" className="custom-control-input" id="back_end_developer" name="back_end_developer"></input>
-              <label className="custom-control-label" for="back_end_developer">Back-end developer</label>
-            </div>
-            <div className="form-group each_form_group">
-              <input type="checkbox" className="custom-control-input" id="hr_manager" name="hr_manager"></input>
-              <label className="custom-control-label" for="hr_manager">Hr manager</label>
-            </div>
-            <div className="form-group each_form_group">
-              <input type="checkbox" className="custom-control-input" id="ca" name="ca"></input>
-              <label className="custom-control-label" for="ca">CA</label>
-            </div>
-            
-            </div>
-            </div>
-            </div>
-
-            <div class="row checkBoxes">
-              <h6 className="sidebarHeading">Religion :</h6>
-            <div className="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-            <div className="custom-control custom-checkbox">
-              <div className="form-group each_form_group">
-              <input type="checkbox" className="custom-control-input" id="religion1" name="religion1"></input>
-              <label className="custom-control-label" for="religion1">Religion 1</label>
-            </div>
-            <div className="form-group each_form_group">
-              <input type="checkbox" className="custom-control-input" id="religion2" name="religion2"></input>
-              <label className="custom-control-label" for="religion2">Religion 1</label>
-            </div>
-            <div className="form-group each_form_group">
-              <input type="checkbox" className="custom-control-input" id="religion3" name="religion3"></input>
-              <label className="custom-control-label" for="religion3">Religion 3</label>
-            </div>
-            <div className="form-group each_form_group">
-              <input type="checkbox" className="custom-control-input" id="religion4" name="religion4"></input>
-              <label className="custom-control-label" for="religion4">Religion 4</label>
-            </div>
-            </div>
-            </div>
-            </div>
-
-            <div class="row checkBoxes">
-              <h6 className="sidebarHeading">Gender :</h6>
-            <div className="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-            <div className="custom-control custom-checkbox">
-              <div className="form-group each_form_group">
-              <input type="checkbox" className="custom-control-input" id="m" name="m"></input>
-              <label className="custom-control-label" for="m">Male</label>
-            </div>
-            <div className="form-group each_form_group">
-              <input type="checkbox" className="custom-control-input" id="f" name="f"></input>
-              <label className="custom-control-label" for="f">Female</label>
-            </div>
-            </div>
-            </div>
-            </div>  
-            <div class="row checkBoxes">
-              <h6 className="sidebarHeading">Evaluation :</h6>
-            <div className="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-            <div className="custom-control custom-checkbox">
-              <div className="form-group each_form_group">
-              <input type="checkbox" className="custom-control-input" id="Recommended" name="recommended"></input>
-              <label className="custom-control-label" for="recommended">Recommended</label>
-            </div>
-            <div className="form-group each_form_group">
-              <input type="checkbox" className="custom-control-input" id="blackListed" name="blackListed"></input>
-              <label className="custom-control-label" for="blackListed">Blacklisted</label>
-              </div>
-              <div className="form-group each_form_group">
-              <input type="checkbox" className="custom-control-input" id="avd" name="avd"></input>
-              <label className="custom-control-label" for="avd">Average</label>
-              </div>
-                </div>
+                <input
+                  type="checkbox"
+                  className="custom-control-input"
+                  id={li.id}
+                  filter={item}
+                  name={li[item]}
+                  checked={li.checked}
+                  onChange={handleChange}
+                />
+                <label className="custom-control-label" htmlFor={li.id}>
+                  {li[item]}
+                </label>
               </div>
             </div>
-
-
+          ))}
+        </div>
+      ))}
+            </div>
           </div>
         </div>
         <div className="col-12 col-sm-12 col-md-8 col-lg-9 col-xl-10">
-          <div className="row emp_sideRightBtns">
-            <div className="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
-              <button className="btn btn-outline-secondary form-control">
-                Active
-                <span className="badge badge-pill badge-primary">5</span>
-              </button>
-            </div>
-            <div className="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
-              <button className="btn btn-outline-secondary form-control">
-                Arriving
-                <span className="badge badge-pill badge-primary">10</span>
-              </button>
-            </div>
-            <div className="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
-              <button className="btn btn-outline-secondary form-control">
-                Exiting
-                <span className="badge badge-pill badge-primary">4</span>
-              </button>
-            </div>
-            <div className="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
-              <button className="btn btn-outline-secondary form-control">
-                Exited
-                <span className="badge badge-pill badge-primary">6</span>
-              </button>
-            </div>
-          </div>
-          <hr></hr>
-          <div className="row sideRightHeaders">
-          <div className="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-4">
-              <label className="empName">Dheeraj</label>
-            </div>
-            <div className="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-2">
-            <label className="empStatus">Employee Status --> </label>
-            </div>
-            <div className="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-2">
-              <button className="btn btn-success form-control">
-                Active
-              </button>
-            </div>
-            <div className="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-1">
-              <label class="empEvaluation">Evaluation</label>
-            </div>
-            <div className="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
-              <select className="form-control">
-                <option>Recommended</option>
-                <option>Average</option>
-                <option>Blacklisted</option>
-              </select>
-            </div>
-                </div>
-         
-<hr></hr>
-
-              
-
-
-<div className="container-fluid">
-
-          <div className="row">
-            {/* -------------------------------------  div main emp details   ----------------------------------- */}
-            <div className="col-12 col-sm-12 col-md-6 col-lg-5 col-xl-5">
-              <div className="row">
-                <div className="col-12 col-sm-12 col-md-6 col-lg-2 col-xl-2">
-                  <img
-                    src={ProfilePic}
-                    className="rounded"
-                    width="60"
-                    alt="profile pic"
-                  ></img>
-                </div>
-                <div className="col-12 col-sm-12 col-md-6 col-lg-5 col-xl-5">
-                  
-                  <div className="row empDivMain1">
-                      <div className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 empDiv1">
-                          <div class="form-group each_form_group">
-                            <label className="empDetailsDiv1">Emp No.</label>
-                            </div>
-                            <div class="form-group each_form_group">
-                            <label className="empDetailsDiv1">Department</label>
-                            </div>
-                            <div class="form-group each_form_group">
-                            <label className="empDetailsDiv1">Designation</label>
-                            </div>
-                            <div class="form-group each_form_group">
-                            <label className="empDetailsDiv1">Position No.</label>
-                            </div>
-                          </div>
-                          <div className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 empDiv2">
-                          <div class="form-group each_form_group">
-                            <label className="empDetailsDiv2">598216</label>
-                            </div>
-                            <div class="form-group each_form_group">
-                            <label className="empDetailsDiv2">HR</label>
-                            </div>
-                            <div class="form-group each_form_group">
-                            <label className="empDetailsDiv2">Hr Manager</label>
-                            </div>
-                            <div class="form-group each_form_group">
-                            <label className="empDetailsDiv2">451</label>
-                            </div>
-                          </div>
-                  </div>
-                </div>
-                
-                <div className="col-12 col-sm-12 col-md-6 col-lg-2 col-xl-5">
-                       <div className="row">
-
-                          <div className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 empDiv3">
-                          <div class="form-group each_form_group ">
-                            <label className="empDetailsDiv3">Tentative DOJ</label>
-                            </div>
-                            <div class="form-group each_form_group">
-                            <label className="empDetailsDiv3">DOJ</label>
-                            </div>
-                            <div class="form-group each_form_group">
-                            <label className="empDetailsDiv3">Tentative DOE</label>
-                            </div>
-                            <div class="form-group each_form_group">
-                            <label className="empDetailsDiv3">DOE</label>
-                            </div>
-                            </div>
-                            <div className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 empDiv4">
-                          <div class="form-group each_form_group">
-                            <label className="empDetailsDiv1">12-03-2019</label>
-                            </div>
-                            <div class="form-group each_form_group">
-                            <label className="empDetailsDiv1">18-03-2019</label>
-                            </div>
-                            <div class="form-group each_form_group">
-                            <label className="empDetailsDiv1">05-03-2020</label>
-                            </div>
-                            <div class="form-group each_form_group">
-                            <label className="empDetailsDiv1">10-04-2020</label>
-                            </div>
-                            </div>
-                          </div>
-                </div>
-              </div>
-            </div>
-            <div className="col-12 col-sm-12 col-md-6 col-lg-2 col-xl-2 empDiv5">
-              
-                      
-                          
-                          <div class="form-group each_form_group">
-                            <label className="empDetailsDiv2">Official Mail Id</label>
-                            </div>
-                            <div class="form-group each_form_group">
-                            <label className="empDetailsDiv2">Official Mob.No.</label>
-                            </div>
-                            <div class="form-group each_form_group">
-                            <label className="empDetailsDiv2">CTC  </label>
-                            </div>
-                            <div class="form-group each_form_group">
-                            <label className="empDetailsDiv2">Age</label>
-                            </div>
-                          
-                  
-            </div>
-            <div className="col-12 col-sm-12 col-md-6 col-lg-2 col-xl-2">
-            
-                  <div className="row">
-                      <div className="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 empDiv6">
-                          <div class="form-group each_form_group">
-                            <label className="empDetailsDiv1">Dheeraj@test.com</label>
-                            </div>
-                            <div class="form-group each_form_group">
-                            <label className="empDetailsDiv1">9874563212</label>
-                            </div>
-                            <div class="form-group each_form_group">
-                            <label className="empDetailsDiv1">3L</label>
-                            </div>
-                            <div class="form-group each_form_group">
-                            <label className="empDetailsDiv1">35yrs</label>
-                            </div>
-                          </div>
-                          
-                  </div>
-            </div>
-            <div className="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-2">
-            <div className="row">
-                      <div className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-7 empDiv7">
-                          <div class="form-group each_form_group">
-                            <label className="empDetailsDiv1">State (Permanent)</label>
-                            </div>
-                            <div class="form-group each_form_group">
-                            <label className="empDetailsDiv1">Religion</label>
-                            </div>
-                            <div class="form-group each_form_group">
-                            <label className="empDetailsDiv1">gender</label>
-                            </div>
-                            <div class="form-group each_form_group">
-                            <label className="empDetailsDiv1">Adhar No</label>
-                            </div>
-                          </div>
-                          <div className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-5 empDiv8">
-                          <div class="form-group each_form_group">
-                            <label className="empDetailsDiv2">Bihar</label>
-                            </div>
-                            <div class="form-group each_form_group">
-                            <label className="empDetailsDiv2">Hindu</label>
-                            </div>
-                            <div class="form-group each_form_group">
-                            <label className="empDetailsDiv2">Male  </label>
-                            </div>
-                            <div class="form-group each_form_group">
-                            <label className="empDetailsDiv2">123456789123</label>
-                            </div>
-                          </div>
-                  </div>
-            </div>
-          </div>
+          {/* --------------------------------------------------------- */}
+          <StatusBtn trigerOnStatusBtnClick={StatusBtnOnClick} />
           <hr></hr>
 
-
-
-                     {/* ---------------------------   Employe 2   --------------------------------- */}
-                     <div className="row sideRightHeaders">
-          <div className="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-4">
-              <label className="empName">Chandana</label>
-            </div>
-            <div className="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-2">
-            <label className="empStatus">Employee Status --> </label>
-            </div>
-            <div className="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-2">
-              <button className="btn btn-success form-control">
-                Active
-              </button>
-            </div>
-            <div className="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-1">
-              <label class="empEvaluation">Evaluation</label>
-            </div>
-            <div className="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
-              <select className="form-control">
-                <option>Recommended</option>
-                <option>Average</option>
-                <option>Blacklisted</option>
-              </select>
-            </div>
-                </div>
-         
-<hr></hr>
-
-              
-
-
-
-          <div className="row">
-            {/* -------------------------------------  div main emp details   ----------------------------------- */}
-            <div className="col-12 col-sm-12 col-md-6 col-lg-5 col-xl-5">
-              <div className="row">
-                <div className="col-12 col-sm-12 col-md-6 col-lg-2 col-xl-2">
-                  <img
-                    src={ProfilePic}
-                    className="rounded"
-                    width="60"
-                    alt="profile pic"
-                  ></img>
-                </div>
-                <div className="col-12 col-sm-12 col-md-6 col-lg-5 col-xl-5">
-                  
-                  <div className="row empDivMain1">
-                      <div className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 empDiv1">
-                          <div class="form-group each_form_group">
-                            <label className="empDetailsDiv1">Emp No.</label>
-                            </div>
-                            <div class="form-group each_form_group">
-                            <label className="empDetailsDiv1">Department</label>
-                            </div>
-                            <div class="form-group each_form_group">
-                            <label className="empDetailsDiv1">Designation</label>
-                            </div>
-                            <div class="form-group each_form_group">
-                            <label className="empDetailsDiv1">Position No.</label>
-                            </div>
-                          </div>
-                          <div className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 empDiv2">
-                          <div class="form-group each_form_group">
-                            <label className="empDetailsDiv2">598216</label>
-                            </div>
-                            <div class="form-group each_form_group">
-                            <label className="empDetailsDiv2">HR</label>
-                            </div>
-                            <div class="form-group each_form_group">
-                            <label className="empDetailsDiv2">Hr Manager</label>
-                            </div>
-                            <div class="form-group each_form_group">
-                            <label className="empDetailsDiv2">451</label>
-                            </div>
-                          </div>
-                  </div>
-                </div>
-                
-                <div className="col-12 col-sm-12 col-md-6 col-lg-2 col-xl-5">
-                       <div className="row">
-
-                          <div className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 empDiv3">
-                          <div class="form-group each_form_group ">
-                            <label className="empDetailsDiv3">Tentative DOJ</label>
-                            </div>
-                            <div class="form-group each_form_group">
-                            <label className="empDetailsDiv3">DOJ</label>
-                            </div>
-                            <div class="form-group each_form_group">
-                            <label className="empDetailsDiv3">Tentative DOE</label>
-                            </div>
-                            <div class="form-group each_form_group">
-                            <label className="empDetailsDiv3">DOE</label>
-                            </div>
-                            </div>
-                            <div className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 empDiv4">
-                          <div class="form-group each_form_group">
-                            <label className="empDetailsDiv1">12-03-2019</label>
-                            </div>
-                            <div class="form-group each_form_group">
-                            <label className="empDetailsDiv1">18-03-2019</label>
-                            </div>
-                            <div class="form-group each_form_group">
-                            <label className="empDetailsDiv1">05-03-2020</label>
-                            </div>
-                            <div class="form-group each_form_group">
-                            <label className="empDetailsDiv1">10-04-2020</label>
-                            </div>
-                            </div>
-                          </div>
-                </div>
-              </div>
-            </div>
-            <div className="col-12 col-sm-12 col-md-6 col-lg-2 col-xl-2 empDiv5">
-              
-                      
-                          
-                          <div class="form-group each_form_group">
-                            <label className="empDetailsDiv2">Official Mail Id</label>
-                            </div>
-                            <div class="form-group each_form_group">
-                            <label className="empDetailsDiv2">Official Mob.No.</label>
-                            </div>
-                            <div class="form-group each_form_group">
-                            <label className="empDetailsDiv2">CTC  </label>
-                            </div>
-                            <div class="form-group each_form_group">
-                            <label className="empDetailsDiv2">Age</label>
-                            </div>
-                          
-                  
-            </div>
-            <div className="col-12 col-sm-12 col-md-6 col-lg-2 col-xl-2">
-            
-                  <div className="row">
-                      <div className="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 empDiv6">
-                          <div class="form-group each_form_group">
-                            <label className="empDetailsDiv1">Chandana@test.com</label>
-                            </div>
-                            <div class="form-group each_form_group">
-                            <label className="empDetailsDiv1">9874563212</label>
-                            </div>
-                            <div class="form-group each_form_group">
-                            <label className="empDetailsDiv1">3L</label>
-                            </div>
-                            <div class="form-group each_form_group">
-                            <label className="empDetailsDiv1">35yrs</label>
-                            </div>
-                          </div>
-                          
-                  </div>
-            </div>
-            <div className="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-2">
-            <div className="row">
-                      <div className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-7 empDiv7">
-                          <div class="form-group each_form_group">
-                            <label className="empDetailsDiv1">State (Permanent)</label>
-                            </div>
-                            <div class="form-group each_form_group">
-                            <label className="empDetailsDiv1">Religion</label>
-                            </div>
-                            <div class="form-group each_form_group">
-                            <label className="empDetailsDiv1">gender</label>
-                            </div>
-                            <div class="form-group each_form_group">
-                            <label className="empDetailsDiv1">Adhar No</label>
-                            </div>
-                          </div>
-                          <div className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-5 empDiv8">
-                          <div class="form-group each_form_group">
-                            <label className="empDetailsDiv2">Bihar</label>
-                            </div>
-                            <div class="form-group each_form_group">
-                            <label className="empDetailsDiv2">Hindu</label>
-                            </div>
-                            <div class="form-group each_form_group">
-                            <label className="empDetailsDiv2">Male  </label>
-                            </div>
-                            <div class="form-group each_form_group">
-                            <label className="empDetailsDiv2">123456789123</label>
-                            </div>
-                          </div>
-                  </div>
+          <div className="container-fluid">
+            <div className="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 table-responsive">
+              <table className="table table-bordered table-hover" id="empTable">
+                <thead className="table-secondary">
+                  <tr>
+                    <th></th>
+                    <th>No.</th>
+                    <th>Name</th>
+                    <th>Department</th>
+                    <th>Designation</th>
+                    <th>DOJ</th>
+                    <th>Official mail id</th>
+                    <th>Official Mob. No.</th>
+                    <th>CTC</th>
+                    <th>Age</th>
+                    <th>State (Permanent)</th>
+                    <th>Religion</th>
+                    <th>Gender</th>
+                    <th>Adhar No</th>
+                    <th>Religion</th>
+                    <th>status</th>
+                    <th>Evaluation</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  { test.map((item) => (
+                    <tr>
+                      <td>
+                        <img
+                          src={ProfilePic}
+                          width="40px"
+                          height="40px"
+                          className="empImage"
+                          alt="Image"
+                        ></img>
+                      </td>
+                      <td >{item.emp_number}</td>
+                      <td><span className="empNameTable" onClick={()=> empNameOnClick(item)}>
+                        {item.emp_name}</span>
+                      </td>
+                      <td>{item.Department}</td>
+                      <td id="empNo">{item.Position}</td>
+                      <td>{item.emp_doj}</td>
+                      <td>{item.emp_official_email}</td>
+                      <td>{item.emp_official_mobile}</td>
+                      <td>{item.emp_ctc}</td>
+                      <td>{item.emp_age}</td>
+                      <td>{item.emp_permanent_state}</td>
+                      <td>{item.Religion}</td>
+                      <td>{item.Gender}</td>
+                      <td>{item.emp_aadhar_no}</td>
+                      <td>{item.Religion}</td>
+                      <td>{item.emp_status}</td>
+                      <td>{item.Evaluation}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </div>
-
-      <hr></hr>
-
-             {/* ---------------------------------------- Row 3 ------------------------------------ */}
-             <div className="row sideRightHeaders">
-          <div className="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-4">
-              <label className="empName">Irraya</label>
-            </div>
-            <div className="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-2">
-            <label className="empStatus">Employee Status --> </label>
-            </div>
-            <div className="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-2">
-              <button className="btn btn-success form-control">
-                Active
-              </button>
-            </div>
-            <div className="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-1">
-              <label class="empEvaluation">Evaluation</label>
-            </div>
-            <div className="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
-              <select className="form-control">
-                <option>Recommended</option>
-                <option>Average</option>
-                <option>Blacklisted</option>
-              </select>
-            </div>
-                </div>
-             <hr></hr>
-
-             <div className="row">
-            {/* -------------------------------------  div main emp details   ----------------------------------- */}
-            <div className="col-12 col-sm-12 col-md-6 col-lg-5 col-xl-5">
-              <div className="row">
-                <div className="col-12 col-sm-12 col-md-6 col-lg-2 col-xl-2">
-                  <img
-                    src={ProfilePic}
-                    className="rounded"
-                    width="60"
-                    alt="profile pic"
-                  ></img>
-                </div>
-                <div className="col-12 col-sm-12 col-md-6 col-lg-5 col-xl-5">
-                  
-                  <div className="row empDivMain1">
-                      <div className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 empDiv1">
-                          <div class="form-group each_form_group">
-                            <label className="empDetailsDiv1">Emp No.</label>
-                            </div>
-                            <div class="form-group each_form_group">
-                            <label className="empDetailsDiv1">Department</label>
-                            </div>
-                            <div class="form-group each_form_group">
-                            <label className="empDetailsDiv1">Designation</label>
-                            </div>
-                            <div class="form-group each_form_group">
-                            <label className="empDetailsDiv1">Position No.</label>
-                            </div>
-                          </div>
-                          <div className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 empDiv2">
-                          <div class="form-group each_form_group">
-                            <label className="empDetailsDiv2">598216</label>
-                            </div>
-                            <div class="form-group each_form_group">
-                            <label className="empDetailsDiv2">HR</label>
-                            </div>
-                            <div class="form-group each_form_group">
-                            <label className="empDetailsDiv2">Hr Manager</label>
-                            </div>
-                            <div class="form-group each_form_group">
-                            <label className="empDetailsDiv2">451</label>
-                            </div>
-                          </div>
-                  </div>
-                </div>
-                
-                <div className="col-12 col-sm-12 col-md-6 col-lg-2 col-xl-5">
-                       <div className="row">
-
-                          <div className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 empDiv3">
-                          <div class="form-group each_form_group ">
-                            <label className="empDetailsDiv3">Tentative DOJ</label>
-                            </div>
-                            <div class="form-group each_form_group">
-                            <label className="empDetailsDiv3">DOJ</label>
-                            </div>
-                            <div class="form-group each_form_group">
-                            <label className="empDetailsDiv3">Tentative DOE</label>
-                            </div>
-                            <div class="form-group each_form_group">
-                            <label className="empDetailsDiv3">DOE</label>
-                            </div>
-                            </div>
-                            <div className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 empDiv4">
-                          <div class="form-group each_form_group">
-                            <label className="empDetailsDiv1">12-03-2019</label>
-                            </div>
-                            <div class="form-group each_form_group">
-                            <label className="empDetailsDiv1">18-03-2019</label>
-                            </div>
-                            <div class="form-group each_form_group">
-                            <label className="empDetailsDiv1">05-03-2020</label>
-                            </div>
-                            <div class="form-group each_form_group">
-                            <label className="empDetailsDiv1">10-04-2020</label>
-                            </div>
-                            </div>
-                          </div>
-                </div>
-              </div>
-            </div>
-            <div className="col-12 col-sm-12 col-md-6 col-lg-2 col-xl-2 empDiv5">
-              
-                      
-                          
-                          <div class="form-group each_form_group">
-                            <label className="empDetailsDiv2">Official Mail Id</label>
-                            </div>
-                            <div class="form-group each_form_group">
-                            <label className="empDetailsDiv2">Official Mob.No.</label>
-                            </div>
-                            <div class="form-group each_form_group">
-                            <label className="empDetailsDiv2">CTC  </label>
-                            </div>
-                            <div class="form-group each_form_group">
-                            <label className="empDetailsDiv2">Age</label>
-                            </div>
-                          
-                  
-            </div>
-            <div className="col-12 col-sm-12 col-md-6 col-lg-2 col-xl-2">
-            
-                  <div className="row">
-                      <div className="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 empDiv6">
-                          <div class="form-group each_form_group">
-                            <label className="empDetailsDiv1">Iraaya@test.com</label>
-                            </div>
-                            <div class="form-group each_form_group">
-                            <label className="empDetailsDiv1">9874563212</label>
-                            </div>
-                            <div class="form-group each_form_group">
-                            <label className="empDetailsDiv1">3L</label>
-                            </div>
-                            <div class="form-group each_form_group">
-                            <label className="empDetailsDiv1">35yrs</label>
-                            </div>
-                          </div>
-                          
-                  </div>
-            </div>
-            <div className="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-2">
-            <div className="row">
-                      <div className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-7 empDiv7">
-                          <div class="form-group each_form_group">
-                            <label className="empDetailsDiv1">State (Permanent)</label>
-                            </div>
-                            <div class="form-group each_form_group">
-                            <label className="empDetailsDiv1">Religion</label>
-                            </div>
-                            <div class="form-group each_form_group">
-                            <label className="empDetailsDiv1">gender</label>
-                            </div>
-                            <div class="form-group each_form_group">
-                            <label className="empDetailsDiv1">Adhar No</label>
-                            </div>
-                          </div>
-                          <div className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-5 empDiv8">
-                          <div class="form-group each_form_group">
-                            <label className="empDetailsDiv2">Bihar</label>
-                            </div>
-                            <div class="form-group each_form_group">
-                            <label className="empDetailsDiv2">Hindu</label>
-                            </div>
-                            <div class="form-group each_form_group">
-                            <label className="empDetailsDiv2">Male  </label>
-                            </div>
-                            <div class="form-group each_form_group">
-                            <label className="empDetailsDiv2">123456789123</label>
-                            </div>
-                          </div>
-                  </div>
-            </div>
-          </div>
-
-
-          </div>
-
         </div>
       </div>
     </div>

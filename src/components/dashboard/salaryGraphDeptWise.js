@@ -170,18 +170,20 @@ const Salary_Dept_Min_Max=()=> {
                         <table className="table table-hover table-bordered">
                             <thead className="table-secondary">
                               <tr>
-                                <th>Employee Name</th>
-                                <th>Employee Department Name</th>
-                                <th>Employee Position Name</th>
-                                <th>Employee CTC</th>
-                                <th>Employee Gross Salary</th>
+                                <th>Name</th>
+                                <th>Department Name</th>
+                                <th>Position Name</th>
+                                <th>CTC</th>
+                                <th>Gross Salary</th>
                                 
       
                               </tr>
                             </thead>
                             <tbody>
                               {finalData1.map(item=>(
+                                
                                  <tr>
+                                   {console.log(item)}
                                  <td>{item.emp_name}</td>
                                  <td>{item.emp_dept_name}</td>
                                  <td>{item.emp_position_name}</td>

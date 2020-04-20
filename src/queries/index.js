@@ -113,8 +113,8 @@ export const MANPOWER_OVERBOARD_ON_CLICK =gql `
 query getOverBoardEmpBasedOnMonthYearStatus($month: String!,$year: Int!,$status: String!) {
       getOverBoardEmpBasedOnMonthYearStatus(month:$month,year:$year,status:$status){
         emp_name
-        emp_dept_name
-        emp_position_name
+        emp_department
+        emp_position
         emp_gender
         emp_tentative_doj
         emp_doj
@@ -129,8 +129,8 @@ query getOverBoardEmpBasedOnDeptMonthYearStatus($month: String!,$year: Int!,$dep
   getOverBoardEmpBasedOnDeptMonthYearStatus(month:$month,year:$year,dept:$dept)
   {
     emp_name
-    emp_dept_name
-    emp_position_name
+    emp_department
+    emp_position
     emp_gender
     emp_tentative_doj
     emp_doj
@@ -206,3 +206,175 @@ query getSalaryGgraphPopUpByMonYearDept($month: String!,$year: Int!,$dept: Strin
     emp_gross_salary
       }
       }`
+
+
+                //  -----------------------------------------------   Employee queries      --------------------------------------------
+
+  export const GET_EMPLOYEE_DATA =gql `
+  
+  query getEmpDetailsByEmpStatus($status: String!) {
+    getEmpDetailsByEmpStatus(status:$status)
+    {
+      emp_id
+    emp_status
+    Evaluation
+    emp_photo
+    emp_name
+    emp_number
+    Department
+    Position
+    emp_tentative_doj
+    emp_doj
+    emp_tentative_doe
+    emp_doe
+    emp_official_email
+    emp_official_mobile
+    emp_ctc
+    emp_age
+    emp_permanent_state
+    Religion
+    Gender
+    emp_aadhar_no
+      
+    }
+  }`
+
+  export const  GET_ALL_EMP_STATUS_COUNT =gql`
+  query{
+  getEmployeeAllStatusCount{
+    emp_status
+    total_count
+  }}
+  `
+
+  export const GET_EMP_BASIC_INFO =gql`
+  query getEmpBasicInfo($type: String!, $id: String!) {
+    getEmpBasicInfo(type: $type, id: $id)
+    {
+      emp_id
+      Employee_Name
+      Empployee_Number
+      DOB
+      Blood_Group
+      Employee_Nationality
+      Employee_father_name
+      Employee_spouse_name
+      Marital_status
+      Gender
+      Religion
+      Tentative_date_of_joining
+      Date_of_joining
+      Probation_period_in_days
+      confiramation_date
+      Employee_personal_email_ID
+      Employee_personal_mobile_number
+      Employee_official_emil_ID
+      Employee_official_mobile_number
+      Employee_emergency_contact_name
+      Employee_emergency_contact_relation
+      Employee_emergency_contact_number
+      Employee_emergency_contat_address
+      Residential_status
+      Employee_resident_address
+      Employee_resident_PIN
+      Employee_permanent_address
+      Employee_permanent_PIN
+     
+    
+
+  }
+}
+  `
+ export const GET_EMP_POSITION = gql`
+query getEmployeePositionDept($type: String!, $id: String!) {
+  getEmployeePositionDept(type: $type, id: $id)
+  {
+      Employee_designation
+      Employee_department
+    }
+  }`
+
+  export const GET_EMP_SALARY = gql`
+query getEmployeeSalaryCtc($type: String!, $id: String!) {
+  getEmployeeSalaryCtc(type: $type, id: $id)
+  {
+      Employee_monthly_current_cost_to_company
+    }
+  }
+  `
+
+  export const GET_EMP_ID = gql`
+  query getEmployeeIdProofInfo($type: String!, $id: String!) {
+    getEmployeeIdProofInfo(type: $type, id: $id)
+    {
+      Employee_pan
+      Emploeyee_UAN
+      Employee_PF_number
+      Employee_ESI_no
+      Employee_Aadhar_number
+      Employee_passport_number
+      Employee_passport_validity
+    }
+  }`
+
+  export const GET_EMP_BANK_DETAILS = gql`
+  query getEmployeeBankInfo($type: String!, $id: String!) {
+    getEmployeeBankInfo(type: $type, id: $id)
+    {
+      Employee_Bank
+      Employee_bank_branch
+      Employee_bank_account_number
+     
+    }
+  }`
+
+  export const GET_EMP_EDUCATION = gql`
+  query getEmployeeEducationInfo($type: String!, $id: String!) {
+    getEmployeeEducationInfo(type: $type, id: $id)
+    {
+      Employee_qualification
+      Employee_specification
+      Institute_name
+      Start_date
+      End_date
+      Percentage
+      CGPA
+     
+    }
+  }`
+
+  
+  export const GET_EMP_PROF_BACKGROUND = gql`
+  query getEmployeeProfessionalInfo($type: String!, $id: String!) {
+    getEmployeeProfessionalInfo(type: $type, id: $id)
+    {
+      Name_of_the_company
+      Designation
+      Company_location
+      Start_date
+      End_date
+     
+    }
+  }`
+
+  export const GET_EMP_EXIT_STATUS = gql`
+  query getEmployeeExitInfo($type: String!, $id: String!) {
+    getEmployeeExitInfo(type: $type, id: $id)
+    {
+      Employee_tentative_date_of_exit
+      Employee_date_of_exit
+      Emp_exit_reason
+     
+    }
+  }`
+
+  export const GET_EMP_Evaluation = gql`
+  query getEmployeeEvaluationInfo($type: String!, $id: String!) {
+    getEmployeeEvaluationInfo(type: $type, id: $id)
+    {
+      Name_of_the_evaluator
+      Enter_employee_note_here
+      Evaluation
+     
+    }
+  }`

@@ -4,7 +4,7 @@ import Modal from 'react-modal'
 import Loader from 'react-loader-spinner'
 import {MANPOWER_OVERBOARD_ON_DATE_CHANGE,MANPOWER_OVERBOARD_ON_CLICK} from '../../queries'
 import { useQuery } from '@apollo/react-hooks'
-import { ToastContainer, toast } from 'react-toastify';
+
 
 const Manpower_onChange_Overboard =() =>{
   const[modalIsOpen,setmodalIsOpen] = useState(false)
@@ -56,14 +56,6 @@ color="#0073e6"
      //setmodalIsOpen(true)
      
 
-       toast.error("something went wrong", {
-         position: "top-right",
-         autoClose: 5000,
-         hideProgressBar: false,
-         closeOnClick: true,
-         pauseOnHover: true,
-         draggable: true
-         });
      
    }
    else{
@@ -75,15 +67,7 @@ color="#0073e6"
          setYear(yearVal)
          setStatus(capitalizeFirstLetter(statusM))
         // console.log(yearVal+":"+month+":"+statusM)
-        toast.error("something wentr wrong", {
-         position: "top-right",
-         autoClose: 5000,
-         hideProgressBar: false,
-         closeOnClick: true,
-         pauseOnHover: true,
-         draggable: true
-         });
-         setmodalIsOpen(true)
+            setmodalIsOpen(true)
          
    }
  }
@@ -141,19 +125,8 @@ color="#0073e6"
  
       return (
             <div className="row container-fluid">
-              <ToastContainer
-                  position="top-right"
-                  autoClose={5000}
-                  hideProgressBar={false}
-                  newestOnTop={false}
-                  closeOnClick
-                  rtl={false}
-                  pauseOnVisibilityChange
-                  draggable
-                  pauseOnHover
-                  />
-                  {/* Same as */}
-              <ToastContainer />
+      
+          
        <div className="form-control graphHeading"> Manpower Graph</div>
       <div className="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
         <div className="row widthContainer">
@@ -223,26 +196,7 @@ else
         
         
         let finalData = result2.data.getOverBoardEmpBasedOnMonthYearStatus
-        console.log(finalData.length)
-        if(finalData.length===0) { 
-          return(
-            <div>
-          <ToastContainer
-          position="top-right"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnVisibilityChange
-          draggable
-          pauseOnHover
-          />
-         
-      <ToastContainer />
-      </div>
-          )
-        }
+   
         
         return(
           <Modal isOpen={modalIsOpen} shouldCloseOnOverlayClick={false} onRequestClose={()=>setmodalIsOpen(false)}>
@@ -265,14 +219,14 @@ else
                   <table className="table table-hover table-bordered">
                       <thead className="table-secondary">
                         <tr>
-                          <th>Employee Name</th>
-                          <th>Employee Department Name</th>
-                          <th>Employee Position Name</th>
-                          <th>Employee Gender</th>
-                          <th>Employee Tentative DOJ</th>
-                          <th>Employee DOJ</th>
-                          <th>Employee Tentative DOE</th>
-                          <th>Employee DOE</th>
+                          <th>Name</th>
+                          <th>Department Name</th>
+                          <th>Position Name</th>
+                          <th>Gender</th>
+                          <th>Tentative DOJ</th>
+                          <th>DOJ</th>
+                          <th>Tentative DOE</th>
+                          <th>DOE</th>
 
                         </tr>
                       </thead>
@@ -280,8 +234,8 @@ else
                         {finalData.map(item=>(
                            <tr>
                            <td>{item.emp_name}</td>
-                           <td>{item.emp_dept_name}</td>
-                           <td>{item.emp_position_name}</td>
+                           <td>{item.emp_department}</td>
+                           <td>{item.emp_position}</td>
                            <td>{item.emp_gender}</td>
                            <td>{item.emp_tentative_doj || "-"}</td>
                            <td>{item.emp_doj}</td>
@@ -293,19 +247,7 @@ else
                       </tbody>
                   </table>
                   <div>
-          <ToastContainer
-          position="top-right"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnVisibilityChange
-          draggable
-          pauseOnHover
-          />
          
-      <ToastContainer />
       </div>
                   </div>
                 </Modal>
