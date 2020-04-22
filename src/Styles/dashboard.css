@@ -36,7 +36,7 @@
     font-weight: 550;
 }
 .graphHeading,.salaryOption{
-    background-color: #cecfcf;
+    background-color: #e9ebf7;
     color: black;
     box-shadow: 2px 5px 2px 1px  #888888;
     font-size: 1.1rem;
@@ -45,6 +45,8 @@
 }
 .graphHeading{
     margin-bottom: 10px;
+    
+    
 }
 .div_divide{
     box-shadow: 5px 5px 5px 5px  #888888;
@@ -57,11 +59,12 @@
     overflow-y: hidden;
     
 }
-.modalHeader{
-    margin-top: -36px;
-    font-size: 1.3rem;
-    font-weight: 600;
+.modalBtn{
+      background-color: #0d47a1;
+    font-size: 1.2rem;
+    font-weight: 500;
     cursor: pointer;
+    color: white;
 }
 
 .alert{
@@ -73,4 +76,8 @@
 }
 .modalLingment{
     margin: 5px;
+}
+.modalHeader
+{
+    background-color: #e9ebf7;
 }

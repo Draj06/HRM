@@ -11,9 +11,9 @@ query{
 ` 
 export const RELEGION_GRAPH = gql `
 query{
-  getAllEmpLocation{
-    emp_location
-    emp_location_count
+  getAllEmpReligionGroup{
+    emp_religion
+    emp_religion_count
   }
 }
 `
@@ -378,3 +378,46 @@ query getEmployeeSalaryCtc($type: String!, $id: String!) {
      
     }
   }`
+
+
+
+
+  // ______________________________________________________________ payroll______________________________________
+
+
+  export const STAT_DATA = gql`
+  query getTotalEmpCtcGrossSal($year: Int!, $month: String!) {
+    getTotalEmpCtcGrossSal(year: $year, month: $month) {
+      count
+      emp_total_ctc
+      emp_total_gross_salary
+    }
+  }
+`;
+
+export const PAY_DATA = gql`
+  query getEmpPayroleByMonthYear($year: Int!, $month: String!) {
+    getEmpPayroleByMonthYear(year: $year, month: $month) {
+      emp_payrole_id
+      emp_id
+      emp_number
+      emp_name
+      emp_status
+      emp_salary_month
+      emp_salary_year
+      emp_actual_no_of_days
+      emp_billable_no_of_days
+      emp_ctc
+      emp_earned_fixed
+      emp_earned_variable
+      emp_gross_salary
+      emp_deduction
+      emp_net_salary
+      emp_aadhar_no
+      emp_uan_no
+      emp_status
+      emp_dept_name
+      emp_position_name
+    }
+  }
+`;

@@ -20,11 +20,10 @@ const Religion = ()=>{
 </div>
 
   const header = [["Title", "Religion","All"]]
-  const religionData = data.getAllEmpLocation.map(obj => Object.values(obj));
+  const religionData = data.getAllEmpReligionGroup.map(obj => Object.values(obj));
   const finalReligionData = header.concat(religionData)
   
   const options = {
-              title: "Religion",
               pieHole: 0.4,
               is3D: true,
               language: 'hi_IN',
@@ -32,6 +31,7 @@ const Religion = ()=>{
            };
       return(
           <div className="App">
+            <div className="form-control graphHeading"> Religion</div>
          <Chart
            chartType="PieChart"
            width="100%"

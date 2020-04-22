@@ -18,7 +18,7 @@ export default props => (
      
       <Switch>
         <Route exact path="/dashboard" component={ dashboard } /> 
-        <Route exact path="/" component={ dashboard } />  
+        <Route exact path="/" component={ login } />  
         <Route exact path="/login" component={ login } />            
         <Route exact path="/register" component={ register } />
         <Route exact path="/employee" component={ employees } />
