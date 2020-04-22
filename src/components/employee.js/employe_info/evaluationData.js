@@ -10,9 +10,11 @@ const EvaluationData=({item})=> {
       };
     return (
         <div>
+          
   <div>
     <div className="row">
-      <div className="form-group col-6 col-sm-6 col-md-6 col-lg-5 col-xl-5">
+      
+      <div className="form-group col-12 col-sm-12 col-md-6 col-lg-5 col-xl-5">
         <input
           type="text"
           disabled
@@ -49,12 +51,12 @@ const EvaluationData=({item})=> {
           </label>
 
           <div className="form-group mt-2">
-            <button
+            {/* <button
               className="btn btn-primary form-control col-5 col-sm-5 col-md-3 col-lg-2 col-xl-2"
               onClick={onClickEdit}
             >
               Edit
-            </button>
+            </button> */}
           </div>
         </div>
       </div>

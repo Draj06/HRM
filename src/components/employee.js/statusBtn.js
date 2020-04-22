@@ -32,13 +32,13 @@ const StatusBtn=(props)=> {
                 {data.getEmployeeAllStatusCount.map(item=>(
 
             <div className="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
-              <button className="btn btn-outline-secondary form-control"
+              <button className="btn primaryDarkColor col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"
               onClick={props.trigerOnStatusBtnClick}
               value={item.emp_status}
               >
                 {item.emp_status}
                
-                <span className="badge badge-pill badge-primary">{item.total_count}</span>
+                <span className="badge badge-pill primary">{item.total_count}</span>
               </button>
             </div>
                 ))}

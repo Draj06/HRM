@@ -101,30 +101,30 @@ color="#0073e6"
         {month}
       </label>
       <div className="row countDiv">
-        <div className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 total">
+        <div className="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 total">
           <label className="totalHeading">Total</label>
           <div className="totalCount">{totalEmployees}</div>
         </div>
   
-        <div className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+        <div className="col-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
           <button 
           onClick={modalClick}
           value={arriveLabel+":"+month}
-          className="btn btn-outline-secondary  form-control text-capitalize">
+          className="btn primary  text-capitalize col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
             {arriveLabel}
             <span 
             value={arriveLabel+":"+month}
-            className="badge badge-pill badge-primary">{arrive}</span>
+            className="badge badge-pill">{arrive || 0}</span>
           </button>
+          <hr className="nomarginHr"/>
           <button 
             onClick={modalClick}
             value={exitLabel+":"+month}
-
-            className="btn btn-outline-secondary form-control text-capitalize">
+            className="btn primary text-capitalize col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
             {exitLabel}
             <span
              value={exitLabel+":"+month}
-            className="badge badge-pill badge-primary">{exit}</span>
+            className="badge badge-pill">{exit || 0}</span>
           </button>
         </div>
       </div>
@@ -226,21 +226,30 @@ color="#0073e6"
         return(
           <Modal isOpen={modalIsOpen} shouldCloseOnOverlayClick={false} onRequestClose={()=>setmodalIsOpen(false)}>
                   <div>
-                    
-                  <div 
-                  className="modalLingment"
-                  align="right">
-                  <span
-                   onClick={()=>setmodalIsOpen(false)}
-                  >
-                  <i className="fas fa-times fa-2x"></i>
+                    <div className="row modalHeader">
+                      <div className="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+                      <button
+                    className="btn modalBtn text-capitalize col-8 col-sm-8 col-md-4 col-lg-2 col-xl-2"
+                    align="left"
+                    >{status}</button>
+                  </div>
+                  <div className="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                   
+                     <div 
+                      className="modalLingment"
+                      align="right">
+                      <span
+                      onClick={()=>setmodalIsOpen(false)}
+                      >
+                      <i className="fas fa-times fa-2x"></i>
                   </span>
                   </div>
-                  <div>
-                    <button
-                    className="btn btn-outline-dark modalHeader text-capitalize">{status}</button> 
                   </div>
-                  <hr></hr>
+                      
+
+                    </div>
+                  <hr/>
+                  <div className="table-responsive">
                   <table className="table table-hover table-bordered">
                       <thead className="table-secondary">
                         <tr>
@@ -271,6 +280,7 @@ color="#0073e6"
                         
                       </tbody>
                   </table>
+                  </div>
                   </div>
                 </Modal>
         )

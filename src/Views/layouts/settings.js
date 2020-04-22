@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import { DEPT_DESIG } from "../../queries";
 import Loader from "react-loader-spinner";
+import ReactHTMLTableToExcel from "react-html-table-to-excel";
 
 const Settings = () => {
   const [header, setheader] = useState("Departments");
@@ -47,11 +48,16 @@ const Settings = () => {
           className="cssHeadingClass text-capitalize col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6"
           align="right"
         >
-          <div className="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
-            <button className="btn btn-info form-control">
-              Export
-            </button>
-          </div>
+          
+          <ReactHTMLTableToExcel
+              id="test-table-xls-button"
+              className="btn white_color_btn col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4"
+              table="dep_des_table"
+              filename="Employee"
+              sheet="tablexls"
+              buttonText="Export"
+                />
+          
         </div>
       </div>
       <hr></hr>
@@ -61,20 +67,20 @@ const Settings = () => {
           <button
             onClick={btnClick}
             value="departments"
-            className="btn btn-outline-secondary form-control"
+            className="btn primary col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"
           >
             Departments
           </button>
           <button
             onClick={btnClick}
             value="designations"
-            className="btn btn-outline-secondary form-control mt-1"
+            className="btn primary col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-1"
           >
             Designations
           </button>
         </div>
         <div className="col-12 col-sm-12 col-md-10 col-lg-10 col-xl-10 form-group">
-          <table className="table table-bordered table-hover">
+          <table className="table table-bordered table-hover" id="dep_des_table">
             <thead className="table-active">
               <tr>
                 <th className="text-capitalize">{header}</th>

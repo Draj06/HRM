@@ -53,10 +53,7 @@ p{
     font-weight: 600;
     color: #0a3320;
 }
-.custom-control-label{
-    font-size: 0.9rem !important;
-    color: #044625;
-}
+
 .empNameTable{
     color: blue !important;
     text-decoration: underline !important;
@@ -81,3 +78,7 @@ input {
 input[type=text]:disabled {
     background:white;
   }
+.ReactModal__Content{
+    height: 60% !important;
+    margin-top: 5%;
+}

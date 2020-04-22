@@ -24,14 +24,14 @@ const Location = ()=>{
   const finalLocationData = header.concat(locationsData)
   
   const options = {
-              title: "Location",
               pieHole: 0.4,
               is3D: true,
               language: 'hi_IN',
               legend: { position: 'bottom', alignment: 'end' },
            };
       return(
-          <div className="App">
+          <div className="container-fluid">
+            <div className="form-control graphHeading"> Location</div>
          <Chart
            chartType="PieChart"
            width="100%"

@@ -41,18 +41,24 @@ color="#0073e6"
         {month}
       </label>
       <div className="row countDiv">
-        <div className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 total">
-          <label className="totalHeading">Gross</label>
+      <div className="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 total">
+          <label className="totalHeading">gross</label>
           <div className="totalCount">{gross}</div>
         </div>
-  
-        <div className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-          
-          <div className="form-control">{ctcLabel+": "+ctc}
-          </div>
-          <div className="variation">
-                  {variationLabel+": "+variation+"("+percent+"%)"}
-              </div>
+        <div className="col-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
+          <button 
+          className="btn primary text-capitalize col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            {ctcLabel}
+            <span 
+            className="badge badge-pill">{ctc || 0}</span>
+          </button>
+          <hr className="nomarginHr"/>
+          <button 
+            className="btn primary text-capitalize col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            {variationLabel}
+            <span
+           className="badge badge-pill">{variation+"("+percent+"%)" || 0}</span>
+          </button>
         </div>
       </div>
     </div>

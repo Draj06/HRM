@@ -24,14 +24,15 @@ const Gender = ()=>{
   
   
   const options = {
-              title: "Age",
+              
               pieHole: 0.4,
               is3D: true,
               language: 'hi_IN',
               legend: { position: 'bottom', alignment: 'end' },
            };
       return(
-          <div className="App">
+          <div className="container-fluid">
+            <div className="form-control graphHeading"> Age</div>
          <Chart
            chartType="PieChart"
            width="100%"

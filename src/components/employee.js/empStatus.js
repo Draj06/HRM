@@ -6,7 +6,6 @@ import ProfilePic from "../../Images/profile.png";
 import { useQuery } from "@apollo/react-hooks";
 import Loader from "react-loader-spinner";
 import { useHistory } from "react-router-dom";
-import EmpHeader from '../employee.js/empHeader'
 import ReactHTMLTableToExcel from "react-html-table-to-excel";
 
 const EmpStatus = () => {
@@ -94,13 +93,13 @@ const EmpStatus = () => {
         let newFilter = [...filters[filter]];
         newFilter.push(name);
         setFilters({ ...filters, [filter]: newFilter });
-        
+        console.log(filterData().length)
       } else {
         setFilters({
           ...filters,
           [filter]: filters[filter].filter(item => item !== name)
         });
-        
+        console.log(filterData().length)
       }
       const tmp = filterGroups[filter];
   
@@ -129,7 +128,17 @@ const EmpStatus = () => {
     
   console.log(emp.emp_id)
    localStorage.removeItem('emp_Id')
+   localStorage.removeItem('emp_status')
+   localStorage.removeItem('status_for_toggle')
+   if(emp.emp_status==="Backedoff")
+   {
+    localStorage.setItem('status_for_toggle',"Arriving")
+   }
+   else{
+    localStorage.setItem('status_for_toggle',emp.emp_status)
+   }
    localStorage.setItem('emp_Id',emp.emp_id)
+   localStorage.setItem('emp_status',emp.emp_status)
    history.push('/employee_profile')
   };
 
@@ -137,12 +146,7 @@ const EmpStatus = () => {
      setStatus(e.target.value)
      
   }
-// const test = filterData().map(item=>{
-// if(item.emp_tentative_doj)
-// {
-//   alert("yes")
-// }
-// })
+
 const searchInput =(e) =>{
   setSearchState(e.target.value)
 }
@@ -153,12 +157,12 @@ const test = filterData().filter(item=>{
     <div className="container-fluid emp_Container">
       
       <div className="row">
-        <div className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-1">
+        <div className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
           <h5 className="headingEmploye">Employee List</h5>
         </div>
         <div className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 form-group">
           <div className="row">
-            <div className="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 mt-1">
+            <div className="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
               <select className="form-control">
                 <option disabled selected>
                   Sort By
@@ -168,7 +172,7 @@ const test = filterData().filter(item=>{
                 <option>SOmething2</option>
               </select>
             </div>
-            <div className="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 mt-1">
+            <div className="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
               <input
                 type="text"
                 className="form-control"
@@ -176,8 +180,18 @@ const test = filterData().filter(item=>{
                 onChange={searchInput}
               ></input>
             </div>
-            <div className="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 mt-1">
-              <button className="btn btn-info form-control">Export</button>
+            <div className="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+
+            <ReactHTMLTableToExcel
+              id="test-table-xls-button"
+              className="btn white_color_btn col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"
+              table="empTable"
+              filename="Employee"
+              sheet="tablexls"
+              buttonText="Export"
+                />
+              
+              {/* <button className="btn btn-info form-control">Export</button> */}
             </div>
           </div>
         </div>
@@ -197,7 +211,7 @@ const test = filterData().filter(item=>{
             {filterBy.map(item => (
         <div className="container-fluid">
           
-          <h5>{item}</h5>
+          <label className="custom-label">{item}</label>
           {(filterGroups[item] || []).map(li => (
             <div key={li.id} className="custom-control custom-checkbox">
               <div className="form-group each_form_group">

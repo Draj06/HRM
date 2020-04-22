@@ -23,14 +23,14 @@ const Gender = ()=>{
   const finalGenderData = header.concat(genderData)
   
   const options = {
-              title: "Gender",
               pieHole: 0.4,
               is3D: true,
               language: 'hi_IN',
               legend: { position: 'bottom', alignment: 'end' },
            };
       return(
-          <div className="App">
+          <div className="container-fluid">
+            <div className="form-control graphHeading"> Gender</div>
          <Chart
            chartType="PieChart"
            width="100%"
