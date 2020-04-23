@@ -32,7 +32,7 @@ const StatusBtn=(props)=> {
                 {data.getEmployeeAllStatusCount.map(item=>(
 
             <div className="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
-              <button className="btn primaryDarkColor col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"
+              <button className="btn primaryDarkColor col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-1"
               onClick={props.trigerOnStatusBtnClick}
               value={item.emp_status}
               >

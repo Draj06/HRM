@@ -5,8 +5,10 @@ import { Chart } from "react-google-charts";
 import { useQuery } from '@apollo/react-hooks';
 import Modal from 'react-modal'
 import { ToastContainer, toast } from 'react-toastify';
+import { useHistory } from "react-router-dom";
 
  const ManpowerDeptVsCount = () => {
+  const history = useHistory();
   const[modalIsOpen,setmodalIsOpen] = useState(false)
   const[dept,setDept] = useState('')
 
@@ -55,6 +57,28 @@ import { ToastContainer, toast } from 'react-toastify';
           colors: ['#66a3ff'],
           
         };
+
+
+        const empNameOnClick=(emp)=>{
+          localStorage.removeItem('emp_Id')
+          localStorage.removeItem('emp_status')
+          localStorage.removeItem('status_for_toggle')
+          if(emp.emp_status==="Backedoff")
+          {
+           localStorage.removeItem('status_for_toggle')
+           localStorage.setItem('status_for_toggle',"Arriving")
+          }
+          else{
+           localStorage.removeItem('status_for_toggle')
+           localStorage.setItem('status_for_toggle',emp.emp_status)
+          }
+          localStorage.setItem('emp_Id',emp.emp_id)
+          localStorage.setItem('emp_status',emp.emp_status)
+          history.push('/employee_profile')
+         }; 
+
+
+
      
         const chartEvents=[
           {
@@ -160,19 +184,28 @@ import { ToastContainer, toast } from 'react-toastify';
                   <Modal isOpen={modalIsOpen} shouldCloseOnOverlayClick={false} onRequestClose={()=>setmodalIsOpen(false)}>
                           <div>
                             
-                          <div 
-                          className="modalLingment"
-                          align="right">
-                          <span
-                           onClick={()=>setmodalIsOpen(false)}
-                          >
-                          <i className="fas fa-times fa-2x"></i>
-                          </span>
-                          </div>
-                          <div>
-                            <button
-                            className="btn btn-outline-dark modalHeader text-capitalize">{dept}</button> 
-                          </div>
+                          <div className="row modalHeader">
+                      <div className="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+                      <button
+                    className="btn modalBtn text-capitalize col-8 col-sm-8 col-md-4 col-lg-2 col-xl-2"
+                    align="left"
+                    >{dept}</button>
+                  </div>
+                  <div className="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                   
+                     <div 
+                      className="modalLingment"
+                      align="right">
+                      <span
+                      onClick={()=>setmodalIsOpen(false)}
+                      >
+                      <i className="fas fa-times fa-2x"></i>
+                  </span>
+                  </div>
+                  </div>
+                      
+
+                    </div>
                           <hr></hr>
                           <table className="table table-hover table-bordered">
                               <thead className="table-secondary">
@@ -191,7 +224,9 @@ import { ToastContainer, toast } from 'react-toastify';
                               <tbody>
                                 {finalData1.map(item=>(
                                    <tr>
-                                   <td>{item.emp_name}</td>
+                                   <td><span className="empNameTable" onClick={()=> empNameOnClick(item)}>
+                                {item.emp_name}</span>
+                              </td>
                                    <td>{item.emp_department}</td>
                                    <td>{item.emp_position}</td>
                                    <td>{item.emp_gender}</td>

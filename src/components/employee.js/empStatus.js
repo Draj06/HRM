@@ -126,15 +126,16 @@ const EmpStatus = () => {
   
   const empNameOnClick = (emp) => {
     
-  console.log(emp.emp_id)
    localStorage.removeItem('emp_Id')
    localStorage.removeItem('emp_status')
    localStorage.removeItem('status_for_toggle')
    if(emp.emp_status==="Backedoff")
    {
+    localStorage.removeItem('status_for_toggle')
     localStorage.setItem('status_for_toggle',"Arriving")
    }
    else{
+    localStorage.removeItem('status_for_toggle')
     localStorage.setItem('status_for_toggle',emp.emp_status)
    }
    localStorage.setItem('emp_Id',emp.emp_id)
@@ -157,12 +158,12 @@ const test = filterData().filter(item=>{
     <div className="container-fluid emp_Container">
       
       <div className="row">
-        <div className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+        <div className="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
           <h5 className="headingEmploye">Employee List</h5>
         </div>
-        <div className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 form-group">
+        <div className="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 form-group">
           <div className="row">
-            <div className="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+            <div className="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 mb-1">
               <select className="form-control">
                 <option disabled selected>
                   Sort By
@@ -172,7 +173,7 @@ const test = filterData().filter(item=>{
                 <option>SOmething2</option>
               </select>
             </div>
-            <div className="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+            <div className="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 mb-1">
               <input
                 type="text"
                 className="form-control"
@@ -180,7 +181,7 @@ const test = filterData().filter(item=>{
                 onChange={searchInput}
               ></input>
             </div>
-            <div className="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+            <div className="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 ">
 
             <ReactHTMLTableToExcel
               id="test-table-xls-button"

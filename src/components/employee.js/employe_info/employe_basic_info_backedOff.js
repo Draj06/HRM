@@ -96,15 +96,15 @@ const Employe_basic_info_backedOff = (props) => {
   return (
     <div className="container-fluid emp_sideLeft">
         <ToastContainer
-position="top-right"
-autoClose={5000}
-hideProgressBar={false}
-newestOnTop={false}
-closeOnClick
-rtl={false}
-pauseOnVisibilityChange
-draggable
-pauseOnHover
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnVisibilityChange
+          draggable
+          pauseOnHover
 />
       <div className="row ">
         <div className="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 ">
@@ -277,7 +277,7 @@ pauseOnHover
           </label>
         </div>
 
-        <div className="form-group col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4">
+        <div className="form-group col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
           <label htmlFor="backedOff_toggle" className="labelEmploye mt-2 mr-4">
            Employee Status :
           </label>

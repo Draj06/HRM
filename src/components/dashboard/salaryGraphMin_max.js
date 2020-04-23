@@ -31,7 +31,7 @@ const Salary_Dept_Min_Max=()=> {
       
       const dataWIthoutType = data.getDashSalaryGraphTwoByMonYear.map(item=>{
         return{
-          dept_name:item.emp_dept_name,
+          dept_name:item.emp_department,
           min_salary:item.min_salary,
           max_salary:item.max_salary,
           avg_salary:item.avg_salary,
@@ -98,7 +98,7 @@ const Salary_Dept_Min_Max=()=> {
     ];
 
           
-
+    console.log(data.getDashSalaryGraphTwoByMonYear)
     if(data.getDashSalaryGraphTwoByMonYear.length===0)
        {
           
@@ -153,19 +153,28 @@ const Salary_Dept_Min_Max=()=> {
                 <Modal isOpen={modalIsOpen} shouldCloseOnOverlayClick={false} onRequestClose={()=>setmodalIsOpen(false)}>
                         <div>
                           
-                        <div 
-                        className="modalLingment"
-                        align="right">
-                        <span
-                         onClick={()=>setmodalIsOpen(false)}
-                        >
-                        <i className="fas fa-times fa-2x"></i>
-                        </span>
-                        </div>
-                        <div>
-                          <button
-                          className="btn btn-outline-dark modalHeader text-capitalize">{dept}</button> 
-                        </div>
+                        <div className="row modalHeader">
+                      <div className="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+                      <button
+                    className="btn modalBtn text-capitalize col-8 col-sm-8 col-md-4 col-lg-2 col-xl-2"
+                    align="left"
+                    >{dept}</button>
+                  </div>
+                  <div className="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                   
+                     <div 
+                      className="modalLingment"
+                      align="right">
+                      <span
+                      onClick={()=>setmodalIsOpen(false)}
+                      >
+                      <i className="fas fa-times fa-2x"></i>
+                  </span>
+                  </div>
+                  </div>
+                      
+
+                    </div>
                         <hr></hr>
                         <table className="table table-hover table-bordered">
                             <thead className="table-secondary">

@@ -4,9 +4,11 @@ import Modal from 'react-modal'
 import Loader from 'react-loader-spinner'
 import {MANPOWER_OVERBOARD_ON_DATE_CHANGE,MANPOWER_OVERBOARD_ON_CLICK} from '../../queries'
 import { useQuery } from '@apollo/react-hooks'
+import { useHistory } from "react-router-dom";
 
 
 const Manpower_onChange_Overboard =() =>{
+  const history = useHistory();
   const[modalIsOpen,setmodalIsOpen] = useState(false)
   const[status,setStatus] = useState('')
   const[month,setMonth] = useState('')
@@ -44,34 +46,36 @@ color="#0073e6"
    let month_year_status = Month_year.split(':')
    
    let sepStatusDate = month_year_status[1].split(' ')
-   if(sepStatusDate[0]==="April")
-   {
+  
      let month = sepStatusDate[0]
      let yearVal = parseInt(sepStatusDate[1])
      let statusM = month_year_status[0]
-      
-     setMonth(month)
-     setYear(yearVal)
-     setStatus(capitalizeFirstLetter(statusM))
-     //setmodalIsOpen(true)
-     
-
-     
-   }
-   else{
-     let month = sepStatusDate[0]
-     let yearVal = parseInt(sepStatusDate[1])
-     let statusM = month_year_status[0]
-         //console.log(month_year_status[0])
+         
          setMonth(month)
          setYear(yearVal)
          setStatus(capitalizeFirstLetter(statusM))
-        // console.log(yearVal+":"+month+":"+statusM)
+        
             setmodalIsOpen(true)
          
-   }
- }
    
+ }
+ const empNameOnClick=(emp)=>{
+  localStorage.removeItem('emp_Id')
+  localStorage.removeItem('emp_status')
+  localStorage.removeItem('status_for_toggle')
+  if(emp.emp_status==="Backedoff")
+  {
+   localStorage.removeItem('status_for_toggle')
+   localStorage.setItem('status_for_toggle',"Arriving")
+  }
+  else{
+   localStorage.removeItem('status_for_toggle')
+   localStorage.setItem('status_for_toggle',emp.emp_status)
+  }
+  localStorage.setItem('emp_Id',emp.emp_id)
+  localStorage.setItem('emp_status',emp.emp_status)
+  history.push('/employee_profile')
+ };
 
   const MonthData = ({
     arrive,
@@ -195,6 +199,8 @@ else
         />
         
         
+         
+        
         let finalData = result2.data.getOverBoardEmpBasedOnMonthYearStatus
    
         
@@ -242,7 +248,9 @@ else
                       <tbody>
                         {finalData.map(item=>(
                            <tr>
-                           <td>{item.emp_name}</td>
+                           <td><span className="empNameTable" onClick={()=> empNameOnClick(item)}>
+                                {item.emp_name}</span>
+                              </td>
                            <td>{item.emp_department}</td>
                            <td>{item.emp_position}</td>
                            <td>{item.emp_gender}</td>
