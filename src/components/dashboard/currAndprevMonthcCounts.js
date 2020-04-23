@@ -5,11 +5,13 @@ import Loader from 'react-loader-spinner'
 import {MANPOWER_CURR_PREV_MONTH_COUNT,MANPOWER_OVERBOARD_ON_CLICK} from '../../queries'
 import { useQuery} from '@apollo/react-hooks'
 import { ToastContainer, toast } from 'react-toastify';
+import { useHistory } from "react-router-dom";
 
 
 
 
 const CurrAndprevMonthcCounts =() =>{
+  const history = useHistory();
   const[modalIsOpen,setmodalIsOpen] = useState(false)
   const[status,setStatus] = useState('')
   const[month,setMonth] = useState('')
@@ -39,31 +41,10 @@ color="#0073e6"
     
     console.log(Month_year)
     let month_year_status = Month_year.split(':')
-    
+    console.log(month_year_status)
     let sepStatusDate = month_year_status[1].split(' ')
-    if(sepStatusDate[0]==="April")
-    {
-      let month = sepStatusDate[0]
-      let yearVal = parseInt(sepStatusDate[1])
-      let statusM = month_year_status[0]
-      console.log(sepStatusDate)
-      setMonth(month)
-      setYear(yearVal)
-      setStatus(capitalizeFirstLetter(statusM))
-      setmodalIsOpen(true)
-      
-
-        toast.error("something went wrong", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true
-          });
-      
-    }
-    else{
+   
+    
       let month = sepStatusDate[0]
       let yearVal = parseInt(sepStatusDate[1])
       let statusM = month_year_status[0]
@@ -71,20 +52,13 @@ color="#0073e6"
           setMonth(month)
           setYear(yearVal)
           setStatus(capitalizeFirstLetter(statusM))
-         // console.log(yearVal+":"+month+":"+statusM)
-         toast.error("something wentr wrong", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true
-          });
+        
           setmodalIsOpen(true)
           
-    }
+    
   }
    
+  
 
   const MonthData = ({
     arrive,
@@ -96,7 +70,6 @@ color="#0073e6"
   }) => (
     <div className="container-fluid">
       <label 
-  
       className="monthYr" align="left">
         {month}
       </label>
@@ -108,10 +81,12 @@ color="#0073e6"
   
         <div className="col-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
           <button 
-          onClick={modalClick}
+          onClick={modalClick} 
           value={arriveLabel+":"+month}
+         
           className="btn primary  text-capitalize col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
             {arriveLabel}
+            
             <span 
             value={arriveLabel+":"+month}
             className="badge badge-pill">{arrive || 0}</span>
@@ -143,6 +118,24 @@ color="#0073e6"
               <ToastContainer />
     </div>
   );
+  const empNameOnClick=(emp)=>{
+    localStorage.removeItem('emp_Id')
+    localStorage.removeItem('emp_status')
+    localStorage.removeItem('status_for_toggle')
+    if(emp.emp_status==="Backedoff")
+    {
+     localStorage.removeItem('status_for_toggle')
+     localStorage.setItem('status_for_toggle',"Arriving")
+    }
+    else{
+     localStorage.removeItem('status_for_toggle')
+     localStorage.setItem('status_for_toggle',emp.emp_status)
+    }
+    localStorage.setItem('emp_Id',emp.emp_id)
+    localStorage.setItem('emp_status',emp.emp_status)
+    history.push('/employee_profile')
+   };
+  
   
     const { current_month, previous_month } = result1.data.getCurPrevMonthEmps;
   
@@ -219,6 +212,7 @@ color="#0073e6"
         type="ThreeDots"
         color="#0073e6"
         />
+      
         let finalData = result2.data.getOverBoardEmpBasedOnMonthYearStatus
         console.log(finalData.length)
         
@@ -267,7 +261,9 @@ color="#0073e6"
                       <tbody>
                         {finalData.map(item=>(
                            <tr>
-                           <td>{item.emp_name}</td>
+                           <td><span className="empNameTable" onClick={()=> empNameOnClick(item)}>
+                                {item.emp_name}</span>
+                              </td>
                            <td>{item.emp_department}</td>
                            <td>{item.emp_position}</td>
                            <td>{item.emp_gender}</td>

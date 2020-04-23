@@ -2,15 +2,21 @@ import React, { useState } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import { DEPT_DESIG } from "../../queries";
 import Loader from "react-loader-spinner";
-import ReactHTMLTableToExcel from "react-html-table-to-excel";
+import { CSVLink } from "react-csv";
 
 const Settings = () => {
+  const camelCase = str => {
+    return str.substring(0, 1).toUpperCase() + str.substring(1);
+  };
   const [header, setheader] = useState("Departments");
   const [headerMain, setheaderMain] = useState(" > Departments");
   const [initialState, setInitialState] = useState("departments");
   const { loading, error, data } = useQuery(DEPT_DESIG, {
     variables: { initialState },
   });
+
+
+
 
   if (error)
     return (
@@ -37,7 +43,18 @@ const Settings = () => {
     setheader(val);
     setheaderMain(" > " + val);
   };
+  const filterColumns = finalData => {
+    const columns = Object.keys(finalData[0]);
+    let headers = [];
+    columns.forEach((col, idx) => {
+      if (col !== "__typename") {
+        // OR if (idx !== 0)
+        headers.push({ label: camelCase(col), key: col });
+      }
+    });
 
+    return headers;
+  };
   return (
     <div className="container-fluid">
       <div className="row">
@@ -48,16 +65,11 @@ const Settings = () => {
           className="cssHeadingClass text-capitalize col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6"
           align="right"
         >
-          
-          <ReactHTMLTableToExcel
-              id="test-table-xls-button"
-              className="btn white_color_btn col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4"
-              table="dep_des_table"
-              filename="Employee"
-              sheet="tablexls"
-              buttonText="Export"
-                />
-          
+          <CSVLink data={finalData} headers={filterColumns(finalData)} filename={headerMain+".csv"}
+          className="btn white_color_btn col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4"
+          >
+        Export
+      </CSVLink>
         </div>
       </div>
       <hr></hr>
@@ -66,15 +78,15 @@ const Settings = () => {
         <div className="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 form-group">
           <button
             onClick={btnClick}
-            value="departments"
-            className="btn primary col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"
+            value="departments" 
+            className="btn primary_light col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"
           >
             Departments
           </button>
           <button
             onClick={btnClick}
             value="designations"
-            className="btn primary col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-1"
+            className="btn primary_light col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-1"
           >
             Designations
           </button>

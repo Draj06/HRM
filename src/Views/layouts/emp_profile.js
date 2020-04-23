@@ -16,8 +16,7 @@ const Emp_profile =()=> {
     const [activeTab, setActiveTab] = useState("BasicInfo");
     const onSideBtnClick=(e)=>{
         setActiveTab(e.target.value)
-    }
- 
+    } 
     return (
         <div className="container-fluid">
             <h5 className="headingEmploye">Employee Profile</h5>

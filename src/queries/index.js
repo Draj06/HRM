@@ -112,6 +112,8 @@ query getDynamicManpowerOverBoarddata($month1: String!,$year1: Int!) {
 export const MANPOWER_OVERBOARD_ON_CLICK =gql `
 query getOverBoardEmpBasedOnMonthYearStatus($month: String!,$year: Int!,$status: String!) {
       getOverBoardEmpBasedOnMonthYearStatus(month:$month,year:$year,status:$status){
+        emp_id
+        emp_status
         emp_name
         emp_department
         emp_position
@@ -128,6 +130,8 @@ export const MANPOWER_DEPARTMENT_EMPLOYE =gql `
 query getOverBoardEmpBasedOnDeptMonthYearStatus($month: String!,$year: Int!,$dept: String!) {
   getOverBoardEmpBasedOnDeptMonthYearStatus(month:$month,year:$year,dept:$dept)
   {
+    emp_id
+    emp_status
     emp_name
     emp_department
     emp_position
@@ -186,7 +190,7 @@ query {
     query getDashSalaryGraphTwoByMonYear($month: String!,$year: Int!) {
     getDashSalaryGraphTwoByMonYear(month:$month,year:$year){
       
-      emp_dept_name
+      emp_department
       min_salary
       max_salary
       avg_salary
@@ -199,14 +203,35 @@ export const SALARY_GRAPH1_2_DEPT_WISE_POPUP =gql `
 query getSalaryGgraphPopUpByMonYearDept($month: String!,$year: Int!,$dept: String!) {
   getSalaryGgraphPopUpByMonYearDept(month:$month,year:$year,dept:$dept)
   {
+    emp_id
+    emp_status
     emp_name
-    emp_dept_name
-    emp_position_name
+    emp_department
+    emp_position
     emp_ctc
     emp_gross_salary
       }
       }`
 
+      export const SALARY_GRAPG1_OVERBOARD_ON_CLICK_CHANGE =gql `
+      query getDynamicSalaryOverBoardByMonthYear($month1: String!,$year1: Int!) {
+        getDynamicSalaryOverBoardByMonthYear(month:$month1,year:$year1)
+        {
+        current_mon{
+          cctc
+          cgross
+          cvariation
+          cmon_year
+        }
+        previous_mon{
+          pctc
+          pgross
+          pvariation
+          pmon_year
+        }
+      }
+    }`
+    
 
                 //  -----------------------------------------------   Employee queries      --------------------------------------------
 

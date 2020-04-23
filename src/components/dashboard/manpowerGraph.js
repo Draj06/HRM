@@ -114,7 +114,7 @@ if(!childVisible)
       <Chart
         width={'99%'}
         height={'350px'}
-        chartType="ColumnChart"
+        chartType="LineChart"
         data={finalData}
         options={options}
         chartEvents={chartEvents}
