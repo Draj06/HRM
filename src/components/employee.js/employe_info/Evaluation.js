@@ -10,8 +10,8 @@ import { ToastContainer, toast } from 'react-toastify';
 
 const Evaluation = (props) => {
   const { register, handleSubmit, errors } = useForm();
+  const [disabled, setdisabled] = useState(false);
   let type = props.type;
-  console.log(type)
   let id = localStorage.getItem("emp_Id");
   const { error, loading, data } = useQuery(GET_EMP_Evaluation, {
     variables: { type, id },
@@ -61,6 +61,7 @@ const Evaluation = (props) => {
 
   const onSubmit = (data) => {
     setcircleloading(true)
+    setdisabled(true);
     let { evaluaterName, evaluationNote, evaluationType } = data;
     console.log(evaluaterName + ":" + evaluationNote + ":" + evaluationType);
     addEmployeeEvaluationInfo({
@@ -98,9 +99,8 @@ const Evaluation = (props) => {
       <div className="form-group col-10 col-sm-10 col-md-8 col-lg-3 col-xl-3">
         <button className="btn white_color_btn" 
         onClick={() => setmodalIsOpen(true)}
-        
         >
-       
+
         <i className="fas fa-plus fa-xl"></i> Add Evaluation
            </button>
       </div>
@@ -128,31 +128,34 @@ const Evaluation = (props) => {
               name="evaluaterName"
               id="evaluaterName"
               ref={register({ required: true })}
+              className={errors.evaluaterName ? "inputColorLine" : ""}
             />
             {errors.evaluaterName && (
-              <span className="text-danger">Evaluator name is required</span>
+              <span className="inputTextError">Evaluator name is required</span>
             )}
             <br></br>
             <label htmlFor="evaluaterName">Evaluator's Name</label>
           </div>
-          <div className="form-group col-10 col-sm-10 col-md-8 col-lg-10 col-xl-10">
+          <div className="form-group col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
             <input
               type="text"
               name="evaluationNote"
               id="evaluationNote"
+              className={errors.evaluationNote ? "inputColorLine" : ""}
               ref={register({ required: true })}
             />
-            <br></br>
+            
             {errors.evaluationNote && (
-              <span className="text-danger">Evaluator note is required</span>
+              <span className="inputTextError">Evaluator note is required</span>
             )}
             <br></br>
             <label htmlFor="evaluationNote">Evaluation Note</label>
           </div>
           <div className="form-group col-10 col-sm-10 col-md-8 col-lg-4 col-xl-4">
             <select
-              class="form-control"
+              
               name="evaluationType"
+              className={errors.evaluationType ? "inputColorLine form-control" : "form-control"}
               ref={register({ required: true })}
             >
               <option value="Recommended">Recommended</option>
@@ -160,14 +163,16 @@ const Evaluation = (props) => {
               <option value="Backlisted">Backlisted</option>
             </select>
             {errors.evaluationType && (
-              <span className="text-danger">Evaluator type is required</span>
+              <span className="inputTextError">Evaluator type is required</span>
             )}
             <br></br>
             <label htmlFor="evaluationNote">Evaluation Note</label>
           </div>
           <div className="form-group ">
           
-            <button className="btn primary  col-7 col-sm-7 col-md-5 col-lg-1 col-xl-1 ml-3">
+            <button className="btn primary  col-7 col-sm-7 col-md-5 col-lg-1 col-xl-1 ml-3"
+            disabled={disabled ? "disabled" : ""}
+            >
             {circleloading && (
             <span class="spinner-border float-left"></span>
           )}

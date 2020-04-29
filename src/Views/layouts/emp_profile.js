@@ -14,18 +14,23 @@ import Evaluation from '../../components/employee.js/employe_info/Evaluation'
 const Emp_profile =()=> {
     
     const [activeTab, setActiveTab] = useState("BasicInfo");
+    const [activeButton, setActiveButton] = useState("BasicInfo");
     const onSideBtnClick=(e)=>{
         setActiveTab(e.target.value)
+        setActiveButton(e.target.value);
     } 
     return (
         <div className="container-fluid">
             <h5 className="headingEmploye">Employee Profile</h5>
             <hr />
             <div className="row">
-            <div className="col-12 col-sm-12 col-md-4 col-lg-2 col-xl-2 mt-1">
-                <Buttons trigerOnClickEmpSideBtn={onSideBtnClick}/>
+            <div className="col-12 col-sm-12 col-md-3 col-lg-2 col-xl-2 mt-1">
+            <Buttons
+                activeButton={activeButton}
+                trigerOnClickEmpSideBtn={onSideBtnClick}
+            />
             </div>
-                <div className="col-12 col-sm-12 col-md-8 col-lg-10 col-xl-10 mt-1">
+                <div className="col-12 col-sm-12 col-md-9 col-lg-0 col-xl-10 mt-1">
                 {activeTab === "BasicInfo" && <EmpBasicInfo type="BasicInfo"/>}
                 {activeTab === "Emp_position" && <EmpPosition type="Emp_position"/>}
                 {activeTab === "emp_salary" && <Salary type="emp_salary"/>}

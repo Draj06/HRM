@@ -25,23 +25,30 @@ const StatusBtn=(props)=> {
     );
     
     
-
+console.log(data.getEmployeeAllStatusCount)
     return (
         <div>
-            <div className="row emp_sideRightBtns">
-                {data.getEmployeeAllStatusCount.map(item=>(
 
-            <div className="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
-              <button className="btn primaryDarkColor col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-1"
-              onClick={props.trigerOnStatusBtnClick}
-              value={item.emp_status}
-              >
-                {item.emp_status}
-               
-                <span className="badge badge-pill primary">{item.total_count}</span>
-              </button>
-            </div>
-                ))}
+            <div className="row emp_sideRightBtns">
+                {data.getEmployeeAllStatusCount.map(item=>{
+            const className = props.activeButton === item.emp_status ? "primaryDarkColor" : "";
+           return(
+               <div 
+               key={item.value}
+               className="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
+                <button 
+                 className={`btn primary_light mb-1 ${className}
+                 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-1"
+                 `}
+                onClick={props.trigerOnStatusBtnClick}
+                value={item.emp_status}
+                >
+                  {item.emp_status}
+                  <span className="badge badge-pill primary">{item.total_count}</span>
+                </button>
+              </div>
+              )
+                   })}
             
           </div>
         </div>

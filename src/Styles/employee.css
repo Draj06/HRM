@@ -60,12 +60,6 @@ p{
     cursor: pointer;
 }
 
-input {
-    outline: 0;
-    border-width: 0 0 2px;
-    border-color: #0e0808;
-    width: 90%;
-}
 .userPicEmploye{
     width: 90%;
     height: 100%;
@@ -75,9 +69,6 @@ input {
     color: #41417a;
     font-weight: 550;
 }
-input[type=text]:disabled {
-    background:white;
-  }
 .ReactModal__Content{
     height: 60% !important;
     margin-top: 5%;

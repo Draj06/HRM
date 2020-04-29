@@ -1,13 +1,30 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 import Loader from "react-loader-spinner";
 import { GET_EMP_SALARY } from "../../../queries";
 import { useQuery } from "@apollo/react-hooks";
+import test from "../../../Test.json";
+import { useForm } from "react-hook-form";
+
 const Salary =(props)=> {
     let type = props.type;
     let id = localStorage.getItem("emp_Id");
+    
+  const [disabled, setdisabled] = useState(true);
+  const { register, handleSubmit, reset, errors } = useForm();
+  const [circleloading, setcircleloading] = useState(false);
+  const [cancelData, setCancelData] = useState({});
+  const [showsave, setshowsave] = useState(false);
+  const [formData, setFormData] = useState({});
     const { error, loading, data } = useQuery(GET_EMP_SALARY, {
       variables: { type, id },
     });
+
+    useEffect(() => {
+      if (data) {
+        setFormData(data.getEmployeeSalaryCtc);
+        setCancelData(data.getEmployeeSalaryCtc);
+      }
+    }, [data]);
  
     if (loading)
     return (
@@ -29,7 +46,31 @@ const Salary =(props)=> {
     );
 
   
+
   let empData = data.getEmployeeSalaryCtc
+
+  const edit = () => {
+    setdisabled(false);
+    setshowsave(true);
+  };
+  const onSubmit = (e) => {
+    setcircleloading(true);
+    setdisabled(true);
+  };
+
+  const handleChange = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+  const cancel = () => {
+    setdisabled(true);
+    setshowsave(false);
+    setFormData(cancelData);
+    reset();
+  };
+
+
     if(empData===null)
      return(
 
@@ -44,21 +85,57 @@ const Salary =(props)=> {
 
     return (
         <div className="container-fluid">
-            <div className="row">
+       <form onSubmit={handleSubmit(onSubmit)}>
+        {test.userType==="admin" && showsave===false && 
+        <div align="right">
+        <button className="btn white_color_btn" 
+        type="button"
+        onClick={edit}>
+          Edit
+        </button>
+      </div>}
+      {showsave===true &&  
+      <div align="right">
+        <button className="btn white_color_btn mr-1" 
+        type="button"
+        onClick={cancel}
+        > 
+          Cancel
+        </button>
+      <button className="btn primaryDarkColor" 
+        type="submit"
+        disabled={disabled}
+        > 
+        {circleloading && (
+            <span class="spinner-border float-left"></span>
+          )}
+          Save
+        </button>
+        </div>
+        }
+            <div className="row emp_sideLeft mt-2">
         <div className="form-group col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4">
           <input
             type="text"
-            disabled
-            id="emp_designation"
-            value={(empData.Employee_monthly_current_cost_to_company).toLocaleString('en-IN')}
+            id="Employee_monthly_current_cost_to_company"
+            name="Employee_monthly_current_cost_to_company"
+            onChange={handleChange}
+            value={formData.Employee_monthly_current_cost_to_company}
+            disabled={disabled}
+            ref={register({ required: true })}
+            
           />
           <br />
-          <label for="emp_designation" className="labelEmploye">
+          {errors.Employee_monthly_current_cost_to_company && (
+              <div><span className="text-danger">Employee CTC is required</span></div>
+            )}
+          <label htmlFor="Employee_monthly_current_cost_to_company" className="labelEmploye">
             Salary
           </label>
         </div>
         
-    </div>
+        </div>
+        </form>
         </div>
     )
 }
