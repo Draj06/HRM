@@ -423,13 +423,13 @@ query getEmployeeSalaryCtc($type: String!, $id: String!) {
 export const PAY_DATA = gql`
   query getEmpPayroleByMonthYear($year: Int!, $month: String!) {
     getEmpPayroleByMonthYear(year: $year, month: $month) {
-      emp_payrole_id
       emp_id
+      emp_status
       emp_number
       emp_name
-      emp_status
-      emp_salary_month
-      emp_salary_year
+      emp_department
+      emp_position
+      emp_position
       emp_actual_no_of_days
       emp_billable_no_of_days
       emp_ctc
@@ -440,9 +440,7 @@ export const PAY_DATA = gql`
       emp_net_salary
       emp_aadhar_no
       emp_uan_no
-      emp_status
-      emp_dept_name
-      emp_position_name
+      month_year
     }
   }
 `;

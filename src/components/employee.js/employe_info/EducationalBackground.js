@@ -1,16 +1,29 @@
-import React from 'react'
+import React,{useState,useEffect} from "react";
+import { useForm } from "react-hook-form";
 import Loader from "react-loader-spinner";
 import { GET_EMP_EDUCATION } from "../../../queries";
 import { useQuery } from "@apollo/react-hooks";
+import Education from './educationBackgroundData'
 
 const EducationalBackground=(props)=> {
 
     let type = props.type;
     let id = localStorage.getItem("emp_Id");
+
+  const [disabled, setdisabled] = useState(true);
+  const { register, handleSubmit, reset, errors } = useForm();
+  const [circleloading, setcircleloading] = useState(false);
+  const [cancelData, setCancelData] = useState({});
+  const [showsave, setshowsave] = useState(false);
+  const [formData, setFormData] = useState({});
+
     const { error, loading, data } = useQuery(GET_EMP_EDUCATION, {
       variables: { type, id },
     });
  
+    
+
+
     if (loading)
     return (
       <Loader
@@ -29,9 +42,8 @@ const EducationalBackground=(props)=> {
         </div>
       </div>
     );
-
     let empData = data.getEmployeeEducationInfo
-    console.log(empData)
+
     if(empData===null)
      return(
 
@@ -44,102 +56,9 @@ const EducationalBackground=(props)=> {
      )
     return (
         <div className="container-fluid"> 
-        {empData.map(item=>(
-        <div>
-        <div className="row">
-            
-
-            
-        <div className="form-group col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4">
-          <input
-            type="text"
-            disabled
-            id="emp_qualification"
-            value={item.Employee_qualification}
-          />
-          <br />
-          <label htmlFor="emp_qualification" className="labelEmploye">
-            Qualification
-          </label>
-        </div>
-        <div className="form-group col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4">
-          <input
-            type="text"
-            disabled
-            id="emp_specification"
-            value={item.Employee_specification}
-          />
-          <br />
-          <label htmlFor="emp_specification" className="labelEmploye">
-           Specification
-          </label>
-        </div>
-        <div className="form-group col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4">
-          <input
-            type="text"
-            disabled
-            id="institute_name"
-            value={item.Institute_name}
-          />
-          <br />
-          <label htmlFor="institute_name" className="labelEmploye">
-            Institute name
-          </label>
-        </div>
-        <div className="form-group col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4">
-          <input
-            type="text"
-            disabled
-            id="start_date"
-            value={item.Start_date}
-          />
-          <br />
-          <label htmlFor="start_date" className="labelEmploye">
-            Start date
-          </label>
-        </div>
-        <div className="form-group col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4">
-          <input
-            type="text"
-            disabled
-            id="end_date"
-            value={item.End_date}
-          />
-          <br />
-          <label htmlFor="end_date" className="labelEmploye">
-            End date
-          </label>
-        </div>
-        <div className="form-group col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4">
-          <input
-            type="text"
-            disabled
-            id="cgps"
-            value={item.CGPA}
-          />
-          <br />
-          <label htmlFor="cgpa" className="labelEmploye">
-            CGPA
-          </label>
-        </div>
-        <div className="form-group col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4">
-          <input
-            type="text"
-            disabled
-            id="percentage"
-            value={item.Percentage}
-          />
-          <br />
-          <label htmlFor="percentage" className="labelEmploye">
-            Percentage
-          </label>
-        </div>
-        
-        </div> 
-        <hr /> 
-         </div>
-         ))}
-             
+        {empData.map((item) => (
+        <Education item={item} />
+      ))}
         </div>
     )
 }

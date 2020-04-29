@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link,NavLink } from 'react-router-dom';
 import { Navbar,Nav } from 'react-bootstrap';
 import Logo from '../../Images/Company_logo.png'
 import '../../Styles/login_register.css'
@@ -26,16 +26,22 @@ console.log(test)
     {test==="yes" &&(
     <Nav className="mr-auto">
     <li className="nav-item">
-      <Link className="nav-link" id="dashboard" to="/dashboard"
-      >Dashboard</Link>
+      <NavLink 
+      activeClassName="active"
+      className="nav-link" id="dashboard" to="/dashboard"
+      >Dashboard</NavLink>
       </li>
       <li className="nav-item">
-      <Link className="nav-link" to="/employee" id="employee"
+      <NavLink
+      activeClassName="active"
+      className="nav-link" to="/employee" id="employee"
       aria-controls="responsive-navbar-nav" 
-      >Employee</Link>
+      >Employee</NavLink>
       </li>
        <li className="nav-item">
-      <Link className="nav-link menuStyle" to="payroll" id="payroll">payroll</Link>
+      <NavLink
+      activeClassName="active"
+      className="nav-link menuStyle" to="payroll" id="payroll">payroll</NavLink >
       </li>
       
       {/* <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
@@ -52,32 +58,35 @@ console.log(test)
     <Nav className="ml-auto">
     
     <li className="nav-item">
-      <Link to="/"
+      <Link
       
       className="nav-link"><i className="fas fa-search"></i></Link>
       </li>
       <li className="nav-item">
-      <Link 
+      <NavLink 
       to="/settings"
-      className="nav-link"><i className="fas fa-cog"></i></Link>
+      activeClassName="active"
+      className="nav-link"><i className="fas fa-cog"></i></NavLink>
       </li>
       <li className="nav-item">
       <Link 
-      to="/"
+    
       className="nav-link"><i className="fas fa-bell mr-3"></i></Link>
       </li>
-      <li class="nav-item">
-        <Link class="nav-link" to="/"><i class="fas fa-sign-out-alt"></i> <span className="login_register_nav"> Logout</span></Link>
+      <li className="nav-item">
+        <Link className="nav-link"
+        ><i className="fas fa-sign-out-alt">
+          </i> <span className="login_register_nav"> Logout</span></Link>
       </li>
       </Nav>
       )}
       {test==="no" &&(
       <Nav className="ml-auto">
-      <li class="nav-item">
-        <Link class="nav-link" to="/"><i class="fas fa-sign-in-alt"></i> <span className="login_register_nav"> Login</span></Link>
+      <li className="nav-item">
+        <Link className="nav-link"><i className="fas fa-sign-in-alt"></i> <span className="login_register_nav"> Login</span></Link>
       </li>
-      <li class="nav-item">
-        <Link class="nav-link" to="/"><i class="fas fa-user"></i><span className="login_register_nav"> Sign Up</span></Link>
+      <li className="nav-item">
+        <Link className="nav-link"><i className="fas fa-user"></i><span className="login_register_nav"> Sign Up</span></Link>
       </li>
       </Nav>
       )}

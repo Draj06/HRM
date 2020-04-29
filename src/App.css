@@ -5,12 +5,13 @@
 .test{
   text-align: center;
 }
-.nav-link:hover{
-  color: #05080c !important; 
-  background-color: #6eadf5;
-  border-radius: 10px;
-  text-align: center;
+.nav-link.active  {
+  border-bottom: 4px solid #0d47a1;
+
 } 
+.nav-link.test{
+  border-bottom: 4px solid #0d47a1;;
+}
 #dashboard,#employee,#payroll{
   color: #5e6063;
   font-size: 1.3rem;
@@ -148,7 +149,6 @@ table.table-bordered>thead>tr>th {
 }
 .spinner-border{
 margin-top: -2px;
-
 }
 .badge-pill{
   color: white;
@@ -187,7 +187,28 @@ color: white;
 .fa-plus{
   background-color: #4e7fcc;
   border-radius: 12px;
+  color: white; 
+}
+.btn.primaryDarkColor{
+  background-color: #0d47a1;
+
+}
+.primaryDarkColor:hover
+{
   color: white;
-  
-  
+}
+input {
+  outline: 0;
+  border-width: 0 0 2px;
+  border-color: #080808;
+  width: 90%;
+}
+input[type=text]:disabled {
+  background:white;
+}
+.inputColorLine{
+  border-color:#f04014;
+}
+.inputTextError{
+  color: #ff6565;
 }

@@ -4,9 +4,16 @@ import { GET_EMPLOYEE_DATA } from "../../queries";
 import StatusBtn from "./statusBtn";
 import ProfilePic from "../../Images/profile.png";
 import { useQuery } from "@apollo/react-hooks";
+import { Dropdown } from 'react-bootstrap'
 import Loader from "react-loader-spinner";
-import { useHistory } from "react-router-dom";
-import ReactHTMLTableToExcel from "react-html-table-to-excel";
+import { useHistory, Link } from "react-router-dom";
+import json from '../../Test.json'
+import { CSVLink } from "react-csv";
+
+
+const camelCase = str => {
+  return str.substring(0, 1).toUpperCase() + str.substring(1);
+};
 
 const EmpStatus = () => {
   const history = useHistory();
@@ -23,6 +30,7 @@ const EmpStatus = () => {
   const [initFilter, setInitFilter] = useState({});
   const [initGroups, setInitGroups] = useState({});
   const [status, setStatus] = useState("Active");
+  const [activeButton, setActiveButton] = useState("Active");
   const [searchStatus, setSearchState] = useState("")
   const { error, loading, data } = useQuery(GET_EMPLOYEE_DATA, {
     variables: { status },
@@ -93,13 +101,13 @@ const EmpStatus = () => {
         let newFilter = [...filters[filter]];
         newFilter.push(name);
         setFilters({ ...filters, [filter]: newFilter });
-        console.log(filterData().length)
+        
       } else {
         setFilters({
           ...filters,
           [filter]: filters[filter].filter(item => item !== name)
         });
-        console.log(filterData().length)
+        
       }
       const tmp = filterGroups[filter];
   
@@ -145,21 +153,51 @@ const EmpStatus = () => {
 
   const StatusBtnOnClick = (e) =>{
      setStatus(e.target.value)
+     setActiveButton(e.target.value);
      
   }
 
 const searchInput =(e) =>{
   setSearchState(e.target.value)
 }
-const test = filterData().filter(item=>{
+const tableFilterData = filterData().filter(item=>{
   return item.emp_name.toLowerCase().indexOf(searchStatus.toLowerCase()) !== -1
 })
+
+const filterColumns = tableFilterData => {
+  const columns = Object.keys(tableFilterData[0]);
+  let headers = [];
+  columns.forEach((col, idx) => {
+    if (col !== "__typename" && col !== "emp_photo" && col !== "emp_id") {
+      // OR if (idx !== 0)
+      headers.push({ label: camelCase(col), key: col });
+    }
+  });
+
+  return headers;
+};
+
+
   return (
     <div className="container-fluid emp_Container">
       
       <div className="row">
-        <div className="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-          <h5 className="headingEmploye">Employee List</h5>
+      <div className="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+        {console.log(json)}
+        {json.userType!=="admin" && <h5 className="headingEmploye">Employee List</h5>}
+        {json.userType==="admin" &&
+        
+        <Dropdown>
+          <Dropdown.Toggle className="primaryDarkColor" id="dropdown-basic">
+            Add Company
+          </Dropdown.Toggle>
+
+          <Dropdown.Menu>
+            <Dropdown.Item href="#/action-1">Add individually</Dropdown.Item>
+            <Dropdown.Item href="#/action-2">Add bulk</Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
+        }
         </div>
         <div className="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 form-group">
           <div className="row">
@@ -183,16 +221,13 @@ const test = filterData().filter(item=>{
             </div>
             <div className="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 ">
 
-            <ReactHTMLTableToExcel
-              id="test-table-xls-button"
+            <CSVLink 
+             
+              data={tableFilterData} headers={filterColumns(tableFilterData)} filename={"Employee.csv"}
               className="btn white_color_btn col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"
-              table="empTable"
-              filename="Employee"
-              sheet="tablexls"
-              buttonText="Export"
-                />
-              
-              {/* <button className="btn btn-info form-control">Export</button> */}
+              >
+            Export
+          </CSVLink>
             </div>
           </div>
         </div>
@@ -238,13 +273,15 @@ const test = filterData().filter(item=>{
         </div>
         <div className="col-12 col-sm-12 col-md-8 col-lg-9 col-xl-10">
           {/* --------------------------------------------------------- */}
-          <StatusBtn trigerOnStatusBtnClick={StatusBtnOnClick} />
+          <StatusBtn trigerOnStatusBtnClick={StatusBtnOnClick} 
+          activeButton={activeButton}
+          />
           <hr></hr>
 
           <div className="container-fluid">
             <div className="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 table-responsive">
               <table className="table table-bordered table-hover" id="empTable">
-                <thead className="table-secondary">
+                <thead className="primary_light">
                   <tr>
                     <th></th>
                     <th>No.</th>
@@ -266,7 +303,7 @@ const test = filterData().filter(item=>{
                   </tr>
                 </thead>
                 <tbody>
-                  { test.map((item) => (
+                  { tableFilterData.map((item) => (
                     <tr>
                       <td>
                         <img

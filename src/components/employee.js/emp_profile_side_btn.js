@@ -12,15 +12,23 @@ function emp_profile_side_btn(props) {
     {"name":"Evaluation","value":"evaluation"},]
     return (
         <div>
-                {button_Data.map(item=>(
-                 <div key={item.value}>
-                <button 
-                className="btn btn-outline-secondary mb-1 form-control text-left"
-                value={item.value}
-                onClick={props.trigerOnClickEmpSideBtn}
-                >{item.name}</button>
-                </div>
-                ))}
+                {button_Data.map(item => {
+                    const className = props.activeButton === item.value ? "primaryDarkColor" : "";
+                    return (
+                    <div key={item.value}>
+                        <button
+                        className={`btn primary_light mb-1 text-left ${className}
+                        col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-1"
+                        `}
+                        value={item.value}
+                        
+                        onClick={props.trigerOnClickEmpSideBtn}
+                        >
+                        {item.name}
+                        </button>
+          </div>
+        );
+      })}
                 
                 </div>
       
