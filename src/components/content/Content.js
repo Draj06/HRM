@@ -7,6 +7,7 @@ import employees from '../../Views/layouts/employees';
 import payroll from '../../Views/layouts/payroll';
 import settings from '../../Views/layouts/settings';
 import CompanyList from '../../Views/layouts/CompanyList';
+import AddCompany from '../../Views/layouts/addCompanyMain';
 import login from '../../Views/auth/login';
 import register from '../../Views/auth/register';
 import PageNotFound from '../error/pageNotFound'
@@ -27,6 +28,8 @@ export default props => (
         <Route exact path="/payroll" component={ payroll } />
         <Route exact path="/settings" component={ settings } />
         <Route exact path="/company" component={ CompanyList } />
+        <Route exact path="/company" component={ CompanyList } />
+        <Route exact path="/addcompany" component={ AddCompany } />
         <Route exact path="*" component={ PageNotFound } />
         
       </Switch>

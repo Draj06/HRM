@@ -96,15 +96,16 @@ const Employe_basic_info_not_backedoff = (props) => {
 
 
 
-  if(empData===null)
-     return(
-    <div className="alert alert-danger alert-dismissible">
-        <button type="button" className="close" data-dismiss="alert"></button>
-        <div align="center">
-          <strong>Ooopppsss !!! No data</strong>{" "}
-        </div>
-      </div>
-     )
+      if(empData===null || empData==="" || empData.length===0)
+      return(
+ 
+     <div className="alert alert-warning alert-dismissible">
+         <button type="button" className="close" data-dismiss="alert"></button>
+         <div align="center">
+           <strong>Ooopppsss !!! No data</strong>{" "}
+         </div>
+       </div>
+      )
      const backedOftoggle =(e)=>{
        
 

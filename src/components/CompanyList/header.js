@@ -38,12 +38,6 @@ const Header=()=> {
                 <option>1</option>
                 <option>1</option>
               </select>
-            </div><div className="col-12 col-sm-12 col-md-4 col-lg-3 col-xl-3">
-              <select className="form-control">
-                <option selected disabled>Sort by</option>
-                <option>1</option>
-                <option>1</option>
-              </select>
             </div>
             </div>
             

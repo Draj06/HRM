@@ -45,6 +45,7 @@
 .fas{
     font-size: 1.5rem !important;
     color: black;
+    cursor: pointer;
 }
 
 label{
@@ -202,9 +203,13 @@ input {
   border-width: 0 0 2px;
   border-color: #080808;
   width: 90%;
+  font-size: .9rem;
+  color: black;
+  
 }
 input[type=text]:disabled {
   background:white;
+  color: #606160;
 }
 .inputColorLine{
   border-color:#f04014;

@@ -24,8 +24,6 @@ const StatusBtn=(props)=> {
       />
     );
     
-    
-console.log(data.getEmployeeAllStatusCount)
     return (
         <div>
 

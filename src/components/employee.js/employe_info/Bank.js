@@ -72,16 +72,16 @@ const Bank =(props)=> {
     reset();
   };
 
-    if(empData===null)
-     return(
+  if(empData===null || empData==="" || empData.length===0)
+  return(
 
-    <div className="alert alert-danger alert-dismissible">
-        <button type="button" className="close" data-dismiss="alert"></button>
-        <div align="center">
-          <strong>Ooopppsss !!! No data</strong>{" "}
-        </div>
-      </div>
-     )
+ <div className="alert alert-warning alert-dismissible">
+     <button type="button" className="close" data-dismiss="alert"></button>
+     <div align="center">
+       <strong>Ooopppsss !!! No data</strong>{" "}
+     </div>
+   </div>
+  )
 
 
     return (
