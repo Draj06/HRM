@@ -1,0 +1,34 @@
+.companyImage{
+    width: 60%;
+    height: 70%;
+    margin-top: 30px;
+}
+.companyContainer{
+    width: 85%;
+}
+.companyName{
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 0px;
+}
+a{
+    font-size: 14px;
+    
+}
+.phoneNo span{
+    font-size: 14px;
+    color:grey;
+    font-weight: 600;
+    
+}
+.dash_Prof_button{
+    margin-bottom: 8px;
+    margin-right: 5px;
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+    box-shadow: 0px 0px 5px 5px #f1eeee;
+}
+.dash_Prof_button:hover{
+    color: black;
+}

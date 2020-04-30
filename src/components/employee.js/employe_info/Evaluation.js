@@ -49,15 +49,16 @@ const Evaluation = (props) => {
 
   let empData = data.getEmployeeEvaluationInfo;
 
-  if (empData === null)
-    return (
-      <div className="alert alert-danger alert-dismissible">
+  if(empData===null || empData==="" || empData.length===0)
+     return(
+
+    <div className="alert alert-warning alert-dismissible">
         <button type="button" className="close" data-dismiss="alert"></button>
         <div align="center">
           <strong>Ooopppsss !!! No data</strong>{" "}
         </div>
       </div>
-    );
+     )
 
   const onSubmit = (data) => {
     setcircleloading(true)

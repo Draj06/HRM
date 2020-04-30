@@ -43,11 +43,11 @@ const EducationalBackground=(props)=> {
       </div>
     );
     let empData = data.getEmployeeEducationInfo
-
-    if(empData===null)
+  console.log(empData.length)
+    if(empData===null || empData==="" || empData.length===0)
      return(
 
-    <div className="alert alert-danger alert-dismissible">
+    <div className="alert alert-warning alert-dismissible">
         <button type="button" className="close" data-dismiss="alert"></button>
         <div align="center">
           <strong>Ooopppsss !!! No data</strong>{" "}

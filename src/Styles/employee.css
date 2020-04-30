@@ -10,7 +10,7 @@ p{
     color: black;
 }
 .emp_sideLeft{
-    box-shadow: 10px 10px 10px 10px  #dfdbdb;
+    box-shadow: 0px 0px 10px 5px  #dfdbdb;
 }
 .empDetailsDiv1,.empDetailsDiv3{
     font-size: .75rem;
