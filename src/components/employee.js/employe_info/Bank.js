@@ -11,6 +11,8 @@ const Bank =(props)=> {
 
   const [disabled, setdisabled] = useState(true);
   const { register, handleSubmit, reset, errors } = useForm();
+  const[input_style,set_input_style] =useState("ideal_empty_input")
+  const[label_style,set_label_style] =useState("ideal_label_on_empty_input")
   const [circleloading, setcircleloading] = useState(false);
   const [cancelData, setCancelData] = useState({});
   const [showsave, setshowsave] = useState(false);
@@ -45,9 +47,21 @@ const Bank =(props)=> {
           <strong>{error.message}</strong>{" "}
         </div>
       </div>
-    );
+    ); 
 
+    const onInputFocus=()=>{
+      set_input_style("on_focus_input_style")
+      set_label_style("on_focus_input_label_style")
+    }
+    const lossFocus=(e)=>{
   
+      const v = (e.target.value)
+      console.log(v)
+      if(v!==""){
+         set_input_style("on_loss_focus_input_style")
+        set_label_style("on_loss_focus_input_label_style")
+      }
+    }
   let empData = data.getEmployeeBankInfo
 
   const edit = () => {
@@ -87,7 +101,13 @@ const Bank =(props)=> {
     return (
         <div className="container-fluid">
           <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="row">
+          <div className="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+            <div className="text-capitalize emp_prof_btn_click">{props.name}</div>
+          </div>
+          <div className="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
         {test.userType==="admin" && showsave===false && 
+        
         <div align="right">
         <button className="btn white_color_btn" 
         type="button"
@@ -114,6 +134,8 @@ const Bank =(props)=> {
         </button>
         </div>
         }
+        </div>
+        </div>
             <div className="row emp_sideLeft mt-2">
         <div className="form-group col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4">
           <input
@@ -124,15 +146,19 @@ const Bank =(props)=> {
             value={formData.Employee_Bank}
             disabled={disabled}
             ref={register({ required: true })}
+            onFocus={onInputFocus}
+            onBlur={lossFocus}
+            className={errors.Employee_Bank ? "inputColorLine" :disabled ? 
+            "input_style_on_disabled":input_style}
             
           />
           <br />
           {errors.Employee_Bank && (
-              <div><span className="text-danger">Employee Bank name is required</span></div>
+              <div><span className="inputTextError">Employee Bank name is required</span></div>
             )}
-          <label htmlFor="Employee_Bank" className="labelEmploye">
-            Bank's name
-          </label>
+          <label htmlFor="Employee_Bank" className={errors.Employee_Bank ?
+              "inputColorLine input_label_on_error" :disabled ? "input_label_style_on_disabled":label_style}
+            >Bank's name</label>
         </div>
         <div className="form-group col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4">
           <input
@@ -143,15 +169,19 @@ const Bank =(props)=> {
             value={formData.Employee_bank_branch}
             disabled={disabled}
             ref={register({ required: true })}
+            onFocus={onInputFocus}
+            onBlur={lossFocus}
+            className={errors.Employee_bank_branch ? "inputColorLine" :disabled ? 
+            "input_style_on_disabled":input_style}
             
           />
           <br />
           {errors.Employee_bank_branch && (
-              <div><span className="text-danger">Employee Bank branch is required</span></div>
+              <div><span className="inputTextError">Employee Bank branch is required</span></div>
             )}
-          <label htmlFor="Employee_bank_branch" className="labelEmploye">
-            Bank's branch
-          </label>
+          <label htmlFor="Employee_bank_branch" className={errors.Employee_bank_branch ?
+              "inputColorLine input_label_on_error" :disabled ? "input_label_style_on_disabled":label_style}
+            >Bank's branch</label>
         </div>
         <div className="form-group col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4">
           <input
@@ -162,15 +192,19 @@ const Bank =(props)=> {
             value={formData.Employee_bank_account_number}
             disabled={disabled}
             ref={register({ required: true })}
+            onFocus={onInputFocus}
+            onBlur={lossFocus}
+            className={errors.Employee_bank_account_number ? "inputColorLine" :disabled ? 
+            "input_style_on_disabled":input_style}
             
           />
           <br />
           {errors.Employee_bank_account_number && (
-              <div><span className="text-danger">Employee Bank account no. is required</span></div>
+              <div><span className="inputTextError">Employee Bank account no. is required</span></div>
             )}
-          <label htmlFor="Employee_bank_account_number" className="labelEmploye">
-          Bank's account number
-          </label>
+          <label htmlFor="Employee_bank_account_number" className={errors.Employee_bank_account_number ?
+              "inputColorLine input_label_on_error" :disabled ? "input_label_style_on_disabled":label_style}
+            >Bank's account number</label>
         </div>
         
     </div>

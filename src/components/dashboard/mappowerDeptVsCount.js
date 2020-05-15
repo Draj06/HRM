@@ -43,20 +43,22 @@ import { useHistory } from "react-router-dom";
           count:item.total_emp_count
         }
       })
-      const header = [["Title", "Total No Of Employees"]]
+      const header = [["Title", "Total number of employees"]]
       const dataArr = dataWIthoutType.map(obj => Object.values(obj))
       const finalData = header.concat(dataArr)
 
-        const options = {
-          curveType: "function",
-          legend: { position: "bottom" },
-          hAxis: { textStyle: { color: "green", underline: true,bold:"1000" } },
-          vAxis: {
-            title: 'Total Employee'
-          },
-          colors: ['#66a3ff'],
-          
-        };
+      const options = {
+        
+        curveType: "function",
+        
+        enableInteractivity: true,
+        hAxis: { textStyle: { color: "#0d47a1", underline: true,bold:"1000" },title:"Months of Year" },
+        vAxis: {
+          title: 'Total Employee'
+        },
+        colors: ['#4e7fcc'],
+        legend: { position: "top",alignment: 'end'},
+      };
 
 
         const empNameOnClick=(emp)=>{
@@ -74,7 +76,7 @@ import { useHistory } from "react-router-dom";
           }
           localStorage.setItem('emp_Id',emp.emp_id)
           localStorage.setItem('emp_status',emp.emp_status)
-          history.push('/employee_profile')
+          history.push('/employee/employee_profile')
          }; 
 
 
@@ -178,7 +180,7 @@ import { useHistory } from "react-router-dom";
              color="#0073e6"
              />
              let finalData1 = result2.data.getOverBoardEmpBasedOnDeptMonthYearStatus
-              console.log(finalData.length)
+              
               
                 return(
                   <Modal isOpen={modalIsOpen} shouldCloseOnOverlayClick={false} onRequestClose={()=>setmodalIsOpen(false)}>
@@ -189,7 +191,8 @@ import { useHistory } from "react-router-dom";
                       <button
                     className="btn modalBtn text-capitalize col-8 col-sm-8 col-md-4 col-lg-2 col-xl-2"
                     align="left"
-                    >{dept}</button>
+                    >{dept}<span className="badge badge-pill badge-warning">{finalData1.length}</span>
+                    </button>
                   </div>
                   <div className="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
                    
@@ -211,8 +214,8 @@ import { useHistory } from "react-router-dom";
                               <thead className="table-secondary">
                                 <tr>
                                   <th>Name</th>
-                                  <th>Department Name</th>
-                                  <th>Position Name</th>
+                                  <th>Department</th>
+                                  <th>Designation</th>
                                   <th>Gender</th>
                                   <th>Tentative DOJ</th>
                                   <th>DOJ</th>

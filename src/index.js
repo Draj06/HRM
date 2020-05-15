@@ -8,7 +8,7 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 
 const client = new ApolloClient({
 
-  uri: 'https://duru-hrms-api.azurewebsites.net/graphql?code=GAm6nwwgzO3hAKaaa/ChrenUc2f3MuVZvi6ma3pSh/9Caq0DYO9QDg==',
+  uri: 'https://new-function-test.azurewebsites.net/graphql?code=JdYHdL6Qo0Mm47jtmAm68qYlkp5mffyzDuaZyPP0ufuoogFko/s/7A==',
   cache: new InMemoryCache()
 });
 ReactDOM.render(

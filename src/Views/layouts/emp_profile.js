@@ -11,7 +11,7 @@ import ExitInfo from '../../components/employee.js/employe_info/ExitInfo'
 import Evaluation from '../../components/employee.js/employe_info/Evaluation'
 
 
-const Emp_profile =()=> {
+const Emp_profile =(props)=> {
     
     const [activeTab, setActiveTab] = useState("BasicInfo");
     const [activeButton, setActiveButton] = useState("BasicInfo");
@@ -31,15 +31,15 @@ const Emp_profile =()=> {
             />
             </div>
                 <div className="col-12 col-sm-12 col-md-9 col-lg-0 col-xl-10 mt-1">
-                {activeTab === "BasicInfo" && <EmpBasicInfo type="BasicInfo"/>}
-                {activeTab === "Emp_position" && <EmpPosition type="Emp_position"/>}
-                {activeTab === "emp_salary" && <Salary type="emp_salary"/>}
-                {activeTab === "emp_id" && <Id type ="emp_id"/>}
-                {activeTab === "bank" && <Bank type="bank"/>}
-                {activeTab === "education" && <EducationalBackground type="education"/>}
-                {activeTab === "probackground" && <ProffBackground type="probackground"/>}
-                {activeTab === "exit_info" && <ExitInfo type="exit_info"/>}
-                {activeTab === "evaluation" && <Evaluation type="evaluation"/>}
+                {activeTab === "BasicInfo" && <EmpBasicInfo type="BasicInfo" name="Basic Information"/>}
+                {activeTab === "Emp_position" && <EmpPosition type="Emp_position"name="Designation"/>}
+                {activeTab === "emp_salary" && <Salary type="emp_salary" name="Salary Information"/>}
+                {activeTab === "emp_id" && <Id type ="emp_id" name="Identity Documents"/>}
+                {activeTab === "bank" && <Bank type="bank" name="Bank Information"/>}
+                {activeTab === "education" && <EducationalBackground type="education"name="Educational Background"/>}
+                {activeTab === "probackground" && <ProffBackground type="probackground" name="Professional Background"/>}
+                {activeTab === "exit_info" && <ExitInfo type="exit_info" name="Exit Information"/>}
+                {activeTab === "evaluation" && <Evaluation type="evaluation" name="Evaluation"/>}
 
                 </div>
             </div>

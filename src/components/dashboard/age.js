@@ -29,10 +29,15 @@ const Gender = ()=>{
               is3D: true,
               language: 'hi_IN',
               legend: { position: 'bottom', alignment: 'end' },
+              colors: ['#e9ebf7',"#4e7fcc","#0a367a","#ffef4f","#c38d00","#fbbd05"]
+            //   pieSliceTextStyle: {
+            //     color: '#ffffff'
+            // }
            };
       return(
           <div className="container-fluid">
-            <div className="form-control graphHeading"> Age</div>
+            <div className="graphHeading"> Age</div>
+            <hr />
          <Chart
            chartType="PieChart"
            width="100%"

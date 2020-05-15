@@ -11,6 +11,8 @@ const Salary =(props)=> {
     
   const [disabled, setdisabled] = useState(true);
   const { register, handleSubmit, reset, errors } = useForm();
+  const[input_style,set_input_style] =useState("ideal_empty_input")
+  const[label_style,set_label_style] =useState("ideal_label_on_empty_input")
   const [circleloading, setcircleloading] = useState(false);
   const [cancelData, setCancelData] = useState({});
   const [showsave, setshowsave] = useState(false);
@@ -46,7 +48,19 @@ const Salary =(props)=> {
     );
 
   
-
+    const onInputFocus=()=>{
+      set_input_style("on_focus_input_style")
+      set_label_style("on_focus_input_label_style")
+    }
+    const lossFocus=(e)=>{
+  
+      const v = (e.target.value)
+      console.log(v)
+      if(v!==""){
+         set_input_style("on_loss_focus_input_style")
+        set_label_style("on_loss_focus_input_label_style")
+      }
+    }
   let empData = data.getEmployeeSalaryCtc
 
   const edit = () => {
@@ -86,7 +100,13 @@ const Salary =(props)=> {
     return (
         <div className="container-fluid">
        <form onSubmit={handleSubmit(onSubmit)}>
+       <div className="row">
+          <div className="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+            <div className="text-capitalize emp_prof_btn_click">{props.name}</div>
+          </div>
+          <div className="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
         {test.userType==="admin" && showsave===false && 
+        
         <div align="right">
         <button className="btn white_color_btn" 
         type="button"
@@ -113,6 +133,8 @@ const Salary =(props)=> {
         </button>
         </div>
         }
+        </div>
+        </div>
             <div className="row emp_sideLeft mt-2">
         <div className="form-group col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4">
           <input
@@ -123,15 +145,19 @@ const Salary =(props)=> {
             value={formData.Employee_monthly_current_cost_to_company}
             disabled={disabled}
             ref={register({ required: true })}
+            onFocus={onInputFocus}
+            onBlur={lossFocus}
+            className={errors.Employee_monthly_current_cost_to_company ? "inputColorLine" :disabled ? 
+            "input_style_on_disabled":input_style}
             
           />
           <br />
           {errors.Employee_monthly_current_cost_to_company && (
-              <div><span className="text-danger">Employee CTC is required</span></div>
+              <div><span className="inputTextError">Employee CTC is required</span></div>
             )}
-          <label htmlFor="Employee_monthly_current_cost_to_company" className="labelEmploye">
-            Salary
-          </label>
+          <label htmlFor="Employee_monthly_current_cost_to_company" className={errors.Employee_monthly_current_cost_to_company ?
+              "inputColorLine input_label_on_error" :disabled ? "input_label_style_on_disabled":label_style}
+            >Salary</label>
         </div>
         
         </div>

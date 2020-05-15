@@ -11,6 +11,7 @@ const Manpower_onChange_Overboard =() =>{
   const history = useHistory();
   const[modalIsOpen,setmodalIsOpen] = useState(false)
   const[status,setStatus] = useState('')
+  const[count,setCount] = useState('0')
   const[month,setMonth] = useState('')
   const[year,setYear] = useState(0)
     let clickedValue = localStorage.getItem("month_manpower_graph")
@@ -53,6 +54,7 @@ color="#0073e6"
          
          setMonth(month)
          setYear(yearVal)
+         setCount(month_year_status[2])
          setStatus(capitalizeFirstLetter(statusM))
         
             setmodalIsOpen(true)
@@ -74,7 +76,7 @@ color="#0073e6"
   }
   localStorage.setItem('emp_Id',emp.emp_id)
   localStorage.setItem('emp_status',emp.emp_status)
-  history.push('/employee_profile')
+  history.push('/employee/employee_profile')
  };
 
   const MonthData = ({
@@ -99,7 +101,7 @@ color="#0073e6"
         <div className="col-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
           <button 
           onClick={modalClick}
-          value={arriveLabel+":"+month}
+          value={arriveLabel+":"+month+":"+arrive}
           className="btn primary  text-capitalize col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
             {arriveLabel}
             <span 
@@ -109,7 +111,7 @@ color="#0073e6"
           <hr className="nomarginHr"/>
           <button 
             onClick={modalClick}
-            value={exitLabel+":"+month}
+            value={exitLabel+":"+month+":"+exit}
             className="btn primary text-capitalize col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
             {exitLabel}
             <span
@@ -131,7 +133,8 @@ color="#0073e6"
             <div className="row container-fluid">
       
           
-       <div className="form-control graphHeading"> Manpower Graph</div>
+       <div className="graphHeading"> Manpower Graph</div>
+       <hr />
       <div className="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
         <div className="row widthContainer">
           <div className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
@@ -166,6 +169,7 @@ else
                 
               
           <div className="form-control graphHeading"> Manpower Graph</div>
+          <hr />
          <div className="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
            <div className="row widthContainer">
            <div className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
@@ -213,7 +217,7 @@ else
                       <button
                     className="btn modalBtn text-capitalize col-8 col-sm-8 col-md-4 col-lg-2 col-xl-2"
                     align="left"
-                    >{status}</button>
+                    >{status}<span className="badge badge-pill badge-warning">{count}</span></button>
                   </div>
                   <div className="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
                    
@@ -235,8 +239,8 @@ else
                       <thead className="table-secondary">
                         <tr>
                           <th>Name</th>
-                          <th>Department Name</th>
-                          <th>Position Name</th>
+                          <th>Department</th>
+                          <th>Designation</th>
                           <th>Gender</th>
                           <th>Tentative DOJ</th>
                           <th>DOJ</th>

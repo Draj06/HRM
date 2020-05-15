@@ -33,9 +33,16 @@ query{
   }
 }`
 export const DEPT_DESIG = gql `
-query getAllDeptOrPositions($initialState: String!) {
-  getAllDeptOrPositions(param: $initialState) {
-    emp_data
+query {
+  getAllDeptsAndDesignations{
+    departments{
+      id
+      department
+    }
+    designations{
+      id
+      designation
+    }
   }
 }
 `
@@ -441,6 +448,15 @@ export const PAY_DATA = gql`
       emp_aadhar_no
       emp_uan_no
       month_year
+    }
+  }
+`;
+
+export const LatestPAY_DATA = gql`
+  query {
+    getPayroleLatestMonthAndYear {
+      latest_month
+      latest_year
     }
   }
 `;

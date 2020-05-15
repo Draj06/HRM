@@ -48,10 +48,11 @@ const Salary_Dept_Min_Max=()=> {
     curveType: "function",
     seriesType: "line",
     enableInteractivity: true,
-    hAxis: { textStyle: { color: "green", underline: true,bold:"1000" } },
+    colors: ['#e9ebf7',"#4e7fcc","#0a367a","#ffef4f","#c38d00","#fbbd05"],
+    hAxis: { textStyle: { color: "#0d47a1", underline: true,bold:"1000" } },
     series: {
       
-      3: { targetAxisIndex: 1,type: 'bars',color:'66a3ff' }
+      3: { targetAxisIndex: 1,type: 'bars',color:'#4e7fcc' }
       
     },
     vAxes: {
@@ -59,7 +60,7 @@ const Salary_Dept_Min_Max=()=> {
       0: { title: "Sum of money" },
       1: { title: "Total employee" }
     },
-    legend: { position: "bottom" },
+    legend: { position: "top",alignment: 'end'},
   };
 
     const chartEvents = [
@@ -146,7 +147,7 @@ const Salary_Dept_Min_Max=()=> {
           />
           
           let finalData1 = result2.data.getSalaryGgraphPopUpByMonYearDept
-              console.log(finalData1)
+              
 
         
               return(
@@ -158,7 +159,8 @@ const Salary_Dept_Min_Max=()=> {
                       <button
                     className="btn modalBtn text-capitalize col-8 col-sm-8 col-md-4 col-lg-2 col-xl-2"
                     align="left"
-                    >{dept}</button>
+                    >{dept}<span className="badge badge-pill badge-warning">{finalData1.length}</span>
+                    </button>
                   </div>
                   <div className="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
                    
@@ -180,8 +182,8 @@ const Salary_Dept_Min_Max=()=> {
                             <thead className="table-secondary">
                               <tr>
                                 <th>Name</th>
-                                <th>Department Name</th>
-                                <th>Position Name</th>
+                                <th>Department</th>
+                                <th>Position</th>
                                 <th>CTC</th>
                                 <th>Gross Salary</th>
                                 

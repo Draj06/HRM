@@ -7,7 +7,9 @@ import employees from '../../Views/layouts/employees';
 import payroll from '../../Views/layouts/payroll';
 import settings from '../../Views/layouts/settings';
 import CompanyList from '../../Views/layouts/CompanyList';
-import AddCompany from '../../Views/layouts/addCompanyMain';
+import AddCompany from '../../Views/layouts/addCompany';
+import AddEmployee from '../../Views/layouts/addEmployee';
+import AddEmployeeBulk from '../../Views/layouts/addEmployeeBulk';
 import login from '../../Views/auth/login';
 import register from '../../Views/auth/register';
 import PageNotFound from '../error/pageNotFound'
@@ -19,17 +21,18 @@ export default props => (
       <NavBar/>
      
       <Switch>
-        <Route exact path="/dashboard" component={ dashboard } /> 
         <Route exact path="/" component={ login } />  
+        <Route exact path="/dashboard" component={ dashboard } /> 
         <Route exact path="/login" component={ login } />            
         <Route exact path="/register" component={ register } />
         <Route exact path="/employee" component={ employees } />
-        <Route exact path="/employee_profile" component={ emp_profile } />
+        <Route exact path="/employee/employee_profile" component={ emp_profile } />
         <Route exact path="/payroll" component={ payroll } />
         <Route exact path="/settings" component={ settings } />
-        <Route exact path="/company" component={ CompanyList } />
-        <Route exact path="/company" component={ CompanyList } />
-        <Route exact path="/addcompany" component={ AddCompany } />
+        <Route exact path="/companylist" component={ CompanyList } />
+        <Route exact path="/addCompany" component={ AddCompany } />
+        <Route exact path="/employee/addemployee" component={ AddEmployee } />
+        <Route exact path="/employee/addemployeebulk" component={ AddEmployeeBulk } />
         <Route exact path="*" component={ PageNotFound } />
         
       </Switch>

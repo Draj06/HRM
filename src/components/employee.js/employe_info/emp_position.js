@@ -11,6 +11,8 @@ const Employee_Position = (props) => {
 
   const [disabled, setdisabled] = useState(true);
   const { register, handleSubmit,reset, errors } = useForm();
+  const[input_style,set_input_style] =useState("ideal_empty_input") // initial state for input
+  const[label_style,set_label_style] =useState("ideal_label_on_empty_input")  // initial state for label
   const [circleloading,setcircleloading] = useState(false)
   const[cancelData,setCancelData] = useState({})
   const [showsave, setshowsave] = useState(false);
@@ -47,11 +49,25 @@ if (loading)
         </div>
       </div>
     )
+    const onInputFocus=()=>{      // on focus In
+      set_input_style("on_focus_input_style")
+      set_label_style("on_focus_input_label_style")
+    }
+    const lossFocus=(e)=>{  // on focus out
+  
+      const v = (e.target.value)
+      console.log(v)
+      if(v!==""){
+         set_input_style("on_loss_focus_input_style")
+        set_label_style("on_loss_focus_input_label_style")
+      }
+    }
     
     const edit = () => {
       
       setdisabled(false);
       setshowsave(true);
+      
     };
   const onSubmit = (e) => {
     
@@ -90,9 +106,17 @@ if (loading)
   )
 
   return (
+
+    
     <div className="container-fluid">
       <form onSubmit={handleSubmit(onSubmit)}>
+      <div className="row">
+          <div className="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+            <div className="text-capitalize emp_prof_btn_click">{props.name}</div>
+          </div>
+          <div className="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
         {test.userType==="admin" && showsave===false && 
+        
         <div align="right">
         <button className="btn white_color_btn" 
         type="button"
@@ -119,6 +143,8 @@ if (loading)
         </button>
         </div>
         }
+        </div>
+        </div>
       <div className="emp_sideLeft mt-2">
       
       <div className="row">
@@ -132,15 +158,19 @@ if (loading)
             value={formData.Employee_designation}
             disabled={disabled}
             ref={register({ required: true })}
+            onFocus={onInputFocus}     // focus in  
+            onBlur={lossFocus}         // focus out
+            className={errors.Employee_designation ? "inputColorLine" :disabled ?    // dynamic class for input
+            "input_style_on_disabled":input_style}
             
           />
           <br />
           {errors.Employee_designation && (
-              <div><span className="text-danger">Employee designation is required</span></div>
+              <div><span className="inputTextError">Employee designation is required</span></div>
             )}
-          <label htmlFor="Employee_designation" className="labelEmploye">
-            Designation
-          </label>
+         <label htmlFor="Employee_designation" className={errors.Employee_designation ?     // dynamic class for label
+              "inputColorLine input_label_on_error" :disabled ? "input_label_style_on_disabled":label_style}
+            >Designation</label>
         </div>
         <div className="form-group col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4">
           <input
@@ -151,15 +181,19 @@ if (loading)
             value={formData.Employee_department}
             disabled={disabled}
             ref={register({ required: true })}
+            onFocus={onInputFocus}
+            onBlur={lossFocus}
+            className={errors.Employee_department ? "inputColorLine" : disabled ? 
+            "input_style_on_disabled":input_style}
             />
             
           <br />
           {errors.Employee_department && (
-             <div><span className="text-danger">Employee department is required</span></div>
+             <div><span className="inputTextError">Employee department is required</span></div>
             )}
-          <label htmlFor="Employee_department" className="labelEmploye">
-            Department
-          </label>
+          <label htmlFor="Employee_department" className={errors.Employee_department ?
+              "inputColorLine input_label_on_error" :disabled ? "input_label_style_on_disabled":label_style}
+            >Department</label>
         </div>
       </div>
       

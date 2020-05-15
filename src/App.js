@@ -1,6 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-toastify/dist/ReactToastify.css';
+import { useForm } from 'react-hook-form/dist/react-hook-form.ie11'
 
 import './App.css';
 
