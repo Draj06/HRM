@@ -1,16 +1,20 @@
 import React, { useState } from "react";
 import Loader from "react-loader-spinner";
-import { GET_EMP_Evaluation } from "../../../queries";
+import { GET_EMP_Evaluation,GET_EMPLOYEE_DATA } from "../../../queries";
 import { ADD_EVALUATION } from "../../../mutations";
 import EvaluationComp from "./evaluationData";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import { useForm } from "react-hook-form";
 import Modal from "react-modal";
 import { ToastContainer, toast } from 'react-toastify';
+import TodayDate from '../../../Helper/TodayDate'
 
 const Evaluation = (props) => {
+  let status = localStorage.getItem('emp_status')
   const { register, handleSubmit, errors } = useForm();
   const [disabled, setdisabled] = useState(false);
+  const[input_style,set_input_style] =useState("ideal_empty_input")
+  const[label_style,set_label_style] =useState("ideal_label_on_empty_input")
   let type = props.type;
   let id = localStorage.getItem("emp_Id");
   const { error, loading, data } = useQuery(GET_EMP_Evaluation, {
@@ -22,12 +26,20 @@ const Evaluation = (props) => {
         
         query: GET_EMP_Evaluation,
         variables: { type,id }
+      },
+      {
+        
+        query: GET_EMPLOYEE_DATA,
+        variables: { status }
       }
     ]
   });
+
   const [modalIsOpen, setmodalIsOpen] = useState(false);
   const [circleloading,setcircleloading] = useState(false)
 
+
+  
   if (loading)
     return (
       <Loader
@@ -48,21 +60,23 @@ const Evaluation = (props) => {
     );
 
   let empData = data.getEmployeeEvaluationInfo;
-
-  if(empData===null || empData==="" || empData.length===0)
-     return(
-
-    <div className="alert alert-warning alert-dismissible">
-        <button type="button" className="close" data-dismiss="alert"></button>
-        <div align="center">
-          <strong>Ooopppsss !!! No data</strong>{" "}
-        </div>
-      </div>
-     )
-
+   
+const onInputFocus=()=>{
+  set_input_style("on_focus_input_style")
+  set_label_style("on_focus_input_label_style")
+}
+const lossFocus=(e)=>{
+  
+  const v = (e.target.value)
+  console.log(v)
+  if(v!==""){
+     set_input_style("on_loss_focus_input_style")
+    set_label_style("on_loss_focus_input_label_style")
+  }
+}
   const onSubmit = (data) => {
     setcircleloading(true)
-    setdisabled(true);
+     setdisabled(true);
     let { evaluaterName, evaluationNote, evaluationType } = data;
     console.log(evaluaterName + ":" + evaluationNote + ":" + evaluationType);
     addEmployeeEvaluationInfo({
@@ -84,6 +98,9 @@ const Evaluation = (props) => {
 
   return (
     <div className="container-fluid">
+
+            
+
       <ToastContainer
           position="top-right"
           autoClose={5000}
@@ -96,15 +113,25 @@ const Evaluation = (props) => {
           pauseOnHover
     />
 {/* Same as */}
-<ToastContainer />
+     <ToastContainer />
+      <div className="row">
+      <div className="emp_prof_btn_click form-group col-10 col-sm-10 col-md-8 col-lg-3 col-xl-3">
+        Evaluation
+      </div>
       <div className="form-group col-10 col-sm-10 col-md-8 col-lg-3 col-xl-3">
         <button className="btn white_color_btn" 
         onClick={() => setmodalIsOpen(true)}
         >
-
-        <i className="fas fa-plus fa-xl"></i> Add Evaluation
+        <i className="fas fa-plus"></i> Add Evaluation
            </button>
       </div>
+      </div>
+      { empData.length===0 && <div className="alert alert-warning alert-dismissible">
+            <button type="button" className="close" data-dismiss="alert"></button>
+            <div align="center">
+              <strong>Ooopppsss !!! No data</strong>{" "}
+            </div>
+          </div>}
       {empData.map((item) => (
         <EvaluationComp item={item} />
       ))}
@@ -129,29 +156,36 @@ const Evaluation = (props) => {
               name="evaluaterName"
               id="evaluaterName"
               ref={register({ required: true })}
-              className={errors.evaluaterName ? "inputColorLine" : ""}
+              onFocus={onInputFocus}
+              onBlur={lossFocus}
+              className={errors.evaluaterName ? "inputColorLine" : input_style}
             />
             {errors.evaluaterName && (
-              <span className="inputTextError">Evaluator name is required</span>
+              <div><span className="inputTextError">Evaluator name is required</span></div>
             )}
-            <br></br>
-            <label htmlFor="evaluaterName">Evaluator's Name</label>
+            
+            <label htmlFor="evaluaterName" className={errors.evaluaterName ? "inputColorLine input_label_on_error" : label_style}
+            >Evaluator's Name</label>
           </div>
           <div className="form-group col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
             <input
               type="text"
               name="evaluationNote"
               id="evaluationNote"
-              className={errors.evaluationNote ? "inputColorLine" : ""}
+              onFocus={onInputFocus}
+              onBlur={lossFocus}
+              className={errors.evaluationNote ? "inputColorLine" : input_style}
               ref={register({ required: true })}
             />
             
             {errors.evaluationNote && (
-              <span className="inputTextError">Evaluator note is required</span>
+              <div><span className="inputTextError">Evaluator note is required</span></div>
             )}
-            <br></br>
-            <label htmlFor="evaluationNote">Evaluation Note</label>
+            
+            <label htmlFor="evaluationNote" className={errors.evaluationNote ? "inputColorLine input_label_on_error" : label_style}
+            >Evaluator note here</label>
           </div>
+          
           <div className="form-group col-10 col-sm-10 col-md-8 col-lg-4 col-xl-4">
             <select
               
@@ -161,21 +195,44 @@ const Evaluation = (props) => {
             >
               <option value="Recommended">Recommended</option>
               <option value="Average">Average</option>
-              <option value="Backlisted">Backlisted</option>
+              <option value="Blacklisted">Blacklisted</option>
             </select>
             {errors.evaluationType && (
-              <span className="inputTextError">Evaluator type is required</span>
+              <div><span className="inputTextError">Evaluator type is required</span></div>
             )}
-            <br></br>
-            <label htmlFor="evaluationNote">Evaluation Note</label>
+            
+            <label htmlFor="evaluationNote" className={errors.evaluationType ? "inputColorLine input_label_on_error" : label_style}
+            >Evaluation</label>
           </div>
+
+          <div className="form-group col-10 col-sm-10 col-md-8 col-lg-4 col-xl-4">
+            {console.log(TodayDate())}
+            <input
+              type="date"
+              name="evaluationDate"
+              id="evaluationDate"
+              value="2020-05-15"
+              onChange={(e)=>console.log(e)}
+              ref={register({ required: true })}
+              onFocus={onInputFocus}
+              onBlur={lossFocus}
+              className={errors.evaluationDate ? "inputColorLine" : input_style}
+            />
+            {errors.evaluationDate && (
+              <div><span className="inputTextError">Evaluator name is required</span></div>
+            )}
+            
+            <label htmlFor="evaluationDate" className={errors.evaluationDate ? "inputColorLine input_label_on_error" : label_style}
+            >Evaluation Date</label>
+          </div>
+
           <div className="form-group ">
           
-            <button className="btn primary  col-7 col-sm-7 col-md-5 col-lg-1 col-xl-1 ml-3"
+            <button className="btn primaryDarkColor  col-7 col-sm-7 col-md-5 col-lg-1 col-xl-1 ml-3"
             disabled={disabled ? "disabled" : ""}
             >
             {circleloading && (
-            <span class="spinner-border float-left"></span>
+            <span class="spinner-border float-right"></span>
           )}
               Save
             </button>

@@ -4,13 +4,33 @@
     font-size:1.2rem;
     font-weight: 600;
 }
-p{
-    text-decoration: underline;
+.clear{
+    font-size: 14.4px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.39;
+    letter-spacing: 0px;
+    text-align: left;
+    color: #0d47a1;
     cursor: pointer;
-    color: black;
+}
+.emp_prof_btn_click{
+
+      font-size: 20.7px;
+      font-weight: 500;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: 1.5;
+      letter-spacing: 0px;
+      text-align: left;
+      color: #403c4f;
 }
 .emp_sideLeft{
-    box-shadow: 0px 0px 10px 5px  #dfdbdb;
+    border-radius: 6px;
+    box-shadow: 0 0 1px 0 #00000029;
+    background-color: #ffffff;
+
 }
 .empDetailsDiv1,.empDetailsDiv3{
     font-size: .75rem;
@@ -64,12 +84,44 @@ p{
     width: 90%;
     height: 100%;
 }
-.labelEmploye{
-    font-size: .9rem;
-    color: #41417a;
-    font-weight: 550;
-}
+
 .ReactModal__Content{
     height: 60% !important;
     margin-top: 5%;
+}
+
+.checkBoxHeader{
+  font-size: 17.3px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.5;
+  letter-spacing: normal;
+  text-align: left;
+  color: #403c4f;
+  background-color:#ffffff !important;
+  box-shadow: 0 3px 6px 0 #00000029;
+  cursor: pointer;
+  height: 48px !important;
+  
+}
+.custom-control-label{
+  font-size: 14.4px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.39;
+  letter-spacing: 0px;
+  text-align: left;
+  color: #403c4f;
+  margin-bottom: 5%;
+  margin-top: 5%;
+  
+}
+
+.card{
+    border-radius: 4px;
+    box-shadow: 0 3px 6px 0 #00000029;
+    margin-bottom: 3%;
+    
 }

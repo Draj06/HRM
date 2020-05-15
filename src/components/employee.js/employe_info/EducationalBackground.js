@@ -10,12 +10,6 @@ const EducationalBackground=(props)=> {
     let type = props.type;
     let id = localStorage.getItem("emp_Id");
 
-  const [disabled, setdisabled] = useState(true);
-  const { register, handleSubmit, reset, errors } = useForm();
-  const [circleloading, setcircleloading] = useState(false);
-  const [cancelData, setCancelData] = useState({});
-  const [showsave, setshowsave] = useState(false);
-  const [formData, setFormData] = useState({});
 
     const { error, loading, data } = useQuery(GET_EMP_EDUCATION, {
       variables: { type, id },
@@ -43,7 +37,7 @@ const EducationalBackground=(props)=> {
       </div>
     );
     let empData = data.getEmployeeEducationInfo
-  console.log(empData.length)
+  
     if(empData===null || empData==="" || empData.length===0)
      return(
 
@@ -57,7 +51,7 @@ const EducationalBackground=(props)=> {
     return (
         <div className="container-fluid"> 
         {empData.map((item) => (
-        <Education item={item} />
+        <Education item={item} name="Educational Background"/>
       ))}
         </div>
     )

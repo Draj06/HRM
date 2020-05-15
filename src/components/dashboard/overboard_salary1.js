@@ -43,7 +43,8 @@ color="#0073e6"
 />
 
 const modalClick = (e) => {
-  let Month_year =  e.target.value;
+  
+  let Month_year =  e.target.value || e.target.attributes[1].value;
   let sepStatusDate = Month_year.split(" ");
   let month = sepStatusDate[0];
   let yearVal = parseInt(sepStatusDate[1]);
@@ -68,7 +69,7 @@ const modalClick = (e) => {
   }
   localStorage.setItem('emp_Id',emp.emp_id)
   localStorage.setItem('emp_status',emp.emp_status)
-  history.push('/employee_profile')
+  history.push('/employee/employee_profile')
  };
 
   const MonthData = ({
@@ -98,7 +99,9 @@ const modalClick = (e) => {
           >
             {ctcLabel}
             <span 
-            className="badge badge-pill">{ctc || 0}</span>
+            className="badge badge-pill"
+            value={month}
+            >{ctc || 0}</span>
           </button>
           <hr className="nomarginHr"/>
           <button 
@@ -106,9 +109,11 @@ const modalClick = (e) => {
             onClick={modalClick} 
           value={month}
             >
-            {variationLabel}
+            {variationLabel || 0 +variation+"("+percent+"%)" || 0}
             <span
-           className="badge badge-pill">{variation+"("+percent+"%)" || 0}</span>
+           className="badge badge-pill"
+           value={month}
+           >{variation+"("+percent+"%)" || 0}</span>
           </button>
         </div>
       </div>
@@ -238,13 +243,13 @@ else
               onRequestClose={() => setmodalIsOpen(false)}
             >
               <div>
-                <div className="row modalHeader">
+                <div className="row">
                   <div className="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
                     <button
                       className="btn modalBtn text-capitalize col-8 col-sm-8 col-md-3 col-lg-2 col-xl-2"
                       align="left"
                     >
-                      {status}
+                      {status}<span className="badge badge-pill badge-warning">{finalData.length}</span>
                     </button>
                   </div>
                   <div className="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
@@ -260,8 +265,8 @@ else
                   <thead className="table-secondary">
                     <tr>
                       <th>Name</th>
-                      <th>Department Name</th>
-                      <th>Designation Name</th>
+                      <th>Department</th>
+                      <th>Designation</th>
                       <th>CTC</th>
                       <th>Gross Salary</th>
                     </tr>

@@ -51,7 +51,7 @@ const SalaryuCount = () => {
 
     
   const modalClick = (e) => {
-    let Month_year =  e.target.value;
+    let Month_year =  e.target.value || e.target.attributes[1].value;
     let sepStatusDate = Month_year.split(" ");
     let month = sepStatusDate[0];
     let yearVal = parseInt(sepStatusDate[1]);
@@ -88,7 +88,9 @@ const SalaryuCount = () => {
           value={month}
           >
             {ctcLabel}
-            <span className="badge badge-pill">{ctc || 0}</span>
+            <span className="badge badge-pill"
+            value={month}
+            >{ctc || 0}</span>
           </button>
           <hr className="nomarginHr" />
           <button className="btn primary text-capitalize col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"
@@ -96,7 +98,9 @@ const SalaryuCount = () => {
           value={month}
           >
             {variationLabel}
-            <span className="badge badge-pill">
+            <span className="badge badge-pill"
+            value={month}
+            >
               {variation + "(" + percent + "%)" || 0}
             </span>
           </button>
@@ -120,7 +124,7 @@ const SalaryuCount = () => {
     }
     localStorage.setItem('emp_Id',emp.emp_id)
     localStorage.setItem('emp_status',emp.emp_status)
-    history.push('/employee_profile')
+    history.push('/employee/employee_profile')
    };
   const {
     current_month,
@@ -163,9 +167,9 @@ const SalaryuCount = () => {
           <div className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
             <MonthData
               ctc={numDifferentiation(previous_month.ctc)}
-              gross={numDifferentiation(previous_month.gross)}
+              gross={numDifferentiation(previous_month.gross) || 0}
               ctcLabel="CTC"
-              variation={minusVarPrev}
+              variation={minusVarPrev || 0}
               variationLabel="Var"
               month={previous_month.mon_year}
               percent={PercentagePre.toFixed(2)}
@@ -175,8 +179,8 @@ const SalaryuCount = () => {
             <MonthData
               ctc={numDifferentiation(current_month.ctc)}
               ctcLabel="CTC"
-              gross={numDifferentiation(current_month.gross)}
-              variation={minusVarCur}
+              gross={numDifferentiation(current_month.gross) || 0}
+              variation={minusVarCur || 0}
               variationLabel="Var"
               month={numDifferentiation(current_month.mon_year)}
               percent={Percentage.toFixed(2)}
@@ -228,6 +232,7 @@ else
        />
        let finalData = result2.data.getSalaryGgraphPopUpByMonYearDept
        
+       
 
          return(
             <Modal
@@ -242,7 +247,7 @@ else
                       className="btn modalBtn text-capitalize col-8 col-sm-8 col-md-3 col-lg-2 col-xl-2"
                       align="left"
                     >
-                      {status}
+                     {status}<span className="badge badge-pill badge-warning">{finalData.length}</span>
                     </button>
                   </div>
                   <div className="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
@@ -258,8 +263,8 @@ else
                   <thead className="table-secondary">
                     <tr>
                       <th>Name</th>
-                      <th>Department Name</th>
-                      <th>Designation Name</th>
+                      <th>Department</th>
+                      <th>Designation</th>
                       <th>CTC</th>
                       <th>Gross Salary</th>
                     </tr>

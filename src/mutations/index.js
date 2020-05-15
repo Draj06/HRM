@@ -19,3 +19,50 @@ mutation
     updateEmployeeSectionEmployeeBasicInfoStatus($id:String!,$status:String!){
     updateEmployeeSectionEmployeeBasicInfoStatus(emp_id:$id,status:$status)
     }`
+
+
+    // ________________________________________  Adddept desig delete ________________________________________
+
+
+    export const ADD_DEPARTMENTS= gql`
+      mutation
+      addDepartments($dept_name:String!){
+      addDepartments(dept_name:$dept_name)
+      {
+      id
+      department
+      }
+    }`
+
+    export const ADD_DESIGNATION= gql`
+    mutation 
+        addDesignations($designation:String!){
+        addDesignations(designation:$designation)
+        {
+        id
+        designation
+      }
+    }`
+
+    export const DELETE_DEPARTMENT = gql`
+        mutation 
+        deleteDepartment($dept_name:String!){
+        deleteDepartment(dept_name:$dept_name)
+        {
+          id
+          department
+      }
+    }
+    `
+
+    export const DELETE_DESIGNATION = gql`
+        mutation 
+        deleteDesignation($designation:String!){
+          deleteDesignation(designation:$designation)
+        {
+          id
+          designation
+        }
+      }
+    `
+    

@@ -1,6 +1,7 @@
 .countDiv{
     padding:10px;
-    box-shadow: 5px 5px 10px 8px  #dfdbdb;
+    box-shadow: 0 0 4px 0 #00000029;
+    background-color: ffffff;
     margin-bottom: 10px;
 }
 .widthContainer{
@@ -15,19 +16,35 @@
     margin-left: 1px;
 }
 .monthYr{
-
- color:#041116;
- font-weight: 550;
+    font-size: 17.3px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: 0px;
+    text-align: left;
+    color: #403c4f;
 }
 .totalCount{
-   font-size: 1.2rem;
-   font-weight:550;
-   color: black;
+    font-size: 20.7px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: 0px;
+    text-align: left;
+    color: #403c4f;
    
 }
 .totalHeading{
-    font-size: .9rem;
-    color: #3b3a3d;
+    font-size: 14.4px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: 0px;
+    text-align: center;
+    color: #403c4f;
 }
 
 .variation{
@@ -35,24 +52,57 @@
     font-size: 1rem;
     font-weight: 550;
 }
-.graphHeading,.salaryOption{
-    background-color: #e9ebf7;
-    color: black;
-    box-shadow: 2px 5px 2px 1px  #888888;
-    font-size: 1.1rem;
-    font-weight: 400;
-    
-}
+
 .graphHeading{
-    margin-bottom: 10px;
-    
+    font-size: 20.7px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: 0px;
+    text-align: left;
+    color: #403c4f;
+   margin-top: 10px;
     
 }
-.div_divide{
-    box-shadow: 5px 5px 5px 5px  #888888;
-    margin-bottom: 10px;
-  
+
+.manPowerGraphDiv,.salaryGraphDiv,.ageChartDiv,.religionChartDiv,.genderChartDiv,.locationChartDiv{
+    border-radius: 6px;
+    box-shadow: 0 0 8px 0 #00000029;
+    background-color: #ffffff;
+    
 }
+
+@media screen and (min-width: 769px) {
+.manPowerGraphDiv,.salaryGraphDiv{
+    max-width: 48%;
+}
+.ageChartDiv,.religionChartDiv,.genderChartDiv,.locationChartDiv{
+    max-width: 23.5%;
+
+}
+.ageChartDiv{
+    margin-left: 15px;
+    margin-right: 17px;
+}
+.genderChartDiv{
+    margin-left: 20px;
+    margin-right: 22px;
+}
+}
+.salaryOption{
+    font-size: 18px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: 0px;
+    text-align: left;
+    color: #403c4f;
+    margin-bottom: -7px;
+    
+}
+
 .salaryGraph,.manpowerChart
 {
     overflow-x: auto;
@@ -60,11 +110,11 @@
     
 }
 .modalBtn{
-      background-color: #0d47a1;
-    font-size: 1.2rem;
-    font-weight: 500;
-    cursor: pointer;
+    width: 149px;
+    height: 40px;
+    background-color: #0d47a1;
     color: white;
+
 }
 
 .alert{
@@ -77,7 +127,4 @@
 .modalLingment{
     margin: 5px;
 }
-.modalHeader
-{
-    background-color: #e9ebf7;
-}
+

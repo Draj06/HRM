@@ -14,6 +14,7 @@ const CurrAndprevMonthcCounts =() =>{
   const history = useHistory();
   const[modalIsOpen,setmodalIsOpen] = useState(false)
   const[status,setStatus] = useState('')
+  const[count,setCount] = useState('0')
   const[month,setMonth] = useState('')
   const[year,setYear] = useState(1)
 
@@ -35,11 +36,12 @@ className="loaderCLassForGraph"
 type="ThreeDots"
 color="#0073e6"
 />
+
  const modalClick = (e)=>
   {
     let Month_year = e.target.attributes[0].value || e.target.value
     
-    console.log(Month_year)
+    
     let month_year_status = Month_year.split(':')
     console.log(month_year_status)
     let sepStatusDate = month_year_status[1].split(' ')
@@ -48,9 +50,11 @@ color="#0073e6"
       let month = sepStatusDate[0]
       let yearVal = parseInt(sepStatusDate[1])
       let statusM = month_year_status[0]
-          
+            
+          console.log(month_year_status)
           setMonth(month)
           setYear(yearVal)
+          setCount(month_year_status[2])
           setStatus(capitalizeFirstLetter(statusM))
         
           setmodalIsOpen(true)
@@ -58,7 +62,7 @@ color="#0073e6"
     
   }
    
-  
+  console.log(count)
 
   const MonthData = ({
     arrive,
@@ -82,23 +86,23 @@ color="#0073e6"
         <div className="col-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
           <button 
           onClick={modalClick} 
-          value={arriveLabel+":"+month}
+          value={arriveLabel+":"+month+":"+arrive}
          
           className="btn primary  text-capitalize col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
             {arriveLabel}
             
             <span 
-            value={arriveLabel+":"+month}
+            value={arriveLabel+":"+month+":"+arrive}
             className="badge badge-pill">{arrive || 0}</span>
           </button>
           <hr className="nomarginHr"/>
           <button 
             onClick={modalClick}
-            value={exitLabel+":"+month}
+            value={exitLabel+":"+month+":"+exit}
             className="btn primary text-capitalize col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
             {exitLabel}
             <span
-             value={exitLabel+":"+month}
+             value={exitLabel+":"+month+":"+exit}
             className="badge badge-pill">{exit || 0}</span>
           </button>
         </div>
@@ -133,7 +137,7 @@ color="#0073e6"
     }
     localStorage.setItem('emp_Id',emp.emp_id)
     localStorage.setItem('emp_status',emp.emp_status)
-    history.push('/employee_profile')
+    history.push('/employee/employee_profile')
    };
   
   
@@ -147,7 +151,9 @@ color="#0073e6"
          
           <div className="row container-fluid">
 
-     <div className="form-control graphHeading"> Manpower Graph</div>
+     <div className="graphHeading"> Manpower Graph
+     </div>
+     <hr />
     <div className="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
       <div className="row widthContainer">
         <div className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
@@ -180,7 +186,8 @@ color="#0073e6"
           if(result2.error) return (<div className="row container-fluid">
                 
               
-          <div className="form-control graphHeading"> Manpower Graph</div>
+          <div className="graphHeading"> Manpower Graph</div>
+          <hr />
          <div className="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
            <div className="row widthContainer">
              <div className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
@@ -220,12 +227,12 @@ color="#0073e6"
         return(
           <Modal isOpen={modalIsOpen} shouldCloseOnOverlayClick={false} onRequestClose={()=>setmodalIsOpen(false)}>
                   <div>
-                    <div className="row modalHeader">
+                    <div className="row">
                       <div className="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
                       <button
                     className="btn modalBtn text-capitalize col-8 col-sm-8 col-md-4 col-lg-2 col-xl-2"
                     align="left"
-                    >{status}</button>
+                      >{status}<span className="badge badge-pill badge-warning">{count}</span></button>
                   </div>
                   <div className="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
                    
@@ -248,8 +255,8 @@ color="#0073e6"
                       <thead className="table-secondary">
                         <tr>
                           <th>Name</th>
-                          <th>Department Name</th>
-                          <th>Position Name</th>
+                          <th>Department</th>
+                          <th>Designation</th>
                           <th>Gender</th>
                           <th>Tentative DOJ</th>
                           <th>DOJ</th>

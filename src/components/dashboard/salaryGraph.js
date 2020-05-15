@@ -14,10 +14,13 @@ const options = {
   curveType: "function",
   seriesType: "line",
   enableInteractivity: true,
-
-  hAxis: { textStyle: { color: "green", underline: true, bold: "1000" } },
+  colors: ['#e9ebf7',"#4e7fcc","#0a367a","#ffef4f","#c38d00","#fbbd05"],
+  hAxis: { textStyle: { color: "#0d47a1", underline: true, bold: "1000"},title:"Months of Year",
+  
+},
   series: {
-    3: { targetAxisIndex: 1, type: "bars", color: "66a3ff" },
+    3: { targetAxisIndex: 1, type: "bars", color: "#4e7fcc" },
+      
   },
   vAxes: {
     // Adds titles to each axis.
@@ -25,7 +28,7 @@ const options = {
     1: { title: "Total employee" },
   },
 
-  legend: { position: "bottom" },
+  legend: { position: "top",alignment: 'end'},
 };
 
 const SalaryGraph = () => {
@@ -36,7 +39,7 @@ const SalaryGraph = () => {
   const [deptVisible1, setdeptVisible1] = useState(false);
   const { error, loading, data } = useQuery(SALARY_GRAPH1);
   const result1 = useQuery(SALARY_GRAPH2);
-
+ let go_back = "< Back to level 1"
   if (error)
     return (
       <div class="alert alert-danger alert-dismissible">
@@ -213,8 +216,9 @@ const SalaryGraph = () => {
               <option>Salary Graph2</option>
             </select>
           </div>
+          
         </div>
-
+        <hr />
         <div>
           {overBoard1 === true && <OverboardSal1 />}
           {overBoard1 === false && <SalaryCount />}
@@ -223,16 +227,18 @@ const SalaryGraph = () => {
             <div>
               {deptVisible1 ? (
                 <div>
-                  <span onClick={btnClick1} className="btn btn-outline-success">
-                    <i className="fas fa-backward "></i>
-                  </span>
+                  <button onClick={btnClick1}
+                  className="btn white_color_btn"
+                  >
+                       {go_back}
+                  </button>
                   <SalaryDeptMinMaxGraph />
                 </div>
               ) : (
                 <div className="salaryGraph">
                   <Chart
                     chartType="LineChart"
-                    width="100%"
+                    width="105%"
                     height="350px"
                     data={finalData1}
                     options={options}
@@ -260,7 +266,7 @@ const SalaryGraph = () => {
             </select>
           </div>
         </div>
-
+        <hr />
         <div>
           {overBoard === true && <OverboardSal1 />}
           {overBoard === false && <SalaryCount />}
@@ -268,15 +274,17 @@ const SalaryGraph = () => {
           <div className="salaryGraph">
             {deptVisible ? (
               <div>
-                <span onClick={btnClick} className="btn btn-outline-success">
-                  <i className="fas fa-backward "></i>
-                </span>
+                <button onClick={btnClick}
+                className="btn white_color_btn"
+                >
+                {go_back}
+                </button>      
                 <SalaryDeptGraph />
               </div>
             ) : (
               <Chart
                 chartType="LineChart"
-                width="100%"
+                width="105%"
                 height="350px"
                 data={finalData}
                 options={options}

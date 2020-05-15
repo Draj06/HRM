@@ -6,6 +6,8 @@ const EvaluationData = ({ item }) => {
   
   const [disabled, setdisabled] = useState(true);
   const { register, handleSubmit, reset, errors } = useForm();
+  const[input_style,set_input_style] =useState("ideal_empty_input")
+  const[label_style,set_label_style] =useState("ideal_label_on_empty_input")
   const [circleloading, setcircleloading] = useState(false);
   const [cancelData, setCancelData] = useState({});
   const [showsave, setshowsave] = useState(false);
@@ -39,6 +41,19 @@ const EvaluationData = ({ item }) => {
     setFormData(cancelData);
     reset();
   };
+  const onInputFocus=()=>{
+    set_input_style("on_focus_input_style")
+    set_label_style("on_focus_input_label_style")
+  }
+  const lossFocus=(e)=>{
+
+    const v = (e.target.value)
+    console.log(v)
+    if(v!==""){
+       set_input_style("on_loss_focus_input_style")
+      set_label_style("on_loss_focus_input_label_style")
+    }
+  }
   return (
     <div>
       <div className="emp_sideLeft">
@@ -83,35 +98,44 @@ const EvaluationData = ({ item }) => {
               value={formData.Name_of_the_evaluator}
               disabled={disabled}
               ref={register({ required: true })}
+              onFocus={onInputFocus}
+              onBlur={lossFocus}
+              className={errors.Name_of_the_evaluator ? "inputColorLine" :disabled ? 
+              "input_style_on_disabled":input_style}
           />
           <br />
           {errors.Name_of_the_evaluator && (
-              <div><span className="text-danger">Name of evaluator is required</span></div>
+              <div><span className="inputTextError">Name of evaluator is required</span></div>
             )}
-            <label htmlFor="Name_of_the_evaluator" className="labelEmploye">
-              Name of the evaluator
-            </label>
+          <label htmlFor="Name_of_the_evaluator" className={errors.Name_of_the_evaluator ?
+              "inputColorLine input_label_on_error" :disabled ? "input_label_style_on_disabled":label_style}
+            >Name of teh evaluator</label>
           </div>
         </div>
         <div className="row">
           <div className="form-group col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-            <input
-              type="text"
-              className="text-capitalize"
+            <textarea
+              rows="1.5"
+              className="text-capitalize form-control"
               id="Enter_employee_note_here"
               name="Enter_employee_note_here"
               onChange={handleChange}
               value={formData.Enter_employee_note_here}
               disabled={disabled}
               ref={register({ required: true })}
+              
+              onFocus={onInputFocus}
+              onBlur={lossFocus}
+              className={errors.Enter_employee_note_here ? "inputColorLine" :disabled ? 
+              "input_style_on_disabled":input_style}
           />
           <br />
           {errors.Enter_employee_note_here && (
-              <div><span className="text-danger">Employee's evaluation required</span></div>
+              <div><span className="inputTextError">Employee's evaluation required</span></div>
             )}
-            <label htmlFor="Enter_employee_note_here" className="labelEmploye">
-              Enter employee's evaluation note here
-            </label>
+            <label htmlFor="Enter_employee_note_here" className={errors.Enter_employee_note_here ?
+              "inputColorLine input_label_on_error" :disabled ? "input_label_style_on_disabled":label_style}
+            >Evaluation note here</label>
           </div>
         </div>
 
@@ -126,14 +150,19 @@ const EvaluationData = ({ item }) => {
               value={formData.Evaluation}
               disabled={disabled}
               ref={register({ required: true })}
+              onFocus={onInputFocus}
+              onBlur={lossFocus}
+              className={errors.Evaluation ? "inputColorLine" :disabled ? 
+              "input_style_on_disabled":input_style}
           />
           <br />
           {errors.Evaluation  && (
-              <div><span className="text-danger">Employee's evaluation required</span></div>
+              <div><span className="inputTextError">Employee's evaluation required</span></div>
             )}
-            <label htmlFor="Evaluation" className="labelEmploye">
-              Evaluation
-            </label>
+            <label htmlFor="Evaluation" className={errors.Evaluation ?
+              "inputColorLine input_label_on_error" :disabled ? "input_label_style_on_disabled":label_style}
+            >Evaluation</label>
+          
 
             <div className="form-group mt-2"></div>
           </div>

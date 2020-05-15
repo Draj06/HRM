@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../../Styles/employee.css";
-import { PAY_DATA, STAT_DATA } from "../../queries";
+import { PAY_DATA, STAT_DATA, LatestPAY_DATA } from "../../queries";
 
 import { useQuery } from "@apollo/react-hooks";
 import Loader from "react-loader-spinner";
@@ -10,42 +10,48 @@ import "../../Styles/payroll.css";
 import ReactHTMLTableToExcel from "react-html-table-to-excel";
 
 const payroll_parameters = [
-  "Employee no",
+  "Employee No",
   "Employee Name",
   "Department",
   " Designation",
   "Employee Status",
   " Month",
-  " Actual No of days",
-  "Billable No of days",
+  " Actual Number of days",
+  "Billable Number of days",
   "CTC",
   "Earned Fixed",
   "Earned Variable",
   "Gross Salary",
   "Deductions",
   "Net Salary",
-  "Aadhaar",
+  "Aadhaar Number",
   "UAN",
 ];
 const checkbox_parameters = ["Department", "Designation", "Status"];
 
-const EmpStatus = () => {
-  const filterBy = ["emp_department", "emp_position", "emp_status"]; // Read from API emp_department
+const Payroll = () => {
+  const filterBy = ["emp_department", "emp_position", "emp_status"]; // Read from API
+
+  const [year, setYear] = useState(1); // this is initail year
+  const [month, setMonth] = useState(""); // this is initail month
 
   const [filterGroups, setFilterGroups] = useState({});
-
+  const [handelDateChange, sethandelDateChange] = useState(false);
   const [filters, setFilters] = useState({});
   const [initFilter, setInitFilter] = useState({});
   const [initGroups, setInitGroups] = useState({});
-  const [month, setMonth] = useState(
-    new Date().toLocaleString("default", { month: "long" })
-  ); // this is initail month
-
-  const [year, setYear] = useState(new Date().getFullYear()); // this is initail year
   const [searchStatus, setSearchState] = useState("");
+
+  // using query  for getting latest month and year having  paydata
+  const { data: dataP, error: errorP, loading: loadingP } = useQuery(
+    LatestPAY_DATA
+  );
+
+
   const { error, loading, data } = useQuery(PAY_DATA, {
     variables: { year, month },
   });
+
   const { data: dataR, error: errorR, loading: loadingR } = useQuery(
     STAT_DATA,
     {
@@ -54,9 +60,8 @@ const EmpStatus = () => {
   );
 
   useEffect(() => {
-    if (!data) return;
-
-    let id = 0;
+    if (data && dataP) {
+      let id = 0;
     const unique = (prop) => {
       const res = [];
       data.getEmpPayroleByMonthYear.forEach((v) => {
@@ -65,22 +70,36 @@ const EmpStatus = () => {
       });
       return res;
     };
-
+    
     let filterTmp = {};
     let groupTmp = {};
     filterBy.forEach((item) => {
       filterTmp[item] = [];
       groupTmp[item] = unique(item);
     });
-
+    
     setInitFilter(filterTmp);
     setFilters(filterTmp);
-
+    
     setInitGroups(groupTmp);
     setFilterGroups(groupTmp);
-  }, [data]);
+   if(handelDateChange===false)
+   {
 
-  if (loading || loadingR)
+       let m = dataP.getPayroleLatestMonthAndYear.latest_month
+       let y = dataP.getPayroleLatestMonthAndYear.latest_year
+       console.log((m))
+        setMonth(m)
+        setYear(parseInt(y))  
+        
+   }
+       
+  };
+    
+    
+  }, []);
+ 
+  if (loading || loadingR || loadingP)
     return (
       <Loader
         className="loaderCLassForGraph"
@@ -88,6 +107,19 @@ const EmpStatus = () => {
         color="#0073e6"
       />
     );
+   
+  const handleDate = (date) => {
+    sethandelDateChange(true)
+    let pickedDate = new Date(date);
+    let pickedyear = pickedDate.getFullYear();
+    let pickedmonth = pickedDate.toLocaleString("default", { month: "long" });
+    console.log("picked year and month is" + pickedyear+":  " +pickedmonth);
+    setYear(pickedyear);
+    setMonth(pickedmonth);
+    console.log(data)
+  };
+
+ 
 
   const filterData = () => {
     let result = data.getEmpPayroleByMonthYear;
@@ -127,16 +159,6 @@ const EmpStatus = () => {
       [filter]: updateGroup,
     });
   };
-  //stat data
-  const StatData = dataR.getTotalEmpCtcGrossSal;
-
-  const handleDate = (date) => {
-    let pickedDate = new Date(date);
-    let year = pickedDate.getFullYear();
-    let month = pickedDate.toLocaleString("default", { month: "long" });
-    setYear(year);
-    setMonth(month);
-  };
 
   const clearAll = () => {
     let tmp = { ...filterGroups };
@@ -162,13 +184,11 @@ const EmpStatus = () => {
     );
   });
   const btnClick = () => {
-    let year = new Date().getFullYear();
-    let month = new Date().toLocaleString("default", { month: "long" });
-    setYear(year);
-    setMonth(month);
+    setYear(dataP.getPayroleLatestMonthAndYear.latest_year); //set to year having data  got from query
+    setMonth(dataP.getPayroleLatestMonthAndYear.latest_month); //set to month having data got from query
   };
 
-  if (error || errorR)
+  if (data.getEmpPayroleByMonthYear === null || error || errorR || errorP)
     return (
       <div className="container-fluid emp_Container">
         <div className="row">
@@ -198,10 +218,7 @@ const EmpStatus = () => {
                     No Data for Selected Month: {month} {year}. Click to go back
                     :{" "}
                   </strong>
-                  <button
-                    className=" btn"
-                    onClick={btnClick}
-                  >
+                  <button className=" btn" onClick={btnClick}>
                     <span>
                       <i
                         className="fa fa-arrow-left"
@@ -217,6 +234,9 @@ const EmpStatus = () => {
       </div>
     );
 
+  //stat data
+  const StatData = dataR.getTotalEmpCtcGrossSal;
+  //console.log("the stat data is " + JSON.stringify(StatData));
   return (
     <div className="container-fluid emp_Container">
       <div className="row">
@@ -234,7 +254,6 @@ const EmpStatus = () => {
               dateFormat="YYYY-MM"
               timeFormat={false}
               onChange={handleDate}
-              defaultValue={new Date()}
             />
           </div>
           <div className="row">
@@ -243,14 +262,18 @@ const EmpStatus = () => {
             </div>
             <div
               className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6"
-              align="center"
+              align="right"
             >
-              <p onClick={clearAll}>Clear</p>
+              <p onClick={clearAll}
+              className="clear"
+              >
+                Clear
+              </p>
             </div>
 
             <div className="row checkBoxes">
               {filterBy.map((item) => (
-                <div className="container-fluid">
+                <div key={item.indexv} className="container-fluid">
                   <label className="custom-label">
                     {item == "emp_department"
                       ? checkbox_parameters[0]
@@ -283,59 +306,50 @@ const EmpStatus = () => {
           </div>
         </div>
         <div className="col-12 col-sm-12 col-md-8 col-lg-9 col-xl-10">
-          <div className="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 ">
-            <div className="row statbar col-lg-12">
-              <button
-                type="button"
-                className="btn primary_light mr-2"
-              >
-                Numer of Employees{" "}
-                <span className="badge badge-pill primary">
-                  {StatData.count}
-                </span>
-              </button>
-              <button
-                type="button"
-                className="btn primary_light mr-2"
-              >
-                CTC{" "}
-                <span className="badge badge-pill primary">
-                  {StatData.emp_total_ctc}
-                </span>
-              </button>
-              <button
-                type="button"
-                className="btn primary_light mr-2"
-              >
-                Gross Salary{" "}
-                <span className="badge badge-pill primary">
-                  {StatData.emp_total_gross_salary}
-                </span>
-              </button>
+          <div className="container-fluid mt-2">
+            <div className="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 ">
+              <div className="row statbar col-lg-12">
+                <button type="button" className="btn primary_light mr-2">
+                  Numer of Employees{" "}
+                  <span className="badge badge-pill primary">
+                    {StatData.count}
+                  </span>
+                </button>
+                <button type="button" className="btn primary_light mr-2">
+                  CTC{" "}
+                  <span className="badge badge-pill primary">
+                    {StatData.emp_total_ctc}
+                  </span>
+                </button>
+                <button type="button" className="btn primary_light mr-2">
+                  Gross Salary{" "}
+                  <span className="badge badge-pill primary">
+                    {StatData.emp_total_gross_salary}
+                  </span>
+                </button>
 
-              <div className="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 mr-2">
-                {/* Search Input */}
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Search.. "
-                  onChange={searchInput}
-                ></input>
+                <div className="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 mr-2">
+                  {/* Search Input */}
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Search.. "
+                    onChange={searchInput}
+                  ></input>
+                </div>
+
+                <ReactHTMLTableToExcel
+                  id="test-table-xls-button"
+                  table="table-to-xls"
+                  filename="Payroll"
+                  sheet="payrolltablexls"
+                  button
+                  className="btn white_color_btn col-12 col-sm-12 col-md-4 col-lg-3 col-xl-3"
+                  buttonText="Download Excel"
+                />
               </div>
-
-              <ReactHTMLTableToExcel
-              
-                id="test-table-xls-button"
-                table="table-to-xls"
-                filename="Payroll"
-                sheet="payrolltablexls"
-                button
-                className="btn white_color_btn col-12 col-sm-12 col-md-4 col-lg-3 col-xl-3"
-                buttonText="Export"
-              />
             </div>
           </div>
-           
           <div className="container-fluid mt-2">
             <div className="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 table-responsive">
               <table
@@ -381,4 +395,4 @@ const EmpStatus = () => {
     </div>
   );
 };
-export default EmpStatus;
+export default Payroll;

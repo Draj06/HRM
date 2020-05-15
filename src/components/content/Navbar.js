@@ -41,7 +41,7 @@ console.log(test)
        <li className="nav-item">
       <NavLink
       activeClassName="active"
-      className="nav-link menuStyle" to="payroll" id="payroll">payroll</NavLink >
+      className="nav-link menuStyle" to="/payroll" id="payroll">payroll</NavLink >
       </li>
       
       {/* <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
@@ -71,7 +71,7 @@ console.log(test)
       <li className="nav-item">
       <Link 
     
-      className="nav-link"><i className="fas fa-bell mr-3"></i></Link>
+      className="nav-link"><i className="fas fa-bell"></i></Link>
       </li>
       <li className="nav-item">
         <Link className="nav-link"
@@ -97,7 +97,7 @@ console.log(test)
 <br></br>
 <br></br>
 <br></br>
-<br></br>
+
     </div>
   );
 }

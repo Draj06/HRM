@@ -9,7 +9,7 @@ import Loader from 'react-loader-spinner'
 import { Chart } from "react-google-charts";
 
 const ManpowerGraph =()=>{
-    
+  let go_back ="< Back to level 1"
   const {error,loading,data} = useQuery(MANPOWER_GRAPH_MONTH)
   const[childVisible,setchildVisible] = useState(false)
   const[deptVisible,setdeptVisible] = useState(false)
@@ -33,7 +33,7 @@ const ManpowerGraph =()=>{
          count:item.total_count
        }
      })
-     const header = [["Title", "Total No of Employes"]]
+     const header = [["Title", "Total number of employees"]]
      const dataArr = dataWIthoutType.map(obj => Object.values(obj))
      const finalData = header.concat(dataArr)
     
@@ -86,11 +86,12 @@ const ManpowerGraph =()=>{
         curveType: "function",
         legend: { position: "bottom" },
         enableInteractivity: true,
-        hAxis: { textStyle: { color: "green", underline: true,bold:"1000" } },
+        hAxis: { textStyle: { color: "#0d47a1", underline: true,bold:"1000"},title:"Months of Year" },
         vAxis: {
           title: 'Total Employee'
         },
-        colors: ['#66a3ff'],
+        colors: ['#0d47a1'],
+        legend: { position: "top",alignment: 'end'},
       };
      
 
@@ -99,20 +100,26 @@ if(!childVisible)
  
   return (
       
-      <div className="manpowerChart">
+      <div>
+        <div>
+
        <CurPrevMonth />
+        </div>
         {
           
     deptVisible ?   
     <div>
-       <span 
+       <button 
        onClick={btnClick}
-       className="btn btn-outline-success"><i className="fas fa-backward "></i></span>      
+       className="btn white_color_btn"
+        >{go_back}</button>      
     <ManpowerDept  /> 
     </div>
     :
+    <div className="manpowerChart">
+      
       <Chart
-        width={'99%'}
+        width={'105%'}
         height={'350px'}
         chartType="LineChart"
         data={finalData}
@@ -121,6 +128,7 @@ if(!childVisible)
         legendToggle
         
       />
+    </div>
         }
        
       </div>
@@ -134,14 +142,15 @@ return (
           
     childVisible ?   
     <div>
-       <span 
+       <button 
        onClick={btnClick}
-       className="btn btn-outline-success"><i className="fas fa-backward "></i></span>      
+       className="btn white_color_btn"
+        >{go_back}</button>      
     <ManpowerDept  /> 
     </div>
     :
       <Chart
-        width={'99%'}
+        width={'105%'}
         height={'350px'}
         chartType="ColumnChart"
         data={finalData}
