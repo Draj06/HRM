@@ -28,7 +28,7 @@ const EmpStatus = () => {
     "Evaluation",
   ]; // Read from API
   const [filterGroups, setFilterGroups] = useState({});
-  const [open, setOpen] = useState(0);
+  const [activeKey, setActiveKey] = useState(0);
   const [filters, setFilters] = useState({});
   const [initFilter, setInitFilter] = useState({});
   const [initGroups, setInitGroups] = useState({});
@@ -66,11 +66,6 @@ const EmpStatus = () => {
     setInitGroups(groupTmp);
     setFilterGroups(groupTmp);
   }, [data]);
-  var Onload = handler => {
-    return useEffect(() => {
-      return handler();
-    }, []);
-  };
 
   if (loading)
     return (
@@ -182,18 +177,25 @@ const EmpStatus = () => {
     );
   });
 
-  // const filterColumns = tableFilterData => {
-  //   const columns = Object.keys(tableFilterData[0]);
-  //   let headers = [];
-  //   columns.forEach((col, idx) => {
-  //     if (col !== "__typename" && col !== "emp_photo" && col !== "emp_id") {
-  //       // OR if (idx !== 0)
-  //       headers.push({ label: camelCase(col), key: col });
-  //     }
-  //   });
+  const filterColumns = tableFilterData => {
+    if (tableFilterData[0]) {
+    
+      const columns = Object.keys(tableFilterData[0]);
+      console.log(columns)
+      let headers = [];
+      
+      columns.forEach((col, idx) => {
+        if (col !== "__typename" && col !== "emp_photo" && col !== "emp_id") {
+          // OR if (idx !== 0)
+          headers.push({ label: camelCase(col), key: col });
+        }
+        
+      });
+  
+      return headers;
+    }
 
-  //   return headers;
-  // };
+  };
   const addIndividualEmp = () => {
     history.push("/employee/addemployee");
   };
@@ -202,29 +204,17 @@ const EmpStatus = () => {
     history.push("/employee/addemployeebulk");
   };
   
-  function CustomToggle({ children, eventKey}) {
-    const [txt, setTxt] = useState("+");
-    Onload(() => {
-    if (eventKey === 0) {
-       setTxt("-");
-    }
-    
-  })
-    const decoratedOnClick = useAccordionToggle(eventKey, e => {
-      
-      txt === "+" ? setTxt("-") : setTxt("+");
-      
-     
+  function CustomToggle({ children, eventKey, handleClick }) {
+    const decoratedOnClick = useAccordionToggle(eventKey, () => {
+      handleClick();
     });
   
     return (
-      
-      <div className="card-header checkBoxHeader" onClick={decoratedOnClick}>
-        {children} {txt==="+"? <i className="fas fa-angle-up float-right" />:<i className="fas fa-angle-down float-right" />}
+      <div className="card-header checkBoxHeader" type="button" onClick={decoratedOnClick}>
+        {children}
       </div>
     );
   }
-
 
   return (
     <div className="container-fluid emp_Container">
@@ -275,6 +265,7 @@ const EmpStatus = () => {
               <CSVLink
                 data={tableFilterData}
                 filename={"Employee.csv"}
+                headers={filterColumns(tableFilterData)}
                 className="btn white_color_btn col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"
               >
                 Export
@@ -289,10 +280,10 @@ const EmpStatus = () => {
           <div className="row">
             <div className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6"></div>
             <div
-              className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6"
-              align="right"
+              className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-4"
+              
             >
-              <p onClick={clearAll} className="clear">
+              <p onClick={clearAll} className="clear float-lg-right">
                 Clear
               </p>
             </div>
@@ -306,9 +297,16 @@ const EmpStatus = () => {
                       as={Card.Header}
                       eventKey={index}
                       className="custom-label checkBoxHeader text-capitalize"
-                      
+                      handleClick={() => {
+                        if (activeKey === index) {
+                          setActiveKey(null);
+                        } else {
+                          setActiveKey(index);
+                        }
+                      }}
                     >
-                      {item}
+                      {item}{activeKey === index ? <i className="fas fa-angle-down float-right"></i> :
+                       <i className="fas fa-angle-up float-right"></i>}
                       
                       
                     </CustomToggle>

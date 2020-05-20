@@ -26,6 +26,7 @@
     color: #403c4f;
 }
 .totalCount{
+    
     font-size: 20.7px;
     font-weight: 500;
     font-stretch: normal;
@@ -37,6 +38,7 @@
    
 }
 .totalHeading{
+    margin-top: 15px;
     font-size: 14.4px;
     font-weight: 500;
     font-stretch: normal;
@@ -86,7 +88,7 @@
     margin-right: 17px;
 }
 .genderChartDiv{
-    margin-left: 20px;
+    margin-left: 23px;
     margin-right: 22px;
 }
 }

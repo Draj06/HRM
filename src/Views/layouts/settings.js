@@ -9,6 +9,7 @@ import test from "../../Test.json";
 import { ToastContainer, toast } from 'react-toastify';
 
 
+
 const Settings = () => {
   const camelCase = str => {
     return str.substring(0, 1).toUpperCase() + str.substring(1);
@@ -74,22 +75,37 @@ const Settings = () => {
    
     
   const finalData = dataQ.getAllDeptsAndDesignations;
-  
-  // const filterColumns = finalData => {
-  //   const columns = Object.keys(finalData[0]);
-  //   console.log(columns)
-  //   let headers = [];
-  //   columns.forEach((col, idx) => {
-  //     if (col !== "") {
-  //       // OR if (idx !== 0)
-  //       headers.push({ label: camelCase(col), key: col });
-  //     }
-  //   });
+  let export_data1 = []
+  let export_data2 = []
+  let department = ""
+  let designation = ""
+  // export_data1 = (finalData.departments || finalData.designations).map(item=>(
+  //  console.log(item)
+  // ))
+  // export_data2 = finalData.map(item=>(
+     console.log(JSON.stringify(finalData))
+  // ))
 
-  //   return headers;
-  // };
+
+  // const filterColumns = merged => {
+  //   if (merged[0]) {
+    
+  //     const columns = Object.keys(merged[0]);
+  //     console.log(columns)
+  //     let headers = [];
+      
+  //     columns.forEach((col, idx) => {
+  //       if (col !== "id" && col !== "__typename") {
+  //         // OR if (idx !== 0)
+  //         headers.push({ label: camelCase(col), key: col });
+  //       }
+        
+  //     });
   
- 
+  //     return headers;
+  //   }
+
+  //};
 
   const createDepartment = ()=>{
     setshowDepartment(true)
@@ -233,7 +249,7 @@ catch(err){
       
     }
   }
-  return (
+    return (
     <div className="container-fluid">
       <ToastContainer
           position="top-right"
@@ -248,6 +264,11 @@ catch(err){
     />
      <ToastContainer />   
       <h5>Settings</h5>
+      {/* <CSVLink data={finalData}
+      headers={filterColumns(tableFilterData)}
+      filename={"test.csv"}>
+       Export
+      </CSVLink> */}
       <hr />
 
       {test.userType==="admin" && <div className="row form-group">  

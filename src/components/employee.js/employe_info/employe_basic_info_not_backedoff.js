@@ -206,6 +206,7 @@ const Employe_basic_info_not_backedoff = (props) => {
             )}
           </div>
         </div>
+        <div className="scroll_emp_prof">
         <div className="emp_sideLeft">
           <div className="row mt-2">
             <div className="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 ">
@@ -1390,6 +1391,7 @@ const Employe_basic_info_not_backedoff = (props) => {
               </label>
             </div>
           </div>
+        </div>
         </div>
       </form>
     </div>

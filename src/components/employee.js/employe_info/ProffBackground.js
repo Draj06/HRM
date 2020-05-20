@@ -43,11 +43,17 @@ const Proffbackground=(props)=> {
      </div>
     )
     return (
+
       <div className="container-fluid"> 
+        
+            <div className="text-capitalize emp_prof_btn_click">Educational Background</div>
+          <div className="scroll_emp_prof">
       {empData.map((item) => (
       <ProfBack item={item} />
     ))}
       </div>
+      </div>
+      
     )
 }
 

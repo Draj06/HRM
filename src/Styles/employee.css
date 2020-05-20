@@ -30,7 +30,12 @@
     border-radius: 6px;
     box-shadow: 0 0 1px 0 #00000029;
     background-color: #ffffff;
+   
 
+}
+.scroll_emp_prof{
+    height: 600px;
+    overflow-x: hidden;
 }
 .empDetailsDiv1,.empDetailsDiv3{
     font-size: .75rem;

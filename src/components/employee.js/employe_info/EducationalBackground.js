@@ -50,9 +50,14 @@ const EducationalBackground=(props)=> {
      )
     return (
         <div className="container-fluid"> 
+        
+            <div className="text-capitalize emp_prof_btn_click">Educational Background</div>
+          <div className="scroll_emp_prof">
+
         {empData.map((item) => (
         <Education item={item} name="Educational Background"/>
       ))}
+          </div>
         </div>
     )
 }
