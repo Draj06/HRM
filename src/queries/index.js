@@ -407,6 +407,7 @@ query getEmployeeSalaryCtc($type: String!, $id: String!) {
       Name_of_the_evaluator
       Enter_employee_note_here
       Evaluation
+      Evaluation_date
      
     }
   }`
@@ -417,7 +418,49 @@ query getEmployeeSalaryCtc($type: String!, $id: String!) {
   // ______________________________________________________________ payroll______________________________________
 
 
-  export const STAT_DATA = gql`
+  export const LatestYear_DATA = gql`
+  query {
+    getAllYears {
+      year
+    }
+  }
+`;
+
+export const INI_STATDATA = gql`
+  query {
+    getInitialTotalEmpCtcGrossSal {
+      count
+      emp_total_ctc
+      emp_total_gross_salary
+    }
+  }
+`;
+
+export const INIT_DATA = gql`
+  query {
+    getInitialPayroleLatestMonthAndYearData {
+      emp_id
+      emp_number
+      emp_name
+      emp_department
+      emp_position
+      emp_actual_no_of_days
+      emp_billable_no_of_days
+      emp_ctc
+      emp_earned_fixed
+      emp_earned_variable
+      emp_gross_salary
+      emp_deduction
+      emp_net_salary
+      emp_aadhar_no
+      emp_uan_no
+      emp_status
+      month_year
+    }
+  }
+`;
+
+export const STAT_DATA = gql`
   query getTotalEmpCtcGrossSal($year: Int!, $month: String!) {
     getTotalEmpCtcGrossSal(year: $year, month: $month) {
       count
@@ -426,7 +469,6 @@ query getEmployeeSalaryCtc($type: String!, $id: String!) {
     }
   }
 `;
-
 export const PAY_DATA = gql`
   query getEmpPayroleByMonthYear($year: Int!, $month: String!) {
     getEmpPayroleByMonthYear(year: $year, month: $month) {
@@ -448,15 +490,6 @@ export const PAY_DATA = gql`
       emp_aadhar_no
       emp_uan_no
       month_year
-    }
-  }
-`;
-
-export const LatestPAY_DATA = gql`
-  query {
-    getPayroleLatestMonthAndYear {
-      latest_month
-      latest_year
     }
   }
 `;

@@ -77,13 +77,13 @@ const lossFocus=(e)=>{
   const onSubmit = (data) => {
     setcircleloading(true)
      setdisabled(true);
-    let { evaluaterName, evaluationNote, evaluationType } = data;
-    console.log(evaluaterName + ":" + evaluationNote + ":" + evaluationType);
+     console.log(data)
+    let { evaluaterName, evaluationNote, evaluationType ,Evaluation_date} = data;
+    console.log(evaluaterName + ":" + evaluationNote + ":" + evaluationType+" : "+Evaluation_date);
     addEmployeeEvaluationInfo({
-      variables: { id, evaluaterName, evaluationNote, evaluationType },
+      variables: { id, evaluaterName, evaluationNote, evaluationType,Evaluation_date },
     });
 
-    console.log(result);
     toast.success( 'Evaluation updated sucessfully', {
       position: "top-right",
       autoClose: 3000,
@@ -132,9 +132,12 @@ const lossFocus=(e)=>{
               <strong>Ooopppsss !!! No data</strong>{" "}
             </div>
           </div>}
+          <div className="scroll_emp_prof">
+
       {empData.map((item) => (
         <EvaluationComp item={item} />
       ))}
+          </div>
 
       <Modal
         isOpen={modalIsOpen}
@@ -209,26 +212,24 @@ const lossFocus=(e)=>{
             {console.log(TodayDate())}
             <input
               type="date"
-              name="evaluationDate"
-              id="evaluationDate"
-              value="2020-05-15"
-              onChange={(e)=>console.log(e)}
+              name="Evaluation_date"
+              id="Evaluation_date"
               ref={register({ required: true })}
               onFocus={onInputFocus}
               onBlur={lossFocus}
-              className={errors.evaluationDate ? "inputColorLine" : input_style}
+              className={errors.Evaluation_date ? "inputColorLine" : input_style}
             />
-            {errors.evaluationDate && (
-              <div><span className="inputTextError">Evaluator name is required</span></div>
+            {errors.Evaluation_date && (
+              <div><span className="inputTextError">Please select the date</span></div>
             )}
             
-            <label htmlFor="evaluationDate" className={errors.evaluationDate ? "inputColorLine input_label_on_error" : label_style}
+            <label htmlFor="Evaluation_date" className={errors.Evaluation_date ? "inputColorLine input_label_on_error" : label_style}
             >Evaluation Date</label>
           </div>
 
           <div className="form-group ">
           
-            <button className="btn primaryDarkColor  col-7 col-sm-7 col-md-5 col-lg-1 col-xl-1 ml-3"
+            <button className="btn primaryDarkColor  col-4 col-sm-4 col-md-2 col-lg-1 col-xl-1 ml-3"
             disabled={disabled ? "disabled" : ""}
             >
             {circleloading && (

@@ -62,9 +62,9 @@ const EducationBackgroundData = ({ item }) => {
         
             <div className="row">
           <div className="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-            <div className="text-capitalize emp_prof_btn_click">Educational Background</div>
+            
           </div>
-          <div className="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+          <div className="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6" align="right">
         {test.userType==="admin" && showsave===false && 
         
         <div align="right">

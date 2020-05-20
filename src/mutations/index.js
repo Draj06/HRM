@@ -2,15 +2,18 @@ import gql from 'graphql-tag'
 
 export const ADD_EVALUATION =gql`
 mutation
-    addEmployeeEvaluationInfo($id:String!,$evaluaterName:String!,$evaluationNote:String!,$evaluationType:String!){
+    addEmployeeEvaluationInfo($id:String!,$evaluaterName:String!,$evaluationNote:String!,$evaluationType:String!,$Evaluation_date:String!){
     addEmployeeEvaluationInfo(emp_id:$id,
         Name_of_the_evaluator:$evaluaterName,
         Enter_employee_note_here:$evaluationNote,
-        Evaluation:$evaluationType)
+        Evaluation:$evaluationType,
+        Evaluation_date:$Evaluation_date
+        )
         {
-      Name_of_the_evaluator
-      Enter_employee_note_here
-      Evaluation
+          Name_of_the_evaluator
+          Enter_employee_note_here
+          Evaluation
+          Evaluation_date
     }
   }`
 
@@ -21,7 +24,7 @@ mutation
     }`
 
 
-    // ________________________________________  Adddept desig delete ________________________________________
+    // ________________________________________  Add dept desig delete ________________________________________
 
 
     export const ADD_DEPARTMENTS= gql`

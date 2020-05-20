@@ -140,7 +140,7 @@ const EvaluationData = ({ item }) => {
         </div>
 
         <div className="row">
-          <div className="form-group col-12 col-sm-12 col-md-12 col-lg-5 col-xl-5">
+          {disabled===true &&<div className="form-group col-12 col-sm-12 col-md-12 col-lg-5 col-xl-5">
             <input 
               type="text"
               className="text-capitalize"
@@ -163,9 +163,54 @@ const EvaluationData = ({ item }) => {
               "inputColorLine input_label_on_error" :disabled ? "input_label_style_on_disabled":label_style}
             >Evaluation</label>
           
+          </div>}
 
-            <div className="form-group mt-2"></div>
+          {disabled !== true &&<div className="form-group col-12 col-sm-12 col-md-12 col-lg-5 col-xl-5">
+          <select
+              
+              name="evaluationType"
+              className={errors.evaluationType ? "inputColorLine form-control" : "form-control"}
+              ref={register({ required: true })}
+            >
+              <option value="Recommended">Recommended</option>
+              <option value="Average">Average</option>
+              <option value="Blacklisted">Blacklisted</option>
+            </select>
+            {errors.evaluationType && (
+              <div><span className="inputTextError">Evaluator type is required</span></div>
+            )}
+            
+            <label htmlFor="evaluationNote" className={errors.evaluationType ? "inputColorLine input_label_on_error" : label_style}
+            >Evaluation</label>
+          
+          </div>}
+
+          <div className="form-group col-12 col-sm-12 col-md-12 col-lg-5 col-xl-5">
+            <input 
+              type="date"
+              className="text-capitalize"
+              id="Evaluation_date"
+              name="Evaluation_date"
+              onChange={handleChange}
+              value={formData.Evaluation_date}
+              disabled={disabled}
+              ref={register({ required: true })}
+              onFocus={onInputFocus}
+              onBlur={lossFocus}
+              className={errors.Evaluation_date ? "inputColorLine" :disabled ? 
+              "input_style_on_disabled":input_style}
+          />
+          <br />
+          {errors.Evaluation_date  && (
+              <div><span className="inputTextError">Employee's Evaluation_date required</span></div>
+            )}
+            <label htmlFor="Evaluation_date" className={errors.Evaluation_date ?
+              "inputColorLine input_label_on_error" :disabled ? "input_label_style_on_disabled":label_style}
+            >Evaluation date</label>
+          
           </div>
+
+
         </div>
         </form>
       </div>

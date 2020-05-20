@@ -12,6 +12,7 @@ import AddEmployee from '../../Views/layouts/addEmployee';
 import AddEmployeeBulk from '../../Views/layouts/addEmployeeBulk';
 import login from '../../Views/auth/login';
 import register from '../../Views/auth/register';
+import Test from '../../Views/auth/test';
 import PageNotFound from '../error/pageNotFound'
 import NavBar from './Navbar'
 import { Switch, Route } from 'react-router-dom';
@@ -21,7 +22,7 @@ export default props => (
       <NavBar/>
      
       <Switch>
-        <Route exact path="/" component={ login } />  
+        <Route exact path="/" component={ dashboard } />  
         <Route exact path="/dashboard" component={ dashboard } /> 
         <Route exact path="/login" component={ login } />            
         <Route exact path="/register" component={ register } />
@@ -33,6 +34,7 @@ export default props => (
         <Route exact path="/addCompany" component={ AddCompany } />
         <Route exact path="/employee/addemployee" component={ AddEmployee } />
         <Route exact path="/employee/addemployeebulk" component={ AddEmployeeBulk } />
+        <Route exact path="/test" component={ Test } />
         <Route exact path="*" component={ PageNotFound } />
         
       </Switch>

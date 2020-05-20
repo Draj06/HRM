@@ -61,7 +61,7 @@ const ProfessionalBackgroundData=({item})=> {
         
         <div className="row">
           <div className="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-            <div className="text-capitalize emp_prof_btn_click">Professional Background</div>
+            
           </div>
           <div className="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
         {test.userType==="admin" && showsave===false && 
