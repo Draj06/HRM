@@ -254,7 +254,7 @@ query getSalaryGgraphPopUpByMonYearDept($month: String!,$year: Int!,$dept: Strin
     emp_name
     emp_number
     Department
-    Position
+    Designation
     emp_tentative_doj
     emp_doj
     emp_tentative_doe

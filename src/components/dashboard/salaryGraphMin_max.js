@@ -60,7 +60,7 @@ const Salary_Dept_Min_Max=()=> {
       0: { title: "Sum of money" },
       1: { title: "Total employee" }
     },
-    legend: { position: "top",alignment: 'end'},
+    legend: { position: "top",alignment: 'center'},
   };
 
     const chartEvents = [
@@ -116,7 +116,7 @@ const Salary_Dept_Min_Max=()=> {
             <div className="container-fluid">
          <Chart
           chartType="LineChart"
-          width="100%"
+          width="105%"
           height="350px"
           data={finalData}
           options={options}
@@ -131,7 +131,7 @@ const Salary_Dept_Min_Max=()=> {
         if(result2.error) return <div className="container-fluid">
         <Chart
          chartType="LineChart"
-         width="100%"
+         width="105%"
          height="350px"
          data={finalData}
          options={options}

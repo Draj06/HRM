@@ -24,10 +24,18 @@ const Religion = ()=>{
   const finalReligionData = header.concat(religionData)
   
   const options = {
-              pieHole: 0.4,
-              is3D: true,
+             
               language: 'hi_IN',
-              legend: { position: 'bottom', alignment: 'end' },
+              is3D:true,
+              legend: {
+                maxLines: 5,
+                textStyle: {
+                  fontSize: 12
+                },
+                position: 'top',
+                alignment: 'start'
+              },
+              chartArea:{left:10,top:50,width:"75%",height:"100%"},
               colors: ['#e9ebf7',"#4e7fcc","#0a367a","#ffef4f","#c38d00","#fbbd05"],
               
            };

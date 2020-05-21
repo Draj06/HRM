@@ -1,5 +1,5 @@
 import React,{useState} from 'react'
-import ProfilePic from "../../Images/profile.png";
+import ProfilePic from "../../Images/Company_logo.png";
 import {Fade} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 
@@ -63,30 +63,25 @@ const Body=()=> {
     return (
         <div className="container-fluid companyContainer fix_header_company">
             {data.map((item, index) => (
-                <div className="emp_sideLeft container-fluid myCollapse mt-3">
-                    <div className="row">
-                <div className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div className="company_list_view_div container-fluid myCollapse mt-3">
+                    <div className="row div_parent">
+                <div className="col-12 col-sm-12 col-md-7 col-lg-7 col-xl-7 form-group">
                  <div className="row">
-                     <div className="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                     <div className="col-6 col-sm-6 col-md-6 col-lg-3 col-xl-3">
                      <img
                           src={ProfilePic}
                           className="companyImage"
                           alt="Image"
                         ></img>
                      </div>
-                     <div className="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 mt-4" >
+                     <div className="col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mt-3">
                          <h5 className="companyName">{item.Company_name}</h5>
-                         <a href={item.website}>website</a>
-                         <div className="mt-3">
-                             <div className="phoneNo">
-                                 <span>{item.official_phon_no}</span><br/>
-                                 <span>{item.official_phon_no}</span>
-                             </div>
-                         </div>
+                         <a href={item.website} className="company_website">website</a>
+                        
                      </div>
                  </div>
                 </div>
-                <div className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 align-self-center mx-auto" align="center">
+                <div className="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5 align-self-center mx-auto" align="center">
                     
                      <Link className="btn dash_Prof_button mr-3"
                      to="dashboard"
@@ -99,12 +94,12 @@ const Body=()=> {
                      
                      >
                          View Profile</button>
-                     <i className="fas fa-edit fa-2x"></i>
+                     
                 </div>
                 </div>
 
                 <Fade in={open === index ? true : false}>
-              <div id={index} className="mt-5 container-fluid">
+              <div id={index} className="mt-3 container-fluid ">
                <div className="row">
                  <div className="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 form-group">
                    <input
