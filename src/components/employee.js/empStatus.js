@@ -22,7 +22,7 @@ const EmpStatus = () => {
   const history = useHistory();
   const filterBy = [
     "Department",
-    "Position",
+    "Designation",
     "Religion",
     "Gender",
     "Evaluation",
@@ -276,20 +276,16 @@ const EmpStatus = () => {
       </div>
       <hr></hr>
       <div className="row">
-        <div className="col-12 col-sm-12 col-md-4 col-lg-3 col-xl-2 emp_sideLeft">
-          <div className="row">
-            <div className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6"></div>
-            <div
-              className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-4"
-              
-            >
+        <div className="col-12 col-sm-12 col-md-4 col-lg-3 col-xl-3">
+          <div className="row emp_filters">
+            
+            <div className="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-4 ">
               <p onClick={clearAll} className="clear float-lg-right">
                 Clear
               </p>
             </div>
-            <div className="container-fluid"></div>
-
-            <div className="row checkBoxes table-responsive">
+            
+            <div className="col-12 col-sm-12 col-md-12 col-lg-11 col-xl-11 checkBoxes table-responsive">
               <Accordion defaultActiveKey={0}>
                 {filterBy.map((item, index) => (
                   <Card class="card">
@@ -341,9 +337,10 @@ const EmpStatus = () => {
                 ))}
               </Accordion>
             </div>
+            
           </div>
         </div>
-        <div className="col-12 col-sm-12 col-md-8 col-lg-9 col-xl-10">
+        <div className="col-12 col-sm-12 col-md-8 col-lg-9 col-xl-9">
           {/* --------------------------------------------------------- */}
           <StatusBtn
             trigerOnStatusBtnClick={StatusBtnOnClick}
@@ -398,7 +395,7 @@ const EmpStatus = () => {
                       </td>
                       <td className="text-capitalize">{item.Department}</td>
                       <td id="empNo" className="text-capitalize">
-                        {item.Position}
+                        {item.Designation}
                       </td>
                       <td className="text-capitalize">{item.emp_doj}</td>
                       <td>{item.emp_tentative_doj}</td>

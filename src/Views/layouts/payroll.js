@@ -356,13 +356,11 @@ const Payroll = () => {
         </div>
         <hr></hr>
         <div className="row">
-          <div className="sidecont col-12 col-sm-12 col-md-4 col-lg-3 col-xl-2  mt-4">
+          <div className="sidecont col-12 col-sm-12 col-md-4 col-lg-3 col-xl-3  mt-4">
             <div className="row checkBoxes ">
-              <div className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-               
-              </div>
+              
               <div
-                className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6"
+                className="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"
                 align="center"
               >
                 <label className="clear float-right" onClick={clearAll}>
@@ -370,8 +368,7 @@ const Payroll = () => {
                   Clear
                 </label>
               </div>
-              <div className="container-fluid"></div>
-              <div className="row checkBoxes table-responsive mt-3">
+              <div className="row col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 checkBoxes table-responsive mt-3">
                 <Accordion defaultActiveKey={0}>
                   {filterBy.map((item, index) => (
                     <Card className="card">
@@ -420,8 +417,8 @@ const Payroll = () => {
               </div>
             </div>
           </div>
-          <div className="col-12 col-sm-12 col-md-8 col-lg-9 col-xl-10">
-            <div className="container-fluid mt-2">
+          <div className="col-12 col-sm-12 col-md-8 col-lg-9 col-xl-9">
+            <div className="container-fluid mt-2 emp_filters">
               <div className="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 ">
                 <div className="row statbar col-lg-12">
                   <button

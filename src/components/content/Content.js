@@ -22,20 +22,20 @@ export default props => (
       <NavBar/>
      
       <Switch>
-        <Route exact path="/" component={ dashboard } />  
-        <Route exact path="/dashboard" component={ dashboard } /> 
-        <Route exact path="/login" component={ login } />            
-        <Route exact path="/register" component={ register } />
+        <Route exact path="/" component={ login } />  
+        <Route  path="/dashboard" component={ dashboard } /> 
+        <Route  path="/login" component={ login } />            
+        <Route  path="/register" component={ register } />
         <Route exact path="/employee" component={ employees } />
-        <Route exact path="/employee/employee_profile" component={ emp_profile } />
-        <Route exact path="/payroll" component={ payroll } />
-        <Route exact path="/settings" component={ settings } />
-        <Route exact path="/companylist" component={ CompanyList } />
-        <Route exact path="/addCompany" component={ AddCompany } />
-        <Route exact path="/employee/addemployee" component={ AddEmployee } />
-        <Route exact path="/employee/addemployeebulk" component={ AddEmployeeBulk } />
-        <Route exact path="/test" component={ Test } />
-        <Route exact path="*" component={ PageNotFound } />
+        <Route  path="/employee/employee_profile" component={ emp_profile } />
+        <Route  path="/payroll" component={ payroll } />
+        <Route  path="/settings" component={ settings } />
+        <Route  path="/companylist" component={ CompanyList } />
+        <Route  path="/addCompany" component={ AddCompany } />
+        <Route  path="/employee/addemployee" component={ AddEmployee } />
+        <Route  path="/employee/addemployeebulk" component={ AddEmployeeBulk } />
+        <Route  path="/test" component={ Test } />
+        <Route  path="*" component={ PageNotFound } />
         
       </Switch>
     </Container>

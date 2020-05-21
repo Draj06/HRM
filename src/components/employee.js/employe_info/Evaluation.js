@@ -76,7 +76,7 @@ const lossFocus=(e)=>{
 }
   const onSubmit = (data) => {
     setcircleloading(true)
-     setdisabled(true);
+     
      console.log(data)
     let { evaluaterName, evaluationNote, evaluationType ,Evaluation_date} = data;
     console.log(evaluaterName + ":" + evaluationNote + ":" + evaluationType+" : "+Evaluation_date);

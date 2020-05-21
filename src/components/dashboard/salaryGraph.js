@@ -28,7 +28,7 @@ const options = {
     1: { title: "Total employee" },
   },
 
-  legend: { position: "top",alignment: 'end'},
+  legend: { position: "top",alignment: 'center'},
 };
 
 const SalaryGraph = () => {

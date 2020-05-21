@@ -4,6 +4,11 @@
     font-size:1.2rem;
     font-weight: 600;
 }
+.emp_filters{
+  border-radius: 6px;
+  box-shadow: 0 0 1px 0 #00000029;
+  background-color: #ffffff;
+}
 .clear{
     font-size: 14.4px;
     font-weight: 500;
@@ -14,6 +19,7 @@
     text-align: left;
     color: #0d47a1;
     cursor: pointer;
+    margin-right: 30px;
 }
 .emp_prof_btn_click{
 
@@ -34,7 +40,7 @@
 
 }
 .scroll_emp_prof{
-    height: 600px;
+    height: 540px;
     overflow-x: hidden;
 }
 .empDetailsDiv1,.empDetailsDiv3{

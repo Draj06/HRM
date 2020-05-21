@@ -90,8 +90,9 @@ const ManpowerGraph =()=>{
         vAxis: {
           title: 'Total Employee'
         },
+        
         colors: ['#0d47a1'],
-        legend: { position: "top",alignment: 'end'},
+        legend: { position: "top",alignment: 'center'},
       };
      
 

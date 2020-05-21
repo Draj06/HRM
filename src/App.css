@@ -170,7 +170,7 @@ table.table-bordered>thead>tr>th {
   }
 
 .table-responsive{
-  height: 600px;
+  height: 540px;
   overflow-x: auto;
 }
 .spinner-border{
