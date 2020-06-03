@@ -1,4 +1,4 @@
-# App to help HRM-SYS
+# App to maintain HR managment system
 
 # Instalation
 ```
