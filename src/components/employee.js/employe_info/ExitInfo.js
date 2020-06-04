@@ -148,7 +148,7 @@ const ExitInfo =(props)=> {
             value={formData.Employee_tentative_date_of_exit}
             disabled={disabled}
             ref={register({ required: true })}
-            onFocus={onInputFocus}
+            
             onBlur={lossFocus}
             className={errors.Employee_tentative_date_of_exit ? "inputColorLine" :disabled ? 
             "input_style_on_disabled":input_style}
@@ -171,7 +171,7 @@ const ExitInfo =(props)=> {
             value={formData.Employee_date_of_exit}
             disabled={disabled}
             ref={register({ required: true })}
-            onFocus={onInputFocus}
+            
             onBlur={lossFocus}
             className={errors.Employee_date_of_exit ? "inputColorLine" :disabled ? 
             "input_style_on_disabled":input_style}
@@ -193,7 +193,7 @@ const ExitInfo =(props)=> {
             value={formData.Emp_exit_reason}
             disabled={disabled}
             ref={register({ required: true })}
-            onFocus={onInputFocus}
+            
             onBlur={lossFocus}
             className={errors.Emp_exit_reason ? "inputColorLine" :disabled ? 
             "input_style_on_disabled":input_style}

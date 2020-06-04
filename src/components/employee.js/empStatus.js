@@ -253,7 +253,7 @@ const EmpStatus = () => {
             <div className="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 mt-2">
               <input
                 type="text"
-                onFocus={onInputFocus}
+                
                 onBlur={lossFocus}
                 className={input_style}
                 placeholder="Search By Name.."
@@ -377,7 +377,7 @@ const EmpStatus = () => {
                     <tr>
                       <td>
                         <img
-                          src={ProfilePic}
+                          src="https://imagestorage10.blob.core.windows.net/hrmsprofileimgpublic/emp_image.png"
                           width="40px"
                           height="40px"
                           className="empImage"

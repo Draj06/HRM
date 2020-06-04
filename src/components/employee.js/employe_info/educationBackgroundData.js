@@ -107,7 +107,7 @@ const EducationBackgroundData = ({ item }) => {
               value={formData.Employee_qualification}
               disabled={true}
               ref={register({ required: true })}
-              onFocus={onInputFocus}
+              
               onBlur={lossFocus}
               className={errors.Employee_qualification ? "inputColorLine" :disabled ? 
               "input_style_on_disabled":input_style}
@@ -120,6 +120,7 @@ const EducationBackgroundData = ({ item }) => {
               "inputColorLine input_label_on_error" :disabled ? "input_label_style_on_disabled":label_style}
             >Qualification</label>
         </div>
+        {console.log(formData)}
         <div className="form-group col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4">
           <input
             type="text"
@@ -130,18 +131,18 @@ const EducationBackgroundData = ({ item }) => {
               value={formData.Employee_specification}
               disabled={disabled}
               ref={register({ required: true })}
-              onFocus={onInputFocus}
+              
               onBlur={lossFocus}
               className={errors.Employee_specification ? "inputColorLine" :disabled ? 
               "input_style_on_disabled":input_style}
           />
           <br />
           {errors.Employee_specification && (
-              <div><span className="inputTextError">Specification is required</span></div>
+              <div><span className="inputTextError">Specialization is required</span></div>
             )}  
           <label htmlFor="Employee_specification" className={errors.Employee_specification ?
               "inputColorLine input_label_on_error" :disabled ? "input_label_style_on_disabled":label_style}
-            >Specification</label>
+            >Specialization</label>
         </div>
         <div className="form-group col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4">
           <input
@@ -153,7 +154,7 @@ const EducationBackgroundData = ({ item }) => {
               value={formData.Institute_name}
               disabled={disabled}
               ref={register({ required: true })}
-              onFocus={onInputFocus}
+              
               onBlur={lossFocus}
               className={errors.Institute_name ? "inputColorLine" :disabled ? 
               "input_style_on_disabled":input_style}
@@ -176,7 +177,7 @@ const EducationBackgroundData = ({ item }) => {
               value={formData.Start_date}
               disabled={disabled}
               ref={register({ required: true })}
-              onFocus={onInputFocus}
+              
               onBlur={lossFocus}
               className={errors.Start_date ? "inputColorLine" :disabled ? 
               "input_style_on_disabled":input_style}
@@ -199,7 +200,7 @@ const EducationBackgroundData = ({ item }) => {
               value={formData.End_date}
               disabled={disabled}
               ref={register({ required: true })}
-              onFocus={onInputFocus}
+              
               onBlur={lossFocus}
               className={errors.End_date ? "inputColorLine" :disabled ? 
               "input_style_on_disabled":input_style}
@@ -222,7 +223,7 @@ const EducationBackgroundData = ({ item }) => {
               value={formData.CGPA}
               disabled={disabled}
               ref={register({ required: true })}
-              onFocus={onInputFocus}
+              
               onBlur={lossFocus}
               className={errors.CGPA ? "inputColorLine" :disabled ? 
               "input_style_on_disabled":input_style}
@@ -245,7 +246,7 @@ const EducationBackgroundData = ({ item }) => {
               value={formData.Percentage}
               disabled={disabled}
               ref={register({ required: true })}
-              onFocus={onInputFocus}
+              
               onBlur={lossFocus}
               className={errors.Percentage ? "inputColorLine" :disabled ? 
               "input_style_on_disabled":input_style}

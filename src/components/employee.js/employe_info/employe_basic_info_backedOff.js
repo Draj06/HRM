@@ -221,7 +221,7 @@ const Employe_basic_info_backedOff = (props) => {
                   value={formData.Employee_Name}
                   disabled={disabled}
                   ref={register({ required: true })}
-                  onFocus={onInputFocus}
+                  
                   onBlur={lossFocus}
                   className={
                     errors.Employee_Name
@@ -262,7 +262,7 @@ const Employe_basic_info_backedOff = (props) => {
                   value={formData.Blood_Group}
                   disabled={disabled}
                   ref={register({ required: true })}
-                  onFocus={onInputFocus}
+                  
                   onBlur={lossFocus}
                   className={
                     errors.Blood_Group
@@ -303,7 +303,7 @@ const Employe_basic_info_backedOff = (props) => {
                   value={formData.Marital_status}
                   disabled={disabled}
                   ref={register({ required: true })}
-                  onFocus={onInputFocus}
+                  
                   onBlur={lossFocus}
                   className={
                     errors.Marital_status
@@ -348,7 +348,7 @@ const Employe_basic_info_backedOff = (props) => {
                   value={formData.Empployee_Number}
                   disabled={disabled}
                   ref={register({ required: true })}
-                  onFocus={onInputFocus}
+                  
                   onBlur={lossFocus}
                   className={
                     errors.Empployee_Number
@@ -388,7 +388,7 @@ const Employe_basic_info_backedOff = (props) => {
                   value={formData.Gender}
                   disabled={disabled}
                   ref={register({ required: true })}
-                  onFocus={onInputFocus}
+                  
                   onBlur={lossFocus}
                   className={
                     errors.Gender
@@ -426,7 +426,7 @@ const Employe_basic_info_backedOff = (props) => {
                   value={formData.Residential_status}
                   disabled={disabled}
                   ref={register({ required: true })}
-                  onFocus={onInputFocus}
+                  
                   onBlur={lossFocus}
                   className={
                     errors.Residential_status
@@ -470,7 +470,7 @@ const Employe_basic_info_backedOff = (props) => {
                 value={formData.Employee_Nationality}
                 disabled={disabled}
                 ref={register({ required: true })}
-                onFocus={onInputFocus}
+                
                 onBlur={lossFocus}
                 className={
                   errors.Employee_Nationality
@@ -511,7 +511,7 @@ const Employe_basic_info_backedOff = (props) => {
                 value={formData.Religion}
                 disabled={disabled}
                 ref={register({ required: true })}
-                onFocus={onInputFocus}
+                
                 onBlur={lossFocus}
                 className={
                   errors.Religion
@@ -549,7 +549,7 @@ const Employe_basic_info_backedOff = (props) => {
                 value={formData.DOB}
                 disabled={disabled}
                 ref={register({ required: true })}
-                onFocus={onInputFocus}
+                
                 onBlur={lossFocus}
                 className={
                   errors.DOB
@@ -590,7 +590,7 @@ const Employe_basic_info_backedOff = (props) => {
                 value={formData.Tentative_date_of_joining}
                 disabled={disabled}
                 ref={register({ required: true })}
-                onFocus={onInputFocus}
+                
                 onBlur={lossFocus}
                 className={
                   errors.Tentative_date_of_joining
@@ -628,7 +628,7 @@ const Employe_basic_info_backedOff = (props) => {
                 value={formData.Date_of_joining}
                 disabled={disabled}
                 ref={register({ required: true })}
-                onFocus={onInputFocus}
+                
                 onBlur={lossFocus}
                 className={
                   errors.Date_of_joining
@@ -666,7 +666,7 @@ const Employe_basic_info_backedOff = (props) => {
                 value={formData.Probation_period_in_days}
                 disabled={disabled}
                 ref={register({ required: true })}
-                onFocus={onInputFocus}
+                
                 onBlur={lossFocus}
                 className={
                   errors.Probation_period_in_days
@@ -707,7 +707,7 @@ const Employe_basic_info_backedOff = (props) => {
                 value={formData.confiramation_date}
                 disabled={disabled}
                 ref={register({ required: true })}
-                onFocus={onInputFocus}
+                
                 onBlur={lossFocus}
                 className={
                   errors.confiramation_date
@@ -761,7 +761,7 @@ const Employe_basic_info_backedOff = (props) => {
                 value={formData.Employee_personal_mobile_number}
                 disabled={disabled}
                 ref={register({ required: true })}
-                onFocus={onInputFocus}
+                
                 onBlur={lossFocus}
                 className={
                   errors.Employee_personal_mobile_number
@@ -801,7 +801,7 @@ const Employe_basic_info_backedOff = (props) => {
                 value={formData.Employee_personal_email_ID}
                 disabled={disabled}
                 ref={register({ required: true })}
-                onFocus={onInputFocus}
+                
                 onBlur={lossFocus}
                 className={
                   errors.Employee_personal_email_ID
@@ -841,7 +841,7 @@ const Employe_basic_info_backedOff = (props) => {
                 value={formData.Employee_official_emil_ID}
                 disabled={disabled}
                 ref={register({ required: true })}
-                onFocus={onInputFocus}
+                
                 onBlur={lossFocus}
                 className={
                   errors.Employee_official_emil_ID
@@ -881,7 +881,7 @@ const Employe_basic_info_backedOff = (props) => {
                 value={formData.Employee_official_mobile_number}
                 disabled={disabled}
                 ref={register({ required: true })}
-                onFocus={onInputFocus}
+                
                 onBlur={lossFocus}
                 className={
                   errors.Employee_official_mobile_number
@@ -928,7 +928,7 @@ const Employe_basic_info_backedOff = (props) => {
                 value={formData.Employee_father_name}
                 disabled={disabled}
                 ref={register({ required: true })}
-                onFocus={onInputFocus}
+                
                 onBlur={lossFocus}
                 className={
                   errors.Employee_father_name
@@ -969,7 +969,7 @@ const Employe_basic_info_backedOff = (props) => {
                 value={formData.Employee_spouse_name}
                 disabled={disabled}
                 ref={register({ required: true })}
-                onFocus={onInputFocus}
+                
                 onBlur={lossFocus}
                 className={
                   errors.Employee_spouse_name
@@ -1010,7 +1010,7 @@ const Employe_basic_info_backedOff = (props) => {
                 value={formData.emergency_contact_no}
                 disabled={disabled}
                 ref={register({ required: true })}
-                onFocus={onInputFocus}
+                
                 onBlur={lossFocus}
                 className={
                   errors.emergency_contact_no
@@ -1051,7 +1051,7 @@ const Employe_basic_info_backedOff = (props) => {
                 value={formData.Employee_emergency_contact_name}
                 disabled={disabled}
                 ref={register({ required: true })}
-                onFocus={onInputFocus}
+                
                 onBlur={lossFocus}
                 className={
                   errors.Employee_emergency_contact_name
@@ -1094,7 +1094,7 @@ const Employe_basic_info_backedOff = (props) => {
                 value={formData.Employee_emergency_contact_relation}
                 disabled={disabled}
                 ref={register({ required: true })}
-                onFocus={onInputFocus}
+                
                 onBlur={lossFocus}
                 className={
                   errors.Employee_emergency_contact_relation
@@ -1135,7 +1135,7 @@ const Employe_basic_info_backedOff = (props) => {
                 value={formData.Employee_emergency_contat_address}
                 disabled={disabled}
                 ref={register({ required: true })}
-                onFocus={onInputFocus}
+                
                 onBlur={lossFocus}
                 className={
                   errors.Employee_emergency_contat_address
@@ -1181,7 +1181,7 @@ const Employe_basic_info_backedOff = (props) => {
                 value={formData.Employee_resident_address}
                 disabled={disabled}
                 ref={register({ required: true })}
-                onFocus={onInputFocus}
+                
                 onBlur={lossFocus}
                 className={
                   errors.Employee_resident_address
@@ -1223,7 +1223,7 @@ const Employe_basic_info_backedOff = (props) => {
                 value={formData.Employee_resident_PIN}
                 disabled={disabled}
                 ref={register({ required: true })}
-                onFocus={onInputFocus}
+                
                 onBlur={lossFocus}
                 className={
                   errors.Employee_resident_PIN
@@ -1269,7 +1269,7 @@ const Employe_basic_info_backedOff = (props) => {
                 value={formData.Employee_permanent_address}
                 disabled={disabled}
                 ref={register({ required: true })}
-                onFocus={onInputFocus}
+                
                 onBlur={lossFocus}
                 className={
                   errors.Employee_permanent_address
@@ -1310,7 +1310,7 @@ const Employe_basic_info_backedOff = (props) => {
                 value={formData.Employee_permanent_PIN}
                 disabled={disabled}
                 ref={register({ required: true })}
-                onFocus={onInputFocus}
+                
                 onBlur={lossFocus}
                 className={
                   errors.Employee_permanent_PIN

@@ -146,7 +146,7 @@ const Bank =(props)=> {
             value={formData.Employee_Bank}
             disabled={disabled}
             ref={register({ required: true })}
-            onFocus={onInputFocus}
+            
             onBlur={lossFocus}
             className={errors.Employee_Bank ? "inputColorLine" :disabled ? 
             "input_style_on_disabled":input_style}
@@ -169,7 +169,7 @@ const Bank =(props)=> {
             value={formData.Employee_bank_branch}
             disabled={disabled}
             ref={register({ required: true })}
-            onFocus={onInputFocus}
+            
             onBlur={lossFocus}
             className={errors.Employee_bank_branch ? "inputColorLine" :disabled ? 
             "input_style_on_disabled":input_style}
@@ -192,7 +192,7 @@ const Bank =(props)=> {
             value={formData.Employee_bank_account_number}
             disabled={disabled}
             ref={register({ required: true })}
-            onFocus={onInputFocus}
+            
             onBlur={lossFocus}
             className={errors.Employee_bank_account_number ? "inputColorLine" :disabled ? 
             "input_style_on_disabled":input_style}

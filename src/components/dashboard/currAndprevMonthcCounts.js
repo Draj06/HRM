@@ -62,7 +62,6 @@ color="#0073e6"
     
   }
    
-  console.log(count)
 
   const MonthData = ({
     arrive,

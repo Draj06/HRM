@@ -21,17 +21,13 @@
 
 
 
-
-
-
-
-
-
 input[type="checkbox"]:checked + label::after {
 background-color: #fbbd05;
 }
 
-
+button[type=submit]{
+  margin:0px !important;
+}
 
 .shadow-lg{
   box-shadow: 0 3px 6px 0 #00000029 !important;
@@ -39,7 +35,6 @@ background-color: #fbbd05;
 }
 .btn{
   font-size: 14.4px;
-  margin:6px !important;
   box-shadow: 0 3px 6px 0 #00000029 !important;
   cursor: pointer;
   text-align: left;
@@ -47,6 +42,7 @@ background-color: #fbbd05;
 .statusBTN{
   width: 149px !important;
   height: 40px !important;
+  margin:6px;
   font-weight: 500;
   font-stretch: normal;
   font-style: normal;
@@ -143,6 +139,14 @@ table.table-bordered>thead>tr>th {
     width: 89.8px;
     height: 26px;
   }
+  .profile_pic{
+    width: 35px;
+    height: 35px;
+    border-radius: 50px;
+    margin-top: -5px;
+    
+    
+  }
   
   hr{
   
@@ -169,6 +173,9 @@ table.table-bordered>thead>tr>th {
     height: 0;
   }
 
+  .fa-times{
+    cursor: pointer;
+  }
 .table-responsive{
   height: 540px;
   overflow-x: auto;
@@ -177,10 +184,11 @@ table.table-bordered>thead>tr>th {
 margin-top: 0;
 height: 22px;
 width: 22px;
+margin-left: 10px;
 }
 .badge-pill{
   color: white;
-  font-size: .88rem;
+  font-size: 1vw;
   font-weight: 550;
   float: right;
   margin-right: 10px;
@@ -199,8 +207,10 @@ color: white;
 .primaryDarkColor{
   background-color: #0d47a1;
   color: white;
+  margin: 6px;
 }
 .white_color_btn{
+  margin: 6px;
   border-radius: 4px;
   box-shadow: 0 0 4px 0 #00000029;
   background-color: #ffffff;
@@ -212,7 +222,7 @@ color: black;
 
 @media screen and (min-width: 769px) {
   .primaryDarkColor_emp_prof{
-    width: 211px;
+    margin:6px;
     height: 35px;
     color: white;
     background-color:#0d47a1;
@@ -222,7 +232,7 @@ color: black;
 
 
 .white_color_btn_emp_prof{
-  width: 211px;
+  margin:6px;
   height: 35px;
   box-shadow: 0 0 4px 0 #00000029;
   background-color:#ffffff;
@@ -260,12 +270,13 @@ color: black;
 .fa-arrow-left{
   cursor: pointer;
 }
+
 /* input[type="text"],input[type="date"],input[type="password"],input[type="email"]
 {
   height: 40px;
 } */
 .ideal_empty_input{
-  width: 100%;
+  width: 85%;
   outline: 0;
   border-width: 0 0 1px;
   font-size: 17.3px;
@@ -279,24 +290,23 @@ color: black;
   background-color: white;
   
 }
-.on_focus_input_style{
-  width: 100%;
+input:focus{
+  width: 85%;
   outline: 0;
   border-width: 0 0 3px;
   font-size: 17.3px;
   font-weight: 500;
   font-stretch: normal;
   font-style: normal;
-  
   letter-spacing: normal;
   text-align: left;
   color: #4d4f5c;
   border-color: #0d47a1;
   background-color: white;
-  
 }
+
 .on_loss_focus_input_style{
-  width: 100%;
+  width: 85%;
   outline: 0;
   border-width: 0 0 1px;
   font-size: 17.3px;
@@ -312,7 +322,7 @@ color: black;
   
 }
 .input_style_on_disabled{
-  width: 100%;
+  width: 85%;
   outline: 0;
   border-width: 0 0 2px;
   border-style: dotted;
@@ -333,7 +343,7 @@ color: black;
 
 
 .inputColorLine{
-    width: 100%;
+  width: 85%;
     outline: 0;
     border-width: 0 0 3px;
     font-size: 17.3px;
@@ -484,3 +494,4 @@ input:checked + .slider:before {
   opacity: 0;
   display: none;
 }
+
