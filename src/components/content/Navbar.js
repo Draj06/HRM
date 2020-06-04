@@ -1,19 +1,20 @@
-import React from 'react';
+import React,{useContext} from 'react';
 import { Link,NavLink } from 'react-router-dom';
 import { Navbar,Nav } from 'react-bootstrap';
 import Logo from '../../Images/Company_logo.png'
-import '../../Styles/login_register.css'
-
-localStorage.setItem("isLogedin","yes")
+import {AuthContext} from '../../Context/contextAuth'
 
 export default () => {
+const {user,logout} = useContext(AuthContext)
 
-let test = localStorage.getItem("isLogedin")
-console.log(test)
+console.log(user)
+
+
+
   
   return (
     <div>
-    <Navbar collapseOnSelect expand="lg"  className="fixed-top shadow-lg align-content-end">
+    {user ? <Navbar collapseOnSelect expand="lg"  className="fixed-top shadow-lg align-content-end">
   
   <Navbar.Toggle aria-controls="responsive-navbar-nav" />
   <li className="navbar-brand">
@@ -23,7 +24,6 @@ console.log(test)
     </li>
   <Navbar.Collapse id="responsive-navbar-nav">
   
-    {test==="yes" &&(
     <Nav className="mr-auto">
     <li className="nav-item">
       <NavLink 
@@ -41,7 +41,7 @@ console.log(test)
        <li className="nav-item">
       <NavLink
       activeClassName="active"
-      className="nav-link menuStyle" to="/payroll" id="payroll">payroll</NavLink >
+      className="nav-link menuStyle" to="/payroll" id="payroll">payroll </NavLink >
       </li>
       
       {/* <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
@@ -53,8 +53,7 @@ console.log(test)
       </NavDropdown> */}
       
     </Nav>
-    )}
-    {test==="yes" &&(
+    
     <Nav className="ml-auto">
     
     <li className="nav-item">
@@ -74,25 +73,25 @@ console.log(test)
       className="nav-link"><i className="fas fa-bell"></i></Link>
       </li>
       <li className="nav-item">
+      <Link 
+    
+    className="nav-link">
+    <img src={user.profileImg} className="profile_pic" alt="profile_pic"></img> 
+    </Link>
+      </li>
+      <li className="nav-item">
         <Link className="nav-link"
+        onClick={logout}
+        to="/"
         ><i className="fas fa-sign-out-alt">
           </i> <span className="login_register_nav"> Logout</span></Link>
       </li>
       </Nav>
-      )}
-      {test==="no" &&(
-      <Nav className="ml-auto">
-      <li className="nav-item">
-        <Link className="nav-link"><i className="fas fa-sign-in-alt"></i> <span className="login_register_nav"> Login</span></Link>
-      </li>
-      <li className="nav-item">
-        <Link className="nav-link"><i className="fas fa-user"></i><span className="login_register_nav"> Sign Up</span></Link>
-      </li>
-      </Nav>
-      )}
+  
+      
   </Navbar.Collapse>
 
-</Navbar>
+</Navbar>: <div></div>}
     
 <br></br>
 <br></br>

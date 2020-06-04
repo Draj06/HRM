@@ -98,7 +98,7 @@ const EvaluationData = ({ item }) => {
               value={formData.Name_of_the_evaluator}
               disabled={disabled}
               ref={register({ required: true })}
-              onFocus={onInputFocus}
+              
               onBlur={lossFocus}
               className={errors.Name_of_the_evaluator ? "inputColorLine" :disabled ? 
               "input_style_on_disabled":input_style}
@@ -109,7 +109,7 @@ const EvaluationData = ({ item }) => {
             )}
           <label htmlFor="Name_of_the_evaluator" className={errors.Name_of_the_evaluator ?
               "inputColorLine input_label_on_error" :disabled ? "input_label_style_on_disabled":label_style}
-            >Name of teh evaluator</label>
+            >Name of Evaluator</label>
           </div>
         </div>
         <div className="row">
@@ -124,7 +124,7 @@ const EvaluationData = ({ item }) => {
               disabled={disabled}
               ref={register({ required: true })}
               
-              onFocus={onInputFocus}
+              
               onBlur={lossFocus}
               className={errors.Enter_employee_note_here ? "inputColorLine" :disabled ? 
               "input_style_on_disabled":input_style}
@@ -135,7 +135,7 @@ const EvaluationData = ({ item }) => {
             )}
             <label htmlFor="Enter_employee_note_here" className={errors.Enter_employee_note_here ?
               "inputColorLine input_label_on_error" :disabled ? "input_label_style_on_disabled":label_style}
-            >Evaluation note here</label>
+            > Evaluation Note</label>
           </div>
         </div>
 
@@ -150,7 +150,7 @@ const EvaluationData = ({ item }) => {
               value={formData.Evaluation}
               disabled={disabled}
               ref={register({ required: true })}
-              onFocus={onInputFocus}
+              
               onBlur={lossFocus}
               className={errors.Evaluation ? "inputColorLine" :disabled ? 
               "input_style_on_disabled":input_style}
@@ -195,7 +195,7 @@ const EvaluationData = ({ item }) => {
               value={formData.Evaluation_date}
               disabled={disabled}
               ref={register({ required: true })}
-              onFocus={onInputFocus}
+              
               onBlur={lossFocus}
               className={errors.Evaluation_date ? "inputColorLine" :disabled ? 
               "input_style_on_disabled":input_style}

@@ -1,4 +1,28 @@
 import gql from 'graphql-tag' 
+// -------------------------------- Login- Mutations -----------------------------------
+
+export const LOGIN_MUTATION= gql`
+  mutation
+    userLogin($email:String!,$password:String!){
+    userLogin(user_email:$email,user_password:$password)
+    {
+      id
+      profileImg
+      userRole
+      firstName
+      lastName
+      userCode
+      userStatus
+      officialEmail
+      officialMobile
+      personalEmail
+      personalMobile
+      clientId
+      token
+    }
+  }`
+
+
 
 export const ADD_EVALUATION =gql`
 mutation
@@ -69,3 +93,14 @@ mutation
       }
     `
     
+
+    // _______________________________________________________ Image upload test _______________________________________________
+
+//     export const UPLOAD_IMAGE = gql`
+//     mutation
+//     singleUpload($designation:String!){
+//     singleUpload(imgdata:"",size:"",type:"",name:"",lastModified:""){
+       
+//       }
+//     }
+// `

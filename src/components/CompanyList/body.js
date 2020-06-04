@@ -108,7 +108,7 @@ const Body=()=> {
                      name="company_name"
                      disabled={disabled}
                      value={item.Company_name}
-                     onFocus={onInputFocus}
+                     
                       onBlur={lossFocus}
                       className="input_style_on_disabled"
                   
@@ -125,7 +125,7 @@ const Body=()=> {
                      name="industry"
                      disabled={disabled}
                      value={item.Industry}
-                     onFocus={onInputFocus}
+                     
                       onBlur={lossFocus}
                       className="input_style_on_disabled"
                    />
@@ -144,7 +144,7 @@ const Body=()=> {
                      name="company_address"
                      disabled={disabled}
                      value={item.Company_Address}
-                     onFocus={onInputFocus}
+                     
                       onBlur={lossFocus}
                       className="input_style_on_disabled"
                    />
@@ -157,7 +157,7 @@ const Body=()=> {
                    <input type="text" id="pin" 
                    name="pin" disabled={disabled} 
                    value={item.Pin_code} 
-                   onFocus={onInputFocus}
+                   
                     onBlur={lossFocus}
                     className="input_style_on_disabled"
                    />
@@ -175,7 +175,7 @@ const Body=()=> {
                      name="city"
                      disabled={disabled}
                      value={item.City}
-                     onFocus={onInputFocus}
+                     
                       onBlur={lossFocus}
                       className="input_style_on_disabled"
                    />
@@ -191,7 +191,7 @@ const Body=()=> {
                      name="state"
                      disabled={disabled}
                      value={item.State}
-                     onFocus={onInputFocus}
+                     
                       onBlur={lossFocus}
                       className="input_style_on_disabled"
                    />
@@ -207,7 +207,7 @@ const Body=()=> {
                      name="Country"
                      disabled={disabled}
                      value={item.Country}
-                     onFocus={onInputFocus}
+                     
                       onBlur={lossFocus}
                       className="input_style_on_disabled"
                    />
@@ -226,7 +226,7 @@ const Body=()=> {
                      name="official_emal_add"
                      disabled={disabled}
                      value={item.official_email}
-                     onFocus={onInputFocus}
+                     
                       onBlur={lossFocus}
                       className="input_style_on_disabled"
                    />
@@ -242,7 +242,7 @@ const Body=()=> {
                      name="official_phone_no"
                      disabled={disabled}
                      value={item.official_phon_no}
-                     onFocus={onInputFocus}
+                     
                       onBlur={lossFocus}
                       className="input_style_on_disabled"
                    />

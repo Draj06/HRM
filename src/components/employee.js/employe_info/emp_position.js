@@ -158,7 +158,7 @@ if (loading)
             value={formData.Employee_designation}
             disabled={disabled}
             ref={register({ required: true })}
-            onFocus={onInputFocus}     // focus in  
+                 // focus in  
             onBlur={lossFocus}         // focus out
             className={errors.Employee_designation ? "inputColorLine" :disabled ?    // dynamic class for input
             "input_style_on_disabled":input_style}
@@ -181,7 +181,7 @@ if (loading)
             value={formData.Employee_department}
             disabled={disabled}
             ref={register({ required: true })}
-            onFocus={onInputFocus}
+            
             onBlur={lossFocus}
             className={errors.Employee_department ? "inputColorLine" : disabled ? 
             "input_style_on_disabled":input_style}

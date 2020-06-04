@@ -106,7 +106,7 @@ const ProfessionalBackgroundData=({item})=> {
               value={formData.Name_of_the_company}
               disabled={true}
               ref={register({ required: true })}
-              onFocus={onInputFocus}
+              
               onBlur={lossFocus}
               className={errors.Name_of_the_company ? "inputColorLine" :disabled ? 
               "input_style_on_disabled":input_style}
@@ -130,7 +130,7 @@ const ProfessionalBackgroundData=({item})=> {
               value={formData.Designation}
               disabled={disabled}
               ref={register({ required: true })}
-              onFocus={onInputFocus}
+              
               onBlur={lossFocus}
               className={errors.Designation ? "inputColorLine" :disabled ? 
               "input_style_on_disabled":input_style}
@@ -153,7 +153,7 @@ const ProfessionalBackgroundData=({item})=> {
               value={formData.Company_location}
               disabled={disabled}
               ref={register({ required: true })}
-              onFocus={onInputFocus}
+              
               onBlur={lossFocus}
               className={errors.Company_location ? "inputColorLine" :disabled ? 
               "input_style_on_disabled":input_style}
@@ -176,7 +176,7 @@ const ProfessionalBackgroundData=({item})=> {
               value={formData.Start_date}
               disabled={disabled}
               ref={register({ required: true })}
-              onFocus={onInputFocus}
+              
               onBlur={lossFocus}
               className={errors.Start_date ? "inputColorLine" :disabled ? 
               "input_style_on_disabled":input_style}
@@ -199,7 +199,7 @@ const ProfessionalBackgroundData=({item})=> {
               value={formData.End_date}
               disabled={disabled}
               ref={register({ required: true })}
-              onFocus={onInputFocus}
+              
               onBlur={lossFocus}
               className={errors.End_date ? "inputColorLine" :disabled ? 
               "input_style_on_disabled":input_style}

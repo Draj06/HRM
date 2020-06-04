@@ -145,7 +145,7 @@ const Salary =(props)=> {
             value={formData.Employee_monthly_current_cost_to_company}
             disabled={disabled}
             ref={register({ required: true })}
-            onFocus={onInputFocus}
+            
             onBlur={lossFocus}
             className={errors.Employee_monthly_current_cost_to_company ? "inputColorLine" :disabled ? 
             "input_style_on_disabled":input_style}

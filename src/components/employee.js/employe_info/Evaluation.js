@@ -76,14 +76,19 @@ const lossFocus=(e)=>{
 }
   const onSubmit = (data) => {
     setcircleloading(true)
+    setdisabled(true)
+    
      
      console.log(data)
     let { evaluaterName, evaluationNote, evaluationType ,Evaluation_date} = data;
     console.log(evaluaterName + ":" + evaluationNote + ":" + evaluationType+" : "+Evaluation_date);
     addEmployeeEvaluationInfo({
       variables: { id, evaluaterName, evaluationNote, evaluationType,Evaluation_date },
+      
     });
-
+    setcircleloading(false)
+    setdisabled(false)
+    setmodalIsOpen(false)
     toast.success( 'Evaluation updated sucessfully', {
       position: "top-right",
       autoClose: 3000,
@@ -92,8 +97,7 @@ const lossFocus=(e)=>{
       pauseOnHover: true,
       draggable: true
       });
-    setcircleloading(false)
-    setmodalIsOpen(false)
+    
   };
 
   return (
@@ -112,7 +116,6 @@ const lossFocus=(e)=>{
           draggable
           pauseOnHover
     />
-{/* Same as */}
      <ToastContainer />
       <div className="row">
       <div className="emp_prof_btn_click form-group col-10 col-sm-10 col-md-8 col-lg-3 col-xl-3">
@@ -144,13 +147,6 @@ const lossFocus=(e)=>{
         shouldCloseOnOverlayClick={false}
         onRequestClose={() => setmodalIsOpen(false)}
       >
-        <div>
-          <div className="modalLingment" align="right">
-            <span onClick={() => setmodalIsOpen(false)}>
-              <i className="fas fa-times fa-2x"></i>
-            </span>
-          </div>
-        </div>
 
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="form-group col-10 col-sm-10 col-md-8 col-lg-4 col-xl-4">
@@ -159,7 +155,7 @@ const lossFocus=(e)=>{
               name="evaluaterName"
               id="evaluaterName"
               ref={register({ required: true })}
-              onFocus={onInputFocus}
+              
               onBlur={lossFocus}
               className={errors.evaluaterName ? "inputColorLine" : input_style}
             />
@@ -175,7 +171,7 @@ const lossFocus=(e)=>{
               type="text"
               name="evaluationNote"
               id="evaluationNote"
-              onFocus={onInputFocus}
+              
               onBlur={lossFocus}
               className={errors.evaluationNote ? "inputColorLine" : input_style}
               ref={register({ required: true })}
@@ -184,7 +180,7 @@ const lossFocus=(e)=>{
             {errors.evaluationNote && (
               <div><span className="inputTextError">Evaluator note is required</span></div>
             )}
-            
+            <br></br>
             <label htmlFor="evaluationNote" className={errors.evaluationNote ? "inputColorLine input_label_on_error" : label_style}
             >Evaluator note here</label>
           </div>
@@ -215,7 +211,7 @@ const lossFocus=(e)=>{
               name="Evaluation_date"
               id="Evaluation_date"
               ref={register({ required: true })}
-              onFocus={onInputFocus}
+              
               onBlur={lossFocus}
               className={errors.Evaluation_date ? "inputColorLine" : input_style}
             />
@@ -229,14 +225,18 @@ const lossFocus=(e)=>{
 
           <div className="form-group ">
           
-            <button className="btn primaryDarkColor  col-4 col-sm-4 col-md-2 col-lg-1 col-xl-1 ml-3"
-            disabled={disabled ? "disabled" : ""}
+            <button className="btn primaryDarkColor"
+            disabled={disabled}
             >
-            {circleloading && (
-            <span class="spinner-border float-right"></span>
+            {circleloading === true && (
+            <span className="spinner-border float-right"></span>
           )}
-              Save
+              Add evaluation
             </button>
+            <button
+            className="btn white_color_btn"
+            onClick={() => setmodalIsOpen(false)}
+            >Cancel</button>
           </div>
         </form>
       </Modal>

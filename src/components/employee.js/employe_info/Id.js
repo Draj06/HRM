@@ -144,7 +144,7 @@ const Id = (props) => {
             value={formData.Employee_pan}
             disabled={disabled}
             ref={register({ required: true })}
-            onFocus={onInputFocus}
+            
             onBlur={lossFocus}
             className={errors.Employee_pan ? "inputColorLine" :disabled ? 
             "input_style_on_disabled":input_style}
@@ -156,7 +156,7 @@ const Id = (props) => {
             )}
           <label htmlFor="Employee_pan" className={errors.Employee_pan ?
               "inputColorLine input_label_on_error" :disabled ? "input_label_style_on_disabled":label_style}
-            >PAN Number</label>
+            >PAN - Permanent account number</label>
         </div>
         <div className="form-group col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4">
           <input
@@ -167,7 +167,7 @@ const Id = (props) => {
             value={formData.Emploeyee_UAN}
             disabled={disabled}
             ref={register({ required: true })}
-            onFocus={onInputFocus}
+            
             onBlur={lossFocus}
             className={errors.Emploeyee_UAN ? "inputColorLine" :disabled ? 
             "input_style_on_disabled":input_style}
@@ -179,30 +179,32 @@ const Id = (props) => {
             )}
          <label htmlFor="Emploeyee_UAN" className={errors.Emploeyee_UAN ?
               "inputColorLine input_label_on_error" :disabled ? "input_label_style_on_disabled":label_style}
-            >UAN</label>
+            >UAN - Universal access number </label>
         </div>
+        
         <div className="form-group col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4">
           <input
             type="text"
-            id="emp_designation"
-            name="emp_designation"
+            id="Employee_PF_number"
+            name="Employee_PF_number"
             onChange={handleChange}
-            value={formData.emp_designation}
+            value={formData.Employee_PF_number}
+            
             disabled={disabled}
             ref={register({ required: true })}
-            onFocus={onInputFocus}
+            
             onBlur={lossFocus}
-            className={errors.emp_designation ? "inputColorLine" :disabled ? 
+            className={errors.Employee_PF_number ? "inputColorLine" :disabled ? 
             "input_style_on_disabled":input_style}
             
           />
           <br />
-          {errors.emp_designation && (
-              <div><span className="inputTextError">Employee designation is required</span></div>
+          {errors.Employee_PF_number && (
+              <div><span className="inputTextError">PF is required</span></div>
             )}
-          <label htmlFor="emp_designation" className={errors.emp_designation ?
+          <label htmlFor="Employee_PF_number" className={errors.Employee_PF_number ?
               "inputColorLine input_label_on_error" :disabled ? "input_label_style_on_disabled":label_style}
-            >PF Number</label>
+            >PF - Provident fund account number </label>
         </div>
       </div>
       <div className="row">
@@ -215,7 +217,7 @@ const Id = (props) => {
             value={formData.Employee_ESI_no}
             disabled={disabled}
             ref={register({ required: true })}
-            onFocus={onInputFocus}
+            
             onBlur={lossFocus}
             className={errors.Employee_ESI_no ? "inputColorLine" :disabled ? 
             "input_style_on_disabled":input_style}
@@ -227,7 +229,7 @@ const Id = (props) => {
             )}
           <label htmlFor="Employee_ESI_no" className={errors.Employee_ESI_no ?
               "inputColorLine input_label_on_error" :disabled ? "input_label_style_on_disabled":label_style}
-            >ESI Number</label>
+            >ESI - Employee's state insurance number</label>
         </div>
         <div className="form-group col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4">
           <input
@@ -238,7 +240,7 @@ const Id = (props) => {
             value={formData.Employee_Aadhar_number}
             disabled={disabled}
             ref={register({ required: true })}
-            onFocus={onInputFocus}
+            
             onBlur={lossFocus}
             className={errors.Employee_Aadhar_number ? "inputColorLine" :disabled ? 
             "input_style_on_disabled":input_style}
@@ -249,7 +251,7 @@ const Id = (props) => {
             )}
           <label htmlFor="Employee_Aadhar_number" className={errors.Employee_Aadhar_number ?
               "inputColorLine input_label_on_error" :disabled ? "input_label_style_on_disabled":label_style}
-            >Aadhar Number</label>
+            >Aadhar number</label>
         </div>
       </div>
 
@@ -265,7 +267,7 @@ const Id = (props) => {
             value={formData.Employee_passport_number}
             disabled={disabled}
             ref={register({ required: true })}
-            onFocus={onInputFocus}
+            
             onBlur={lossFocus}
             className={errors.Employee_passport_number ? "inputColorLine" :disabled ? 
             "input_style_on_disabled":input_style}
@@ -276,7 +278,7 @@ const Id = (props) => {
             )}
           <label htmlFor="Employee_passport_number" className={errors.Employee_passport_number ?
               "inputColorLine input_label_on_error" :disabled ? "input_label_style_on_disabled":label_style}
-            >Aadhar Number</label>
+            >Passport number</label>
         </div>
         <div className="form-group col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4">
           <input
@@ -287,7 +289,7 @@ const Id = (props) => {
             value={formData.Employee_passport_validity}
             disabled={disabled}
             ref={register({ required: true })}
-            onFocus={onInputFocus}
+            
             onBlur={lossFocus}
             className={errors.Employee_passport_validity ? "inputColorLine" :disabled ? 
             "input_style_on_disabled":input_style}

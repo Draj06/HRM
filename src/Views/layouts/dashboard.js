@@ -8,6 +8,7 @@ import GenderChart from '../../components/dashboard/gender'
 import '../../Styles/dashboard.css'
 
 const  Dashboard =()=>{
+
   
 
         return (

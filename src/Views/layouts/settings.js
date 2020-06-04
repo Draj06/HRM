@@ -302,7 +302,7 @@ catch(err){
              <input type="text"
              name="department"
              ref={register({ required: true })}
-             onFocus={onInputFocus}
+             
              onBlur={lossFocus}
             className={errors.department ? "inputColorLine col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 mr-4" : 
             input_style+ " col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 mr-4"}
@@ -330,12 +330,13 @@ catch(err){
           <div className="table-responsive">
           {finalData.departments.map((item, index)=>(
             <div key={index}>
-         <button className="btn primary_light 
-         col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 
-         text-left text-capitalize"
-         type="button"
-         
-         >{item.department}
+            <button className="btn primary_light 
+            col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 
+             text-left text-capitalize
+             
+             form-group"
+             type="button"
+             >{item.department}
          {test.userType==="admin" && (show!==item.department) ? <i className="fas fa-times float-right"
         value={item.department}
         onClick={deleteDepartment}
@@ -361,7 +362,7 @@ catch(err){
              name="designation"
              className="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 "
              ref={register({ required: true })}
-             onFocus={onInputFocus}
+             
              onBlur={lossFocus}
              className={errors.designation ? "inputColorLine col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 mr-4" : 
             input_style+ " col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 mr-4"}
